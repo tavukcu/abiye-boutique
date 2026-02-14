@@ -172,6 +172,14 @@
                     </button>
                 </div>
 
+                <!-- One-Click Buy -->
+                <button class="btn-quick-buy" id="quickBuyBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <span data-i18n="quickBuy">Hemen Satin Al</span>
+                </button>
+
                 <!-- Social Proof -->
                 <div class="social-proof-bar" id="socialProof" style="display:none;">
                     <span class="live-dot"></span>
@@ -245,6 +253,14 @@
                         <button data-star="5">&#9733;</button>
                     </div>
                     <textarea id="reviewText" placeholder="Yorumunuz..."></textarea>
+                    <div class="review-photo-upload">
+                        <label for="reviewPhotoInput">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                            Fotograf Ekle
+                        </label>
+                        <input type="file" id="reviewPhotoInput" accept="image/*" multiple>
+                        <div class="review-photo-preview" id="reviewPhotoPreview"></div>
+                    </div>
                     <button class="pd-btn-cart" id="submitReviewBtn" style="width:auto; padding:12px 28px;">
                         <span data-i18n="submitReview">Yorum Gonder</span>
                     </button>
@@ -311,6 +327,40 @@
             <div class="pd-related-grid" id="relatedGrid"></div>
         </div>
     </section>
+
+    <!-- ========== RECOMMENDATIONS ========== -->
+    <section class="reco-section" id="recoSection" style="display:none;">
+        <div class="container">
+            <h3 data-i18n="recoTitle">Bunu Alanlar <em>Sunu da Aldi</em></h3>
+            <div class="reco-grid" id="recoGrid"></div>
+        </div>
+    </section>
+
+    <!-- ========== SEARCH OVERLAY (GLOBAL) ========== -->
+    <div class="search-overlay-global" id="searchOverlayGlobal">
+        <button class="search-close" onclick="document.getElementById('searchOverlayGlobal').classList.remove('open')" aria-label="Kapat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="search-inner">
+            <h3>Ne Ariyorsunuz?</h3>
+            <div class="sg-input-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" id="globalSearchInput" placeholder="Abiye, renk, beden ara..." autocomplete="off">
+            </div>
+            <div class="sg-tags">
+                <button class="sg-tag" data-q="Siyah Abiye">Siyah Abiye</button>
+                <button class="sg-tag" data-q="Uzun Abiye">Uzun Abiye</button>
+                <button class="sg-tag" data-q="Nisanlik">Nisanlik</button>
+                <button class="sg-tag" data-q="Bordo">Bordo</button>
+            </div>
+            <div class="sg-results" id="globalSearchResults"></div>
+        </div>
+    </div>
+
+    <!-- ========== PAGE TRANSITION ========== -->
+    <div class="page-transition-overlay" id="pageTransition">
+        <span class="pt-brand">ELEGANCE</span>
+    </div>
 
     <!-- ========== FOOTER ========== -->
     <footer class="footer">
@@ -467,7 +517,9 @@
             enterMeasurements: 'Lutfen tum olculeri girin.',
             reviewAdded: 'Yorumunuz eklendi, tesekkurler!',
             fillReview: 'Lutfen adinizi, puani ve yorumunuzu girin.',
-            productNotFound: 'Urun bulunamadi'
+            productNotFound: 'Urun bulunamadi',
+            quickBuy: 'Hemen Satin Al',
+            recoTitle: 'Bunu Alanlar <em>Sunu da Aldi</em>'
         },
         en: {
             productDetail: 'Product Detail',
@@ -509,7 +561,9 @@
             enterMeasurements: 'Please enter all measurements.',
             reviewAdded: 'Your review has been added, thank you!',
             fillReview: 'Please enter your name, rating and review.',
-            productNotFound: 'Product not found'
+            productNotFound: 'Product not found',
+            quickBuy: 'Buy Now',
+            recoTitle: 'Customers Also <em>Bought</em>'
         }
     };
 
@@ -1100,11 +1154,19 @@
         chatInput.value = '';
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
+        // Typing indicator
+        var typing = document.createElement('div');
+        typing.className = 'chat-msg bot typing';
+        typing.textContent = '';
+        chatMessages.appendChild(typing);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
         // Bot reply after delay
         setTimeout(() => {
+            typing.remove();
             const botDiv = document.createElement('div');
             botDiv.className = 'chat-msg bot';
-            botDiv.textContent = getChatResponse(msg);
+            botDiv.textContent = typeof getChatbotResponse === 'function' ? getChatbotResponse(msg) : 'Detayli bilgi icin WhatsApp hattimizdan bize ulasin.';
             chatMessages.appendChild(botDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }, 800 + Math.random() * 700);
@@ -1194,6 +1256,192 @@
     }
 
     // ==========================================
+    // ONE-CLICK BUY
+    // ==========================================
+    document.getElementById('quickBuyBtn')?.addEventListener('click', () => {
+        if (!currentProduct) return;
+        const selectedSize = document.querySelector('.pd-size.active');
+        if (!selectedSize) { showToast('Lutfen beden secin'); return; }
+        addToCart(currentProduct.id, selectedSize.textContent, selectedQuantity, selectedColorIndex);
+        window.location.href = 'sepet.html';
+    });
+
+    // ==========================================
+    // RECOMMENDATIONS
+    // ==========================================
+    function renderRecommendations() {
+        if (!currentProduct || typeof getRecommendations !== 'function') return;
+        const recos = getRecommendations(currentProduct.id, 4);
+        if (recos.length === 0) return;
+        const section = document.getElementById('recoSection');
+        const grid = document.getElementById('recoGrid');
+        if (!section || !grid) return;
+        section.style.display = '';
+        grid.innerHTML = '';
+        recos.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'reco-card';
+            card.innerHTML = '<div class="reco-card-img"><img src="' + p.image + '" alt="' + p.name + '" loading="lazy"></div>' +
+                '<div class="reco-card-body"><div class="reco-card-name">' + p.name + '</div>' +
+                '<div class="reco-card-price">' + formatPrice(p.price) + '</div></div>';
+            card.addEventListener('click', () => { window.location.href = 'urun.html?id=' + p.id; });
+            grid.appendChild(card);
+        });
+    }
+
+    // ==========================================
+    // PHOTO REVIEW UPLOAD
+    // ==========================================
+    let reviewPhotos = [];
+    const photoInput = document.getElementById('reviewPhotoInput');
+    const photoPreview = document.getElementById('reviewPhotoPreview');
+    if (photoInput) {
+        photoInput.addEventListener('change', function() {
+            const files = Array.from(this.files).slice(0, 3); // max 3 photos
+            reviewPhotos = [];
+            photoPreview.innerHTML = '';
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    reviewPhotos.push(e.target.result);
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    photoPreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    }
+
+    // Override submit review to include photos
+    const origSubmitBtn = document.getElementById('submitReviewBtn');
+    if (origSubmitBtn) {
+        origSubmitBtn.removeEventListener('click', origSubmitBtn._handler);
+        origSubmitBtn.addEventListener('click', () => {
+            const name = document.getElementById('reviewName').value.trim();
+            const comment = document.getElementById('reviewText').value.trim();
+            if (!name || !reviewRating || !comment) {
+                showToast(t('fillReview'));
+                return;
+            }
+            const review = {
+                name: name,
+                rating: reviewRating,
+                comment: comment,
+                photos: reviewPhotos.slice(0, 3),
+                date: new Date().toLocaleDateString('tr-TR')
+            };
+            addReview(currentProduct.id, review);
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewText').value = '';
+            reviewRating = 0;
+            reviewPhotos = [];
+            if (photoPreview) photoPreview.innerHTML = '';
+            if (photoInput) photoInput.value = '';
+            document.querySelectorAll('#reviewStarsInput button').forEach(b => b.classList.remove('active'));
+            showToast(t('reviewAdded'));
+            renderReviews();
+        });
+    }
+
+    // Enhance review rendering to show photos
+    const origRenderReviews = renderReviews;
+    renderReviews = function() {
+        origRenderReviews();
+        // Add photos to review cards
+        if (!currentProduct) return;
+        const reviews = getReviews(currentProduct.id);
+        const cards = document.querySelectorAll('.review-card');
+        reviews.forEach((r, i) => {
+            if (r.photos && r.photos.length > 0 && cards[i]) {
+                const photosDiv = document.createElement('div');
+                photosDiv.className = 'review-photos';
+                r.photos.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = 'review-photo-thumb';
+                    img.addEventListener('click', () => {
+                        window.open(src, '_blank');
+                    });
+                    photosDiv.appendChild(img);
+                });
+                cards[i].appendChild(photosDiv);
+            }
+        });
+    };
+
+    // ==========================================
+    // GLOBAL SEARCH
+    // ==========================================
+    const searchToggle = document.getElementById('searchToggle');
+    const searchOverlayG = document.getElementById('searchOverlayGlobal');
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    const globalSearchResults = document.getElementById('globalSearchResults');
+
+    if (searchToggle && searchOverlayG) {
+        searchToggle.addEventListener('click', () => {
+            searchOverlayG.classList.add('open');
+            setTimeout(() => globalSearchInput?.focus(), 300);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') searchOverlayG.classList.remove('open');
+        });
+    }
+
+    if (globalSearchInput && globalSearchResults) {
+        globalSearchInput.addEventListener('input', () => {
+            const q = globalSearchInput.value.trim().toLowerCase();
+            if (q.length < 2) { globalSearchResults.innerHTML = ''; return; }
+            const results = products.filter(p =>
+                p.name.toLowerCase().includes(q) ||
+                p.color.toLowerCase().includes(q) ||
+                p.category.toLowerCase().includes(q) ||
+                p.categoryLabel.toLowerCase().includes(q) ||
+                p.fabric.toLowerCase().includes(q)
+            );
+            globalSearchResults.innerHTML = '';
+            if (results.length === 0) {
+                globalSearchResults.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">Sonuc bulunamadi</p>';
+                return;
+            }
+            results.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'sg-result-item';
+                item.innerHTML = '<img src="' + p.image + '" alt="' + p.name + '"><div class="sg-result-info"><h4>' + p.name + '</h4><span>' + formatPrice(p.price) + ' - ' + p.categoryLabel + '</span></div>';
+                item.addEventListener('click', () => { window.location.href = 'urun.html?id=' + p.id; });
+                globalSearchResults.appendChild(item);
+            });
+        });
+    }
+
+    // Search tags
+    document.querySelectorAll('.sg-tag').forEach(tag => {
+        tag.addEventListener('click', () => {
+            if (globalSearchInput) {
+                globalSearchInput.value = tag.dataset.q;
+                globalSearchInput.dispatchEvent(new Event('input'));
+            }
+        });
+    });
+
+    // ==========================================
+    // CHATBOT QUICK BUTTONS
+    // ==========================================
+    (function() {
+        if (!chatMessages) return;
+        var quickBtns = document.createElement('div');
+        quickBtns.className = 'chat-quick-btns';
+        quickBtns.innerHTML = '<button class="chat-quick-btn" data-q="Beden nasil secerim?">Beden</button><button class="chat-quick-btn" data-q="Kargo ne zaman gelir?">Kargo</button><button class="chat-quick-btn" data-q="Iade kosullari">Iade</button>';
+        chatMessages.appendChild(quickBtns);
+        document.querySelectorAll('.chat-quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                chatInput.value = btn.dataset.q;
+                sendChatMessage();
+            });
+        });
+    })();
+
+    // ==========================================
     // INIT
     // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
@@ -1203,6 +1451,9 @@
         updateWishlistBadge();
         applyLanguage();
         initSocialProof();
+        renderRecommendations();
+        if (typeof initPageTransitions === 'function') initPageTransitions();
+        if (typeof initLazyImages === 'function') initLazyImages();
     });
 
     </script>

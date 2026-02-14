@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Urun Karsilastirma</title>
+    <meta name="description" content="ELEGANCE abiye urunlerini yan yana karsilastirin. Fiyat, kumas, renk ve diger ozellikleri kolayca kiyaslayin.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* ========== COMPARE PAGE ========== */
+        .compare-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Empty State */
+        .compare-empty {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .compare-empty-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            color: var(--text-muted);
+        }
+        .compare-empty h2 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .compare-empty p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            max-width: 420px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+        .compare-empty-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: 1px solid var(--gold);
+            transition: all 0.3s;
+        }
+        .compare-empty-btn:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* Compare Table Wrapper */
+        .compare-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--bg-card);
+        }
+        .compare-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        .compare-wrapper::-webkit-scrollbar-track {
+            background: var(--bg-card);
+            border-radius: 3px;
+        }
+        .compare-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(200, 169, 110, 0.4);
+            border-radius: 3px;
+        }
+
+        .compare-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+        }
+        .compare-table th,
+        .compare-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            text-align: center;
+        }
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            text-align: left;
+            width: 140px;
+            min-width: 140px;
+            position: sticky;
+            left: 0;
+            background: var(--bg-primary);
+            z-index: 2;
+        }
+
+        /* Label Column */
+        .compare-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Product Header */
+        .compare-product-header {
+            position: relative;
+            padding: 0;
+        }
+        .compare-product-img {
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 14px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .compare-product-name {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .compare-product-name a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .compare-product-name a:hover {
+            color: var(--gold);
+        }
+        .compare-product-category {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        /* Cell Values */
+        .compare-price {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--gold);
+        }
+        .compare-price-old {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-weight: 300;
+        }
+        .compare-value {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .compare-sizes {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .compare-size-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.68rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text-secondary);
+        }
+        .compare-colors {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+        .compare-color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+        .compare-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            background: rgba(200, 169, 110, 0.1);
+            border: 1px solid rgba(200, 169, 110, 0.3);
+            color: var(--gold);
+        }
+        .compare-no-badge {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Action Buttons in Table */
+        .compare-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .compare-cart-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 24px;
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .compare-cart-btn:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+        .compare-remove-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 20px;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: none;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .compare-remove-btn:hover {
+            border-color: #cc4444;
+            color: #cc4444;
+        }
+
+        /* Add Product Card */
+        .compare-add-col {
+            vertical-align: middle !important;
+        }
+        .compare-add-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            min-height: 280px;
+        }
+        .compare-add-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px dashed var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        .compare-add-card:hover .compare-add-icon {
+            border-color: rgba(200, 169, 110, 0.4);
+            color: var(--gold);
+        }
+        .compare-add-text {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .compare-add-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+        .compare-add-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Size Selector Overlay */
+        .compare-size-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .compare-size-overlay.open {
+            display: flex;
+        }
+        .compare-size-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+        }
+        .compare-size-modal h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .compare-size-modal p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .compare-size-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .compare-size-opt {
+            min-width: 44px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            padding: 0 14px;
+        }
+        .compare-size-opt:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .compare-size-cancel {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: var(--font-body);
+            transition: color 0.3s;
+        }
+        .compare-size-cancel:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Count badge */
+        .compare-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        .compare-count strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .compare-container {
+                padding: 24px 16px 60px;
+            }
+            .compare-table th:first-child,
+            .compare-table td:first-child {
+                width: 100px;
+                min-width: 100px;
+                padding: 12px;
+            }
+            .compare-table th,
+            .compare-table td {
+                padding: 12px 16px;
+                min-width: 200px;
+            }
+            .compare-product-img {
+                max-width: 150px;
+            }
+            .compare-label {
+                font-size: 0.62rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Karsilastirma</span>
+            <h1>Urun <em>Karsilastirma</em></h1>
+            <p>Begendiginiz urunleri yan yana kiyaslayin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span><a href="index.html#koleksiyon">Koleksiyon</a><span>/</span>Karsilastirma
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COMPARE CONTENT ========== -->
+    <div class="compare-container">
+        <!-- Empty State -->
+        <div class="compare-empty" id="compareEmpty" style="display:none;">
+            <div class="compare-empty-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+            </div>
+            <h2>Karsilastirma Listeniz Bos</h2>
+            <p>Koleksiyonumuzdaki urunleri karsilastirma listenize ekleyerek ozelliklerini yan yana gorebilirsiniz.</p>
+            <a href="index.html#koleksiyon" class="compare-empty-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                </svg>
+                Koleksiyonu Incele
+            </a>
+        </div>
+
+        <!-- Compare Table -->
+        <div id="compareContent" style="display:none;">
+            <div class="compare-count" id="compareCount"></div>
+            <div class="compare-wrapper">
+                <table class="compare-table" id="compareTable">
+                    <tbody id="compareBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SIZE SELECTOR OVERLAY ========== -->
+    <div class="compare-size-overlay" id="sizeOverlay">
+        <div class="compare-size-modal">
+            <h3 id="sizeModalTitle">Beden Secin</h3>
+            <p id="sizeModalProduct"></p>
+            <div class="compare-size-options" id="sizeModalOptions"></div>
+            <button class="compare-size-cancel" id="sizeModalCancel">Vazgec</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="beden-rehberi.html">Beden Rehberi</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="iletisim.html">Iletisim</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        const compareEmpty = document.getElementById('compareEmpty');
+        const compareContent = document.getElementById('compareContent');
+        const compareCount = document.getElementById('compareCount');
+        const compareBody = document.getElementById('compareBody');
+        const sizeOverlay = document.getElementById('sizeOverlay');
+        const sizeModalTitle = document.getElementById('sizeModalTitle');
+        const sizeModalProduct = document.getElementById('sizeModalProduct');
+        const sizeModalOptions = document.getElementById('sizeModalOptions');
+        const sizeModalCancel = document.getElementById('sizeModalCancel');
+
+        let pendingCartId = null;
+
+        function renderCompare() {
+            const list = getCompareList();
+
+            if (list.length === 0) {
+                compareEmpty.style.display = 'block';
+                compareContent.style.display = 'none';
+                return;
+            }
+
+            compareEmpty.style.display = 'none';
+            compareContent.style.display = 'block';
+
+            const prods = list.map(id => getProduct(id)).filter(Boolean);
+            const showAddCard = prods.length < 4;
+            const colCount = prods.length + (showAddCard ? 1 : 0);
+
+            compareCount.innerHTML = '<strong>' + prods.length + '</strong> / 4 urun karsilastiriliyor';
+
+            // Build table rows
+            let html = '';
+
+            // Row 1: Product Images & Names
+            html += '<tr>';
+            html += '<th class="compare-label"></th>';
+            prods.forEach(p => {
+                html += '<td class="compare-product-header">';
+                html += '<img src="' + p.image + '" alt="' + p.name + '" class="compare-product-img" loading="lazy">';
+                html += '<div class="compare-product-category">' + p.categoryLabel + '</div>';
+                html += '<div class="compare-product-name"><a href="urun.html?id=' + p.id + '">' + p.name + '</a></div>';
+                html += '</td>';
+            });
+            if (showAddCard) {
+                html += '<td class="compare-add-col" rowspan="10">';
+                html += '<div class="compare-add-card">';
+                html += '<div class="compare-add-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>';
+                html += '<div class="compare-add-text">Urun Ekle</div>';
+                html += '<a href="index.html#koleksiyon" class="compare-add-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Koleksiyon</a>';
+                html += '</div></td>';
+            }
+            html += '</tr>';
+
+            // Row 2: Fiyat
+            html += '<tr><td class="compare-label">Fiyat</td>';
+            prods.forEach(p => {
+                html += '<td><span class="compare-price">' + formatPrice(p.price) + '</span>';
+                if (p.oldPrice) html += '<span class="compare-price-old">' + formatPrice(p.oldPrice) + '</span>';
+                html += '</td>';
+            });
+            html += '</tr>';
+
+            // Row 3: Kategori
+            html += '<tr><td class="compare-label">Kategori</td>';
+            prods.forEach(p => {
+                html += '<td class="compare-value">' + p.categoryLabel + '</td>';
+            });
+            html += '</tr>';
+
+            // Row 4: Renk
+            html += '<tr><td class="compare-label">Renk</td>';
+            prods.forEach(p => {
+                html += '<td>';
+                html += '<div class="compare-value" style="margin-bottom:8px;">' + p.color + '</div>';
+                html += '<div class="compare-colors">';
+                p.colors.forEach(c => {
+                    html += '<div class="compare-color-dot" style="background:' + c + ';"></div>';
+                });
+                html += '</div></td>';
+            });
+            html += '</tr>';
+
+            // Row 5: Bedenler
+            html += '<tr><td class="compare-label">Bedenler</td>';
+            prods.forEach(p => {
+                html += '<td><div class="compare-sizes">';
+                p.sizes.forEach(s => {
+                    html += '<span class="compare-size-tag">' + s + '</span>';
+                });
+                html += '</div></td>';
+            });
+            html += '</tr>';
+
+            // Row 6: Kumas
+            html += '<tr><td class="compare-label">Kumas</td>';
+            prods.forEach(p => {
+                html += '<td class="compare-value">' + p.fabric + '</td>';
+            });
+            html += '</tr>';
+
+            // Row 7: Astar
+            html += '<tr><td class="compare-label">Astar</td>';
+            prods.forEach(p => {
+                html += '<td class="compare-value">' + p.lining + '</td>';
+            });
+            html += '</tr>';
+
+            // Row 8: Bakim
+            html += '<tr><td class="compare-label">Bakim</td>';
+            prods.forEach(p => {
+                html += '<td class="compare-value">' + p.care + '</td>';
+            });
+            html += '</tr>';
+
+            // Row 9: Etiket (Badge)
+            html += '<tr><td class="compare-label">Etiket</td>';
+            prods.forEach(p => {
+                html += '<td>';
+                if (p.badge) {
+                    html += '<span class="compare-badge">' + p.badge + '</span>';
+                } else {
+                    html += '<span class="compare-no-badge">-</span>';
+                }
+                html += '</td>';
+            });
+            html += '</tr>';
+
+            // Row 10: Actions
+            html += '<tr><td class="compare-label">Islem</td>';
+            prods.forEach(p => {
+                html += '<td><div class="compare-actions">';
+                html += '<button class="compare-cart-btn" data-id="' + p.id + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Sepete Ekle</button>';
+                html += '<button class="compare-remove-btn" data-id="' + p.id + '"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Cikar</button>';
+                html += '</div></td>';
+            });
+            html += '</tr>';
+
+            compareBody.innerHTML = html;
+
+            // Bind events
+            bindEvents();
+        }
+
+        function bindEvents() {
+            // Sepete Ekle buttons
+            document.querySelectorAll('.compare-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    const p = getProduct(id);
+                    if (!p) return;
+                    pendingCartId = id;
+                    sizeModalProduct.textContent = p.name;
+                    sizeModalOptions.innerHTML = '';
+                    p.sizes.forEach(s => {
+                        const opt = document.createElement('button');
+                        opt.className = 'compare-size-opt';
+                        opt.textContent = s;
+                        opt.dataset.size = s;
+                        opt.addEventListener('click', function() {
+                            addToCart(pendingCartId, this.dataset.size, 1, 0);
+                            updateCartBadge();
+                            sizeOverlay.classList.remove('open');
+                            pendingCartId = null;
+                        });
+                        sizeModalOptions.appendChild(opt);
+                    });
+                    sizeOverlay.classList.add('open');
+                });
+            });
+
+            // Cikar buttons
+            document.querySelectorAll('.compare-remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    toggleCompare(id);
+                    renderCompare();
+                });
+            });
+        }
+
+        // Size modal cancel
+        sizeModalCancel.addEventListener('click', function() {
+            sizeOverlay.classList.remove('open');
+            pendingCartId = null;
+        });
+        sizeOverlay.addEventListener('click', function(e) {
+            if (e.target === sizeOverlay) {
+                sizeOverlay.classList.remove('open');
+                pendingCartId = null;
+            }
+        });
+
+        // Initial render
+        renderCompare();
+
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>

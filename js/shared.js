@@ -157,3 +157,129 @@ function addRecentlyViewed(productId) {
     if (list.length > 8) list = list.slice(0, 8);
     localStorage.setItem('elegance_recently_viewed', JSON.stringify(list));
 }
+
+// Recommendation engine - "Bunu alanlar şunu da aldı"
+function getRecommendations(productId, limit) {
+    limit = limit || 4;
+    const p = getProduct(productId);
+    if (!p) return [];
+    // Score by: same category > same price range > different
+    return products
+        .filter(function(item) { return item.id !== productId; })
+        .map(function(item) {
+            var score = 0;
+            if (item.category === p.category) score += 3;
+            if (Math.abs(item.price - p.price) < 3000) score += 2;
+            if (item.color === p.color) score += 1;
+            score += Math.random(); // slight randomness
+            return { product: item, score: score };
+        })
+        .sort(function(a, b) { return b.score - a.score; })
+        .slice(0, limit)
+        .map(function(item) { return item.product; });
+}
+
+// Share wishlist via link or WhatsApp
+function getWishlistShareText() {
+    if (wishlist.length === 0) return '';
+    var lines = ['ELEGANCE Favori Listem:\n'];
+    wishlist.forEach(function(id) {
+        var p = getProduct(id);
+        if (p) lines.push('- ' + p.name + ' (' + formatPrice(p.price) + ')');
+    });
+    lines.push('\nhttps://abiye-boutique-et29c7f85-neyisek.vercel.app');
+    return lines.join('\n');
+}
+function shareWishlistWhatsApp() {
+    var text = getWishlistShareText();
+    if (!text) { showToast('Favori listeniz bos'); return; }
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+}
+function shareWishlistCopy() {
+    var text = getWishlistShareText();
+    if (!text) { showToast('Favori listeniz bos'); return; }
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function() { showToast('Liste kopyalandi'); });
+    } else { showToast('Kopyalanamadi'); }
+}
+
+// Newsletter subscription
+function subscribeNewsletter(email) {
+    var subs = JSON.parse(localStorage.getItem('elegance_newsletter') || '[]');
+    if (subs.includes(email)) { showToast('Zaten abone olmusunuz'); return false; }
+    subs.push(email);
+    localStorage.setItem('elegance_newsletter', JSON.stringify(subs));
+    localStorage.setItem('elegance_newsletter_closed', 'true');
+    showToast('Basariyla abone oldunuz! %10 indirim kodunuz: BULTEN10');
+    return true;
+}
+function isNewsletterDismissed() {
+    return localStorage.getItem('elegance_newsletter_closed') === 'true';
+}
+
+// Chatbot AI responses
+function getChatbotResponse(message) {
+    var msg = message.toLowerCase().trim();
+    var responses = [
+        { keys: ['beden', 'olcu', 'size', 'numara'], answer: 'Beden rehberimize beden-rehberi.html sayfasindan ulasabilirsiniz. Gogus, bel ve kalca olculerinizi alarak tablodaki karsiligi secebilirsiniz. Yardim icin WhatsApp hattimizi da kullanabilirsiniz.' },
+        { keys: ['kargo', 'teslimat', 'gonderi'], answer: 'Istanbul ici 1-2 is gunu, sehir disi 2-4 is gununde teslim edilir. 2.000 TL uzeri siparislerde kargo ucretsizdir.' },
+        { keys: ['iade', 'degisim', 'geri'], answer: 'Teslim tarihinden itibaren 14 gun icinde, etiketi sokulemis ve kullanilmamis urunler icin iade/degisim yapabilirsiniz. Detaylar icin iade.html sayfamizi ziyaret edin.' },
+        { keys: ['odeme', 'taksit', 'kredi'], answer: 'Kredi karti, banka karti, havale/EFT ve kapida odeme secenekleri mevcuttur. 2, 3, 6 ve 9 taksit imkani sunuyoruz. Detaylar icin taksit.html sayfamizi inceleyin.' },
+        { keys: ['indirim', 'kupon', 'kampanya', 'kod'], answer: 'Aktif kupon kodlarimiz: ELEGANCE20 (%20), HOSGELDIN15 (ilk alisveris %15), SEZON10 (%10). Kampanyalar sayfamizi da inceleyin!' },
+        { keys: ['siparis', 'takip', 'nerede'], answer: 'Siparisinizi siparis-takip.html sayfasindan siparis numaraniz ile sorgulayabilirsiniz.' },
+        { keys: ['hediye', 'gift'], answer: 'Dijital hediye karti satin alabilirsiniz! hediye-karti.html sayfamizdan 500 TL ile 5.000 TL arasinda hediye karti secebilirsiniz.' },
+        { keys: ['whatsapp', 'iletisim', 'telefon', 'ara'], answer: 'WhatsApp: +90 543 842 3114\nTelefon: +90 (212) 555 00 00\nE-posta: info@elegance.com.tr\nIletisim formu icin iletisim.html sayfamizi ziyaret edin.' },
+        { keys: ['merhaba', 'selam', 'hey', 'hosgeldin'], answer: 'Merhaba! ELEGANCE\'e hosgeldiniz. Size nasil yardimci olabilirim? Beden, kargo, iade, odeme veya urunler hakkinda sorabilirsiniz.' },
+        { keys: ['tesekkur', 'sagol', 'eyv'], answer: 'Rica ederim! Baska bir sorunuz olursa her zaman buradayim. Keyifli alisverisler!' },
+        { keys: ['urun', 'abiye', 'elbise', 'model'], answer: 'Koleksiyonumuzda uzun abiye, kisa abiye, nisanlik ve mezuniyet elbiseleri bulunmaktadir. Ana sayfadaki koleksiyon bolumunden tum urunleri gorebilirsiniz.' },
+        { keys: ['puan', 'sadakat', 'loyalty'], answer: 'Her 100 TL alisveriste 1 puan kazanirsiniz. 1 puan = 1 TL indirim. Hesabim sayfanizdan puanlarinizi gorebilirsiniz.' }
+    ];
+    for (var i = 0; i < responses.length; i++) {
+        for (var j = 0; j < responses[i].keys.length; j++) {
+            if (msg.includes(responses[i].keys[j])) return responses[i].answer;
+        }
+    }
+    return 'Bu konuda size yardimci olmak isterim. Daha detayli bilgi icin WhatsApp hattimizdan (+90 543 842 3114) veya iletisim formumuzdan bize ulasabilirsiniz.';
+}
+
+// Lazy loading initialization
+function initLazyImages() {
+    document.querySelectorAll('img[data-src]').forEach(function(img) {
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            observer.observe(img);
+        } else {
+            img.src = img.dataset.src;
+        }
+    });
+}
+
+// Page transition helper
+function initPageTransitions() {
+    var overlay = document.getElementById('pageTransition');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'pageTransition';
+        overlay.className = 'page-transition-overlay';
+        overlay.innerHTML = '<span class="pt-brand">ELEGANCE</span>';
+        document.body.appendChild(overlay);
+    }
+    document.querySelectorAll('a[href]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href && href.endsWith('.html') && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('javascript')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                overlay.classList.add('active');
+                setTimeout(function() { window.location.href = href; }, 400);
+            });
+        }
+    });
+}

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /js/
+Disallow: /css/
+
+Sitemap: https://abiye-boutique.vercel.app/sitemap.xml
