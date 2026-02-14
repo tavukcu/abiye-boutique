@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Stil Testi - Sana Uygun Abiyeyi Bul</title>
+    <meta name="description" content="ELEGANCE stil testi ile size en uygun abiyeyi kesfet. 5 soruda hayalinizdeki abiyeyi bulun.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* ========== QUIZ CONTAINER ========== */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+            min-height: 60vh;
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .quiz-progress {
+            margin-bottom: 48px;
+        }
+        .quiz-progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .quiz-progress-text {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        .quiz-progress-step {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .quiz-progress-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+            border-radius: 2px;
+            transition: width 0.6s var(--ease-out);
+            width: 20%;
+        }
+
+        /* ========== QUIZ CARD ========== */
+        .quiz-card {
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+        }
+        .quiz-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .quiz-card.exit-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .quiz-card.exit-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .quiz-question-number {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .quiz-question {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        /* ========== QUIZ OPTIONS ========== */
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .quiz-option {
+            position: relative;
+            padding: 28px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.4s var(--ease);
+            text-align: center;
+            overflow: hidden;
+        }
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(200, 169, 110, 0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .quiz-option:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold);
+        }
+        .quiz-option:hover::before {
+            opacity: 1;
+        }
+        .quiz-option.selected {
+            border-color: var(--gold);
+            background: rgba(200, 169, 110, 0.08);
+            box-shadow: 0 0 20px rgba(200, 169, 110, 0.1);
+        }
+        .quiz-option.selected::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12px;
+        }
+        .quiz-option-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .quiz-option-label {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .quiz-option-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ========== QUIZ NAVIGATION ========== */
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            gap: 16px;
+        }
+        .quiz-btn {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            border-radius: var(--radius);
+        }
+        .quiz-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .quiz-btn.primary {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+        .quiz-btn.primary:hover {
+            background: var(--gold-light);
+            border-color: var(--gold-light);
+        }
+        .quiz-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .quiz-btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quiz-btn-back svg {
+            transition: transform 0.3s;
+        }
+        .quiz-btn-back:hover svg {
+            transform: translateX(-3px);
+        }
+
+        /* ========== RESULTS SECTION ========== */
+        .quiz-results {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+        }
+        .quiz-results.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .quiz-results-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .quiz-results-tag {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            margin-bottom: 20px;
+        }
+        .quiz-results-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .quiz-results-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .quiz-results-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ========== RESULT PRODUCT CARDS ========== */
+        .quiz-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .quiz-result-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s var(--ease);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .quiz-result-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .quiz-result-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-gold);
+        }
+        .quiz-result-card-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+        }
+        .quiz-result-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.6s var(--ease);
+        }
+        .quiz-result-card:hover .quiz-result-card-image img {
+            transform: scale(1.05);
+        }
+        .quiz-result-card-image .result-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            background: var(--gold);
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+        .quiz-result-card-image .result-match {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            font-weight: 500;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .quiz-result-card-info {
+            padding: 20px;
+        }
+        .quiz-result-card-category {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .quiz-result-card-name {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .quiz-result-card-color {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .quiz-result-card-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .quiz-result-card-price {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+        .quiz-result-card-old-price {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        .quiz-result-card-link {
+            display: block;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 12px;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s var(--ease);
+        }
+        .quiz-result-card-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(200, 169, 110, 0.05);
+        }
+
+        /* ========== NO RESULTS ========== */
+        .quiz-no-results {
+            text-align: center;
+            padding: 60px 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--bg-card);
+            margin-bottom: 48px;
+        }
+        .quiz-no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        .quiz-no-results h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .quiz-no-results p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ========== RESULT ACTIONS ========== */
+        .quiz-result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        /* ========== SHARE BUTTONS ========== */
+        .quiz-share {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        .quiz-share-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .quiz-share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .quiz-share-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            text-decoration: none;
+        }
+        .quiz-share-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .quiz-share-btn.whatsapp:hover {
+            border-color: #25d366;
+            color: #25d366;
+        }
+        .quiz-share-btn.twitter:hover {
+            border-color: #1da1f2;
+            color: #1da1f2;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 600px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .quiz-option {
+                padding: 20px 18px;
+            }
+            .quiz-results-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .quiz-result-card-info {
+                padding: 14px;
+            }
+            .quiz-result-card-name {
+                font-size: 1.05rem;
+            }
+            .quiz-nav {
+                flex-direction: row;
+            }
+            .quiz-result-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        @media (max-width: 400px) {
+            .quiz-results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Stil Testi</span>
+            <h1>Sana Uygun <em>Abiyeyi Bul</em></h1>
+            <p>5 soruda hayalinizdeki abiyeyi kesfedin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Stil Testi
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== QUIZ ========== -->
+    <div class="quiz-container" id="quizContainer">
+
+        <!-- Progress Bar -->
+        <div class="quiz-progress" id="quizProgress">
+            <div class="quiz-progress-info">
+                <span class="quiz-progress-text">Stil Testi</span>
+                <span class="quiz-progress-step" id="quizStep">1 / 5</span>
+            </div>
+            <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="quizProgressFill"></div>
+            </div>
+        </div>
+
+        <!-- Questions will be rendered here -->
+        <div id="quizContent"></div>
+
+        <!-- Results will be rendered here -->
+        <div id="quizResults"></div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+
+        // ========== QUIZ DATA ==========
+        const questions = [
+            {
+                id: 'etkinlik',
+                label: 'SORU 1',
+                question: 'Hangi etkinlige katilacaksiniz?',
+                options: [
+                    { value: 'dugun', label: 'Dugun', desc: 'Sik ve gorunumlu', icon: '\u{1F492}' },
+                    { value: 'nisan', label: 'Nisan', desc: 'Zarif ve ozel', icon: '\u{1F48D}' },
+                    { value: 'mezuniyet', label: 'Mezuniyet Balosu', desc: 'Genc ve dinamik', icon: '\u{1F393}' },
+                    { value: 'gala', label: 'Gala / Davet', desc: 'Sofistike ve prestijli', icon: '\u{2728}' }
+                ]
+            },
+            {
+                id: 'uzunluk',
+                label: 'SORU 2',
+                question: 'Hangi uzunlugu tercih ediyorsunuz?',
+                options: [
+                    { value: 'uzun', label: 'Uzun', desc: 'Yere kadar', icon: '\u{1F457}' },
+                    { value: 'midi', label: 'Midi', desc: 'Diz alti', icon: '\u{1F458}' },
+                    { value: 'kisa', label: 'Kisa', desc: 'Diz ustu', icon: '\u{2728}' },
+                    { value: 'farketmez', label: 'Fark etmez', desc: 'Hepsine acigim', icon: '\u{1F4AB}' }
+                ]
+            },
+            {
+                id: 'renk',
+                label: 'SORU 3',
+                question: 'Hangi renk tonlari size daha yakin?',
+                options: [
+                    { value: 'koyu', label: 'Koyu Tonlar', desc: 'Siyah, Lacivert, Bordo', icon: '\u{1F311}' },
+                    { value: 'canli', label: 'Canli Renkler', desc: 'Kirmizi, Yesil, Mor', icon: '\u{1F308}' },
+                    { value: 'pastel', label: 'Pastel / Soft', desc: 'Pudra, Sampanya, Gumus', icon: '\u{1F338}' },
+                    { value: 'metalik', label: 'Altin / Metalik', desc: 'Parlak ve isiltili tonlar', icon: '\u{2B50}' }
+                ]
+            },
+            {
+                id: 'kumas',
+                label: 'SORU 4',
+                question: 'Hangi kumas dokusu hosunuza gider?',
+                options: [
+                    { value: 'ipek', label: 'Ipek & Saten', desc: 'Akici ve yumusak', icon: '\u{1FA7A}' },
+                    { value: 'kadife', label: 'Kadife', desc: 'Luks ve zarif', icon: '\u{1F451}' },
+                    { value: 'tul', label: 'Tul & Dantel', desc: 'Romantik ve feminen', icon: '\u{1F33A}' },
+                    { value: 'payet', label: 'Payet', desc: 'Isiltili ve goz alici', icon: '\u{1FA9E}' }
+                ]
+            },
+            {
+                id: 'beden',
+                label: 'SORU 5',
+                question: 'Beden araliginiz?',
+                options: [
+                    { value: 'xs-s', label: 'XS - S', desc: '34-36 beden', icon: '\u{1F4CF}' },
+                    { value: 'm', label: 'M', desc: '38 beden', icon: '\u{1F4CF}' },
+                    { value: 'l-xl', label: 'L - XL', desc: '40-42 beden', icon: '\u{1F4CF}' },
+                    { value: 'emin-degil', label: 'Emin degilim', desc: 'Yardima ihtiyacim var', icon: '\u{2753}' }
+                ]
+            }
+        ];
+
+        let currentStep = 0;
+        const answers = {};
+
+        const quizContent = document.getElementById('quizContent');
+        const quizResults = document.getElementById('quizResults');
+        const quizProgress = document.getElementById('quizProgress');
+        const quizStep = document.getElementById('quizStep');
+        const quizProgressFill = document.getElementById('quizProgressFill');
+
+        // ========== RENDER QUESTION ==========
+        function renderQuestion(direction) {
+            const q = questions[currentStep];
+            const selectedValue = answers[q.id] || null;
+
+            // Update progress
+            quizStep.textContent = (currentStep + 1) + ' / 5';
+            quizProgressFill.style.width = ((currentStep + 1) / 5 * 100) + '%';
+            quizProgress.style.display = '';
+            quizResults.innerHTML = '';
+
+            const exitClass = direction === 'forward' ? 'exit-left' : 'exit-right';
+            const existingCard = quizContent.querySelector('.quiz-card');
+            if (existingCard) {
+                existingCard.classList.add(exitClass);
+                existingCard.classList.remove('active');
+                setTimeout(() => renderNewCard(), 300);
+            } else {
+                renderNewCard();
+            }
+
+            function renderNewCard() {
+                let html = '<div class="quiz-card">';
+                html += '<div class="quiz-question-number">' + q.label + '</div>';
+                html += '<h2 class="quiz-question">' + q.question + '</h2>';
+                html += '<div class="quiz-options">';
+                q.options.forEach(opt => {
+                    const sel = selectedValue === opt.value ? ' selected' : '';
+                    html += '<div class="quiz-option' + sel + '" data-value="' + opt.value + '">';
+                    html += '<span class="quiz-option-icon">' + opt.icon + '</span>';
+                    html += '<span class="quiz-option-label">' + opt.label + '</span>';
+                    html += '<span class="quiz-option-desc">' + opt.desc + '</span>';
+                    html += '</div>';
+                });
+                html += '</div>';
+
+                // Navigation
+                html += '<div class="quiz-nav">';
+                if (currentStep > 0) {
+                    html += '<button class="quiz-btn quiz-btn-back" id="quizBack">';
+                    html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
+                    html += 'Geri';
+                    html += '</button>';
+                } else {
+                    html += '<div></div>';
+                }
+                if (currentStep < questions.length - 1) {
+                    html += '<button class="quiz-btn primary" id="quizNext" ' + (selectedValue ? '' : 'disabled') + '>Devam Et</button>';
+                } else {
+                    html += '<button class="quiz-btn primary" id="quizFinish" ' + (selectedValue ? '' : 'disabled') + '>Sonuclari Gor</button>';
+                }
+                html += '</div>';
+                html += '</div>';
+
+                quizContent.innerHTML = html;
+
+                // Animate in
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        const card = quizContent.querySelector('.quiz-card');
+                        if (card) card.classList.add('active');
+                    });
+                });
+
+                // Bind option clicks
+                quizContent.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        quizContent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                        this.classList.add('selected');
+                        answers[q.id] = this.dataset.value;
+                        // Enable next button
+                        const nextBtn = document.getElementById('quizNext') || document.getElementById('quizFinish');
+                        if (nextBtn) nextBtn.disabled = false;
+                    });
+                });
+
+                // Bind back button
+                const backBtn = document.getElementById('quizBack');
+                if (backBtn) {
+                    backBtn.addEventListener('click', function() {
+                        currentStep--;
+                        renderQuestion('back');
+                    });
+                }
+
+                // Bind next button
+                const nextBtn = document.getElementById('quizNext');
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', function() {
+                        if (!answers[q.id]) return;
+                        currentStep++;
+                        renderQuestion('forward');
+                    });
+                }
+
+                // Bind finish button
+                const finishBtn = document.getElementById('quizFinish');
+                if (finishBtn) {
+                    finishBtn.addEventListener('click', function() {
+                        if (!answers[q.id]) return;
+                        showResults();
+                    });
+                }
+            }
+        }
+
+        // ========== MATCHING ALGORITHM ==========
+        function getMatchingProducts() {
+            const scored = products.map(p => {
+                let score = 0;
+
+                // Event matching
+                const etkinlik = answers.etkinlik;
+                if (etkinlik === 'dugun' && (p.category === 'uzun' || p.category === 'nisan')) score += 3;
+                if (etkinlik === 'nisan' && p.category === 'nisan') score += 4;
+                if (etkinlik === 'nisan' && p.category === 'uzun') score += 1;
+                if (etkinlik === 'mezuniyet' && p.category === 'mezuniyet') score += 4;
+                if (etkinlik === 'mezuniyet' && p.category === 'kisa') score += 2;
+                if (etkinlik === 'gala' && p.category === 'uzun') score += 3;
+                if (etkinlik === 'gala' && p.category === 'kisa') score += 1;
+
+                // Length matching
+                const uzunluk = answers.uzunluk;
+                if (uzunluk === 'uzun' && p.category === 'uzun') score += 3;
+                if (uzunluk === 'uzun' && p.category === 'nisan') score += 2;
+                if (uzunluk === 'kisa' && p.category === 'kisa') score += 3;
+                if (uzunluk === 'kisa' && p.category === 'mezuniyet') score += 2;
+                if (uzunluk === 'midi' && p.category === 'kisa') score += 2;
+                if (uzunluk === 'midi' && p.category === 'mezuniyet') score += 2;
+                if (uzunluk === 'farketmez') score += 1;
+
+                // Color matching
+                const renk = answers.renk;
+                const koyuRenkler = ['Siyah', 'Lacivert', 'Bordo'];
+                const canliRenkler = ['Kirmizi', 'Kırmızı', 'Yesil', 'Yeşil', 'Mor'];
+                const pastelRenkler = ['Pudra', 'Sampanya', 'Şampanya', 'Gumus', 'Gümüş', 'Beyaz'];
+                const metalikRenkler = ['Altin', 'Altın'];
+
+                if (renk === 'koyu' && koyuRenkler.includes(p.color)) score += 3;
+                if (renk === 'canli' && canliRenkler.includes(p.color)) score += 3;
+                if (renk === 'pastel' && pastelRenkler.includes(p.color)) score += 3;
+                if (renk === 'metalik' && metalikRenkler.includes(p.color)) score += 3;
+
+                // Fabric matching
+                const kumas = answers.kumas;
+                const fabricLower = (p.fabric || '').toLowerCase();
+                if (kumas === 'ipek' && (fabricLower.includes('ipek') || fabricLower.includes('saten') || fabricLower.includes('krep'))) score += 3;
+                if (kumas === 'kadife' && fabricLower.includes('kadife')) score += 3;
+                if (kumas === 'tul' && (fabricLower.includes('tül') || fabricLower.includes('tul') || fabricLower.includes('dantel'))) score += 3;
+                if (kumas === 'payet' && fabricLower.includes('payet')) score += 3;
+
+                // Size matching
+                const beden = answers.beden;
+                if (beden === 'xs-s' && (p.sizes.includes('XS') || p.sizes.includes('S'))) score += 2;
+                if (beden === 'm' && p.sizes.includes('M')) score += 2;
+                if (beden === 'l-xl' && (p.sizes.includes('L') || p.sizes.includes('XL'))) score += 2;
+                if (beden === 'emin-degil') score += 1;
+
+                return { product: p, score };
+            });
+
+            // Sort by score descending, return top 4
+            scored.sort((a, b) => b.score - a.score);
+            return scored.filter(s => s.score > 2).slice(0, 4);
+        }
+
+        // ========== SHOW RESULTS ==========
+        function showResults() {
+            // Hide quiz elements
+            quizContent.innerHTML = '';
+            quizProgress.style.display = 'none';
+
+            const matches = getMatchingProducts();
+            const maxScore = matches.length > 0 ? matches[0].score : 1;
+
+            let html = '<div class="quiz-results" id="quizResultsInner">';
+            html += '<div class="quiz-results-header">';
+            html += '<div class="quiz-results-tag">Stil Analizi Tamamlandi</div>';
+            html += '<h2 class="quiz-results-title">Sizin Icin <em>Onerilerimiz</em></h2>';
+            html += '<p class="quiz-results-subtitle">Stil tercihlerinize gore sectigimiz ozel abiye onerileri</p>';
+            html += '</div>';
+
+            if (matches.length > 0) {
+                html += '<div class="quiz-results-grid">';
+                matches.forEach((m, i) => {
+                    const p = m.product;
+                    const matchPercent = Math.round((m.score / maxScore) * 100);
+                    html += '<div class="quiz-result-card" style="transition-delay: ' + (i * 0.12) + 's">';
+                    html += '<div class="quiz-result-card-image">';
+                    html += '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy">';
+                    if (p.badge) {
+                        html += '<span class="result-badge">' + p.badge + '</span>';
+                    }
+                    if (i === 0) {
+                        html += '<span class="result-match">En Uygun</span>';
+                    } else {
+                        html += '<span class="result-match">%' + matchPercent + ' Uyum</span>';
+                    }
+                    html += '</div>';
+                    html += '<div class="quiz-result-card-info">';
+                    html += '<div class="quiz-result-card-category">' + p.categoryLabel + '</div>';
+                    html += '<div class="quiz-result-card-name">' + p.name + '</div>';
+                    html += '<div class="quiz-result-card-color">' + p.color + ' | ' + (p.fabric || '') + '</div>';
+                    html += '<div class="quiz-result-card-price-row">';
+                    html += '<span class="quiz-result-card-price">' + formatPrice(p.price) + '</span>';
+                    if (p.oldPrice) {
+                        html += '<span class="quiz-result-card-old-price">' + formatPrice(p.oldPrice) + '</span>';
+                    }
+                    html += '</div>';
+                    html += '<a href="urun.html?id=' + p.id + '" class="quiz-result-card-link">Urunu Incele</a>';
+                    html += '</div>';
+                    html += '</div>';
+                });
+                html += '</div>';
+            } else {
+                html += '<div class="quiz-no-results">';
+                html += '<div class="quiz-no-results-icon">\u{1F50D}</div>';
+                html += '<h3>Tam eslesen urun bulunamadi</h3>';
+                html += '<p>Farkli tercihlerle tekrar deneyebilir veya tum koleksiyonumuza goz atabilirsiniz.</p>';
+                html += '</div>';
+            }
+
+            // Action buttons
+            html += '<div class="quiz-result-actions">';
+            html += '<button class="quiz-btn" id="quizRestart">';
+            html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:8px;vertical-align:middle"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>';
+            html += 'Testi Tekrarla';
+            html += '</button>';
+            html += '<a href="index.html#koleksiyon" class="quiz-btn primary" style="text-decoration:none;display:inline-block">Tum Koleksiyonu Gor</a>';
+            html += '</div>';
+
+            // Social share
+            const shareText = 'ELEGANCE stil testini cozdum ve bana ozel abiye onerilerimi aldim! Sen de dene:';
+            const shareUrl = window.location.href;
+            html += '<div class="quiz-share">';
+            html += '<div class="quiz-share-label">Sonuclarini Paylas</div>';
+            html += '<div class="quiz-share-buttons">';
+            html += '<a href="https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + shareUrl) + '" target="_blank" rel="noopener" class="quiz-share-btn whatsapp" aria-label="WhatsApp ile paylas">';
+            html += '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+            html += '</a>';
+            html += '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl) + '" target="_blank" rel="noopener" class="quiz-share-btn twitter" aria-label="Twitter ile paylas">';
+            html += '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+            html += '</a>';
+            html += '</div>';
+            html += '</div>';
+
+            html += '</div>';
+
+            quizResults.innerHTML = html;
+
+            // Animate results in
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const inner = document.getElementById('quizResultsInner');
+                    if (inner) inner.classList.add('visible');
+                    // Stagger card animations
+                    document.querySelectorAll('.quiz-result-card').forEach((card, i) => {
+                        setTimeout(() => card.classList.add('visible'), 200 + i * 150);
+                    });
+                });
+            });
+
+            // Scroll to results
+            setTimeout(() => {
+                quizResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+            // Bind restart
+            const restartBtn = document.getElementById('quizRestart');
+            if (restartBtn) {
+                restartBtn.addEventListener('click', function() {
+                    currentStep = 0;
+                    Object.keys(answers).forEach(k => delete answers[k]);
+                    quizResults.innerHTML = '';
+                    renderQuestion('forward');
+                    document.querySelector('.page-header').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        }
+
+        // ========== INIT ==========
+        renderQuestion('forward');
+
+    })();
+    </script>
+</body>
+</html>

@@ -125,3 +125,35 @@ function validateGiftCard(code) {
     const cards = getGiftCards();
     return cards.find(c => c.code === code && c.balance > 0);
 }
+
+// Loyalty points system
+function getLoyaltyPoints() {
+    return parseInt(localStorage.getItem('elegance_loyalty') || '0');
+}
+function addLoyaltyPoints(amount) {
+    const pts = Math.floor(amount / 100); // 1 puan per 100₺
+    const current = getLoyaltyPoints();
+    localStorage.setItem('elegance_loyalty', current + pts);
+    return pts;
+}
+function useLoyaltyPoints(points) {
+    const current = getLoyaltyPoints();
+    if (points > current) return false;
+    localStorage.setItem('elegance_loyalty', current - points);
+    return true;
+}
+function loyaltyPointsToDiscount(points) {
+    return points * 1; // 1 puan = 1₺
+}
+
+// Recently viewed products
+function getRecentlyViewed() {
+    return JSON.parse(localStorage.getItem('elegance_recently_viewed') || '[]');
+}
+function addRecentlyViewed(productId) {
+    let list = getRecentlyViewed();
+    list = list.filter(id => id !== productId);
+    list.unshift(productId);
+    if (list.length > 8) list = list.slice(0, 8);
+    localStorage.setItem('elegance_recently_viewed', JSON.stringify(list));
+}

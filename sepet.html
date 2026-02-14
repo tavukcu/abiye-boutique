@@ -692,6 +692,8 @@
         let appliedCoupon = null;
         let appliedGiftCard = null;
         let giftCardDiscount = 0;
+        let loyaltyDiscount = 0;
+        const GIFT_WRAP_COST = 49.99;
 
         const SHIPPING_THRESHOLD = 2000;
         const SHIPPING_COST = 49.99;
@@ -904,6 +906,43 @@
                                     <div class="gift-card-msg" id="giftCardMsg"></div>
                                 </div>
 
+                                <!-- Hediye Paketi -->
+                                <div class="checkout-section">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+                                        </svg>
+                                        Hediye Paketi
+                                    </h3>
+                                    <label class="gift-wrap-toggle" style="display:flex;align-items:center;gap:12px;cursor:pointer;padding:12px 16px;background:rgba(200,169,110,0.05);border:1px solid var(--border);border-radius:8px;">
+                                        <input type="checkbox" id="giftWrapCheck" style="accent-color:#c8a96e;width:18px;height:18px;">
+                                        <div>
+                                            <div style="color:var(--text-primary);font-size:0.85rem;">Ozel hediye paketi ile gonderilsin (+₺49,99)</div>
+                                            <div style="color:var(--text-muted,#666);font-size:0.72rem;margin-top:2px;">Premium kutu, saten kurdele ve ozel kart ile paketlenir</div>
+                                        </div>
+                                    </label>
+                                    <div id="giftMessage" style="display:none;margin-top:12px;">
+                                        <input type="text" id="giftMsgInput" placeholder="Hediye kartina yazilacak mesaj (opsiyonel)" style="width:100%;padding:10px 14px;background:var(--bg-dark,#0a0a0a);border:1px solid var(--border);color:var(--text-primary,#e8e0d5);border-radius:8px;font-size:0.8rem;">
+                                    </div>
+                                </div>
+
+                                <!-- Sadakat Puani -->
+                                <div class="checkout-section" id="loyaltySection" style="display:none;">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                        Sadakat Puanim
+                                    </h3>
+                                    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(200,169,110,0.05);border:1px solid var(--border);border-radius:8px;">
+                                        <div>
+                                            <div style="color:var(--gold);font-size:1.1rem;font-weight:600;" id="loyaltyDisplay">0 Puan</div>
+                                            <div style="color:var(--text-muted,#666);font-size:0.7rem;">1 puan = 1₺ indirim</div>
+                                        </div>
+                                        <button type="button" id="useLoyaltyBtn" style="padding:8px 16px;background:var(--gold);color:var(--bg-primary,#0a0a0a);border:none;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">Puanlarimi Kullan</button>
+                                    </div>
+                                </div>
+
                                 <!-- Siparis Notu -->
                                 <div class="checkout-section">
                                     <h3>
@@ -950,6 +989,14 @@
                                 <div class="summary-row discount" id="giftCardRow" style="display:none;">
                                     <span>Hediye Karti</span>
                                     <span id="giftCardVal">-0</span>
+                                </div>
+                                <div class="summary-row discount" id="loyaltyRow" style="display:none;">
+                                    <span>Sadakat Puani</span>
+                                    <span id="loyaltyVal">-0</span>
+                                </div>
+                                <div class="summary-row" id="giftWrapRow" style="display:none;">
+                                    <span>Hediye Paketi</span>
+                                    <span id="giftWrapVal">+₺49,99</span>
                                 </div>
                                 <div class="summary-row total">
                                     <span>Toplam</span>
@@ -1037,7 +1084,10 @@
                 couponDiscount = Math.round(subtotal * (appliedCoupon.discount / 100));
             }
 
-            var total = subtotal - couponDiscount - giftCardDiscount + shipping;
+            var giftWrap = document.getElementById('giftWrapCheck');
+            var giftWrapCost = (giftWrap && giftWrap.checked) ? GIFT_WRAP_COST : 0;
+
+            var total = subtotal - couponDiscount - giftCardDiscount - loyaltyDiscount + shipping + giftWrapCost;
             if (total < 0) total = 0;
 
             var subtotalEl = document.getElementById('subtotalVal');
@@ -1076,6 +1126,24 @@
                 } else {
                     giftCardRowEl.style.display = 'none';
                 }
+            }
+
+            // Loyalty row
+            var loyaltyRowEl = document.getElementById('loyaltyRow');
+            var loyaltyValEl = document.getElementById('loyaltyVal');
+            if (loyaltyRowEl) {
+                if (loyaltyDiscount > 0) {
+                    loyaltyRowEl.style.display = 'flex';
+                    loyaltyValEl.textContent = '-' + formatPrice(loyaltyDiscount);
+                } else {
+                    loyaltyRowEl.style.display = 'none';
+                }
+            }
+
+            // Gift wrap row
+            var giftWrapRowEl = document.getElementById('giftWrapRow');
+            if (giftWrapRowEl) {
+                giftWrapRowEl.style.display = giftWrapCost > 0 ? 'flex' : 'none';
             }
         }
 
@@ -1182,6 +1250,38 @@
             var submitBtn = document.getElementById('submitOrder');
             if (submitBtn) {
                 submitBtn.addEventListener('click', submitOrder);
+            }
+
+            // Gift wrap toggle
+            var giftWrapCheck = document.getElementById('giftWrapCheck');
+            var giftMessage = document.getElementById('giftMessage');
+            if (giftWrapCheck) {
+                giftWrapCheck.addEventListener('change', function() {
+                    if (giftMessage) giftMessage.style.display = this.checked ? 'block' : 'none';
+                    updateSummary();
+                });
+            }
+
+            // Loyalty points
+            var loyaltyPts = typeof getLoyaltyPoints === 'function' ? getLoyaltyPoints() : 0;
+            var loyaltySection = document.getElementById('loyaltySection');
+            var loyaltyDisplay = document.getElementById('loyaltyDisplay');
+            if (loyaltyPts > 0 && loyaltySection) {
+                loyaltySection.style.display = '';
+                loyaltyDisplay.textContent = loyaltyPts + ' Puan (₺' + loyaltyPts + ')';
+            }
+            var useLoyaltyBtn = document.getElementById('useLoyaltyBtn');
+            if (useLoyaltyBtn) {
+                useLoyaltyBtn.addEventListener('click', function() {
+                    var pts = typeof getLoyaltyPoints === 'function' ? getLoyaltyPoints() : 0;
+                    if (pts <= 0) { showToast('Yeterli puaniniz yok'); return; }
+                    loyaltyDiscount = Math.min(pts, getSubtotal());
+                    if (typeof useLoyaltyPoints === 'function') useLoyaltyPoints(loyaltyDiscount);
+                    loyaltyDisplay.textContent = '0 Puan (₺' + loyaltyDiscount + ' uygulandi)';
+                    useLoyaltyBtn.disabled = true;
+                    updateSummary();
+                    showToast(loyaltyDiscount + ' puan uygulandi');
+                });
             }
 
             // Clear error on input

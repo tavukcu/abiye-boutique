@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Taksit Hesaplayici</title>
+    <meta name="description" content="ELEGANCE taksit hesaplayici - Kredi karti taksit seceneklerini hesaplayin. 12 aya varan taksit imkani.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* ========== CALCULATOR SECTION ========== */
+        .calc-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* ========== PRICE INPUT ========== */
+        .calc-input-wrapper {
+            max-width: 480px;
+            margin: 0 auto 56px;
+            text-align: center;
+        }
+        .calc-input-label {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .calc-input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .calc-currency {
+            position: absolute;
+            left: 20px;
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gold);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .calc-input {
+            width: 100%;
+            padding: 18px 20px 18px 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            outline: none;
+            transition: border-color 0.3s var(--ease);
+            -moz-appearance: textfield;
+        }
+        .calc-input::-webkit-outer-spin-button,
+        .calc-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .calc-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.1);
+        }
+        .calc-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* ========== BANK TABLES ========== */
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        .bank-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s var(--ease);
+        }
+        .bank-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-gold);
+        }
+        .bank-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-elevated);
+        }
+        .bank-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .bank-logo-ykb { background: linear-gradient(135deg, #003399, #0055cc); }
+        .bank-logo-garanti { background: linear-gradient(135deg, #006341, #00894f); }
+        .bank-logo-isbank { background: linear-gradient(135deg, #003087, #0050b3); }
+        .bank-logo-akbank { background: linear-gradient(135deg, #e30613, #ff2222); }
+        .bank-logo-ziraat { background: linear-gradient(135deg, #00529b, #0077cc); }
+        .bank-logo-halkbank { background: linear-gradient(135deg, #004e92, #0070c0); }
+
+        .bank-name {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .bank-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bank-table thead th {
+            padding: 12px 16px;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .bank-table tbody td {
+            padding: 12px 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(200, 169, 110, 0.06);
+        }
+        .bank-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .bank-table tbody tr:hover td {
+            background: rgba(200, 169, 110, 0.03);
+        }
+        .bank-table .installment-count {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .bank-table .no-interest {
+            display: inline-block;
+            padding: 2px 8px;
+            background: rgba(200, 169, 110, 0.12);
+            border-radius: 3px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+        }
+        .bank-table .monthly-amount {
+            font-weight: 500;
+            color: var(--gold-light);
+        }
+        .bank-table .total-amount {
+            color: var(--text-primary);
+        }
+        .bank-table .awaiting {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        /* ========== DISCLAIMER NOTE ========== */
+        .calc-note {
+            max-width: 700px;
+            margin: 0 auto 48px;
+            padding: 24px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: var(--radius-lg);
+        }
+        .calc-note p {
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .calc-note strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ========== SECURITY BADGES ========== */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+        }
+        .security-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+        .security-icon {
+            width: 52px;
+            height: 52px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            transition: all 0.3s var(--ease);
+        }
+        .security-badge:hover .security-icon {
+            border-color: var(--gold);
+            background: rgba(200, 169, 110, 0.08);
+        }
+        .security-badge span {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .bank-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        @media (max-width: 768px) {
+            .calc-section {
+                padding: 40px 16px 60px;
+            }
+            .bank-header {
+                padding: 16px 18px;
+            }
+            .bank-table thead th,
+            .bank-table tbody td {
+                padding: 10px 12px;
+                font-size: 0.78rem;
+            }
+            .bank-table thead th {
+                font-size: 0.6rem;
+            }
+            .security-badges {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 480px) {
+            .bank-table thead th,
+            .bank-table tbody td {
+                padding: 8px 10px;
+                font-size: 0.72rem;
+            }
+            .security-badges {
+                gap: 16px;
+            }
+            .security-icon {
+                width: 44px;
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Odeme Secenekleri</span>
+            <h1>Taksit <em>Hesaplayici</em></h1>
+            <p>Kredi kartiniza uygun taksit seceneklerini hesaplayin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Taksit Hesaplayici
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CALCULATOR ========== -->
+    <section class="calc-section">
+
+        <!-- Price Input -->
+        <div class="calc-input-wrapper">
+            <label class="calc-input-label" for="priceInput">Urun Tutarini Giriniz</label>
+            <div class="calc-input-group">
+                <span class="calc-currency">&#8378;</span>
+                <input type="number" class="calc-input" id="priceInput" placeholder="Ornek: 12.999" min="0" step="1">
+            </div>
+        </div>
+
+        <!-- Bank Installment Tables -->
+        <div class="bank-grid" id="bankGrid">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Disclaimer Note -->
+        <div class="calc-note">
+            <p><strong>Onemli Bilgilendirme:</strong> Taksit oranlari bankaniza gore farklilik gosterebilir. Yukaridaki hesaplamalar tahmini degerler olup, kesin taksit tutarlari odeme sirasinda bankaniz tarafindan belirlenir. Kampanya donmelerinde faizsiz taksit secenekleri degisiklik gosterebilir.</p>
+        </div>
+
+        <!-- Security Badges -->
+        <div class="security-badges">
+            <div class="security-badge">
+                <div class="security-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                </div>
+                <span>SSL Sertifikasi</span>
+            </div>
+            <div class="security-badge">
+                <div class="security-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                        <text x="12" y="17" text-anchor="middle" font-size="5" fill="currentColor" stroke="none" font-weight="bold">3D</text>
+                    </svg>
+                </div>
+                <span>3D Secure</span>
+            </div>
+            <div class="security-badge">
+                <div class="security-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                        <circle cx="12" cy="16" r="1"/>
+                    </svg>
+                </div>
+                <span>256-Bit Sifreleme</span>
+            </div>
+            <div class="security-badge">
+                <div class="security-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <span>Guvenli Odeme</span>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="lookbook.html">Lookbook</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="taksit.html">Taksit Hesaplayici</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BANK DATA ==========
+        const banks = [
+            { name: 'Yapi Kredi', initials: 'YKB', cssClass: 'bank-logo-ykb' },
+            { name: 'Garanti BBVA', initials: 'GBBVA', cssClass: 'bank-logo-garanti' },
+            { name: 'Is Bankasi', initials: 'ISB', cssClass: 'bank-logo-isbank' },
+            { name: 'Akbank', initials: 'AKB', cssClass: 'bank-logo-akbank' },
+            { name: 'Ziraat Bankasi', initials: 'ZB', cssClass: 'bank-logo-ziraat' },
+            { name: 'Halkbank', initials: 'HB', cssClass: 'bank-logo-halkbank' }
+        ];
+
+        const installmentOptions = [
+            { months: 2, rate: 0 },
+            { months: 3, rate: 0 },
+            { months: 4, rate: 2.5 },
+            { months: 6, rate: 5 },
+            { months: 9, rate: 8 },
+            { months: 12, rate: 12 }
+        ];
+
+        // ========== BUILD BANK CARDS ==========
+        const bankGrid = document.getElementById('bankGrid');
+
+        function formatCurrency(value) {
+            return '₺' + value.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function buildBankCards(price) {
+            bankGrid.innerHTML = '';
+
+            banks.forEach(bank => {
+                const card = document.createElement('div');
+                card.className = 'bank-card';
+
+                let tableRows = '';
+                installmentOptions.forEach(opt => {
+                    if (price > 0) {
+                        const totalAmount = price * (1 + opt.rate / 100);
+                        const monthlyAmount = totalAmount / opt.months;
+                        const noInterestBadge = opt.rate === 0 ? '<span class="no-interest">Faizsiz</span>' : '';
+
+                        tableRows += `
+                            <tr>
+                                <td class="installment-count">${opt.months} Taksit${noInterestBadge}</td>
+                                <td class="monthly-amount">${formatCurrency(monthlyAmount)}</td>
+                                <td class="total-amount">${formatCurrency(totalAmount)}</td>
+                            </tr>
+                        `;
+                    } else {
+                        const noInterestBadge = opt.rate === 0 ? '<span class="no-interest">Faizsiz</span>' : '';
+                        tableRows += `
+                            <tr>
+                                <td class="installment-count">${opt.months} Taksit${noInterestBadge}</td>
+                                <td class="awaiting">-</td>
+                                <td class="awaiting">-</td>
+                            </tr>
+                        `;
+                    }
+                });
+
+                card.innerHTML = `
+                    <div class="bank-header">
+                        <div class="bank-logo ${bank.cssClass}">${bank.initials}</div>
+                        <span class="bank-name">${bank.name}</span>
+                    </div>
+                    <table class="bank-table">
+                        <thead>
+                            <tr>
+                                <th>Taksit Sayisi</th>
+                                <th>Aylik Tutar</th>
+                                <th>Toplam Tutar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                `;
+
+                bankGrid.appendChild(card);
+            });
+        }
+
+        // Initial render with no price
+        buildBankCards(0);
+
+        // ========== PRICE INPUT LISTENER ==========
+        const priceInput = document.getElementById('priceInput');
+        let debounceTimer;
+
+        priceInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const price = parseFloat(this.value) || 0;
+                buildBankCards(price);
+            }, 200);
+        });
+
+        // Check URL params for pre-filled price
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlPrice = urlParams.get('price');
+        if (urlPrice) {
+            priceInput.value = urlPrice;
+            buildBankCards(parseFloat(urlPrice) || 0);
+        }
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>

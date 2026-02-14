@@ -2978,21 +2978,128 @@ body.has-promo .hero { padding-top: 38px; }
 [data-reveal] { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
 [data-reveal].revealed { opacity: 1; transform: translateY(0); }
 
+/* ---------- ANNOUNCEMENT TICKER ---------- */
+.announcement-ticker {
+    background: var(--gold); color: var(--bg-primary);
+    overflow: hidden; white-space: nowrap; height: 32px; display: flex; align-items: center;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.5px; position: relative; z-index: 1001;
+}
+.ticker-track { display: flex; width: 100%; overflow: hidden; }
+.ticker-content {
+    display: flex; gap: 48px; animation: tickerScroll 30s linear infinite; padding-left: 100%;
+}
+.ticker-content span { flex-shrink: 0; }
+.ticker-content strong { font-weight: 700; }
+@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ---------- TESTIMONIALS CAROUSEL ---------- */
+.testimonial-carousel-wrap {
+    position: relative; display: flex; align-items: center; gap: 16px;
+}
+.testimonial-carousel {
+    display: flex; gap: 24px; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+}
+.testimonial-carousel-wrap { overflow: hidden; }
+.testimonial-carousel .testimonial-card {
+    min-width: calc(33.333% - 16px); flex-shrink: 0;
+}
+.testi-nav {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+    background: var(--bg-card); color: var(--gold); font-size: 1.4rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; flex-shrink: 0; z-index: 2;
+}
+.testi-nav:hover { background: var(--gold); color: var(--bg-primary); }
+.testi-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+.testi-dot {
+    width: 8px; height: 8px; border-radius: 50%; border: none;
+    background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.testi-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+
+/* ---------- CUSTOMER PHOTOS ---------- */
+.customer-photos { padding: 100px 0 60px; }
+.customer-gallery {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px;
+}
+.cg-item {
+    position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer;
+}
+.cg-img { width: 100%; height: 100%; transition: transform 0.5s; }
+.cg-item:hover .cg-img { transform: scale(1.08); }
+.cg-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s; gap: 4px;
+}
+.cg-item:hover .cg-overlay { opacity: 1; }
+.cg-name { color: var(--gold); font-size: 0.8rem; font-weight: 600; }
+.cg-product { color: #fff; font-size: 0.7rem; font-style: italic; }
+
+/* ---------- STYLE QUIZ PROMO ---------- */
+.style-quiz-promo { padding: 60px 0 80px; }
+.quiz-promo-card {
+    display: flex; align-items: center; gap: 60px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 48px; position: relative; overflow: hidden;
+}
+.quiz-promo-visual { flex-shrink: 0; }
+.quiz-promo-circles { display: flex; gap: -12px; }
+.quiz-promo-circles span {
+    width: 80px; height: 80px; border-radius: 50%; display: block;
+    margin-left: -16px; border: 2px solid var(--bg-card);
+}
+.quiz-promo-circles span:first-child { margin-left: 0; }
+.quiz-promo-text h2 { font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; color: var(--text-primary); margin: 12px 0 16px; }
+.quiz-promo-text h2 em { color: var(--gold); font-style: italic; }
+.quiz-promo-text p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; margin-bottom: 24px; max-width: 500px; }
+.quiz-promo-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+
+/* ---------- RECENTLY VIEWED ---------- */
+.recently-viewed { padding: 60px 0 40px; }
+.rv-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 32px;
+}
+.rv-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; cursor: pointer; transition: all 0.3s;
+}
+.rv-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+.rv-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+.rv-info { padding: 10px 12px; }
+.rv-info h4 { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 400; color: var(--text-primary); margin-bottom: 4px; }
+.rv-info span { color: var(--gold); font-size: 0.75rem; font-weight: 600; }
+
 /* ---------- PRINT ---------- */
 @media print {
     .navbar, .hero-particles, .hero-shimmer, .marquee, .cursor-dot, .cursor-ring,
     .back-to-top, .toast, #preloader, .promo-bar, .cookie-bar, .whatsapp-btn,
-    .music-toggle, .welcome-popup-overlay, .chat-widget, .compare-float { display: none; }
+    .music-toggle, .welcome-popup-overlay, .chat-widget, .compare-float,
+    .announcement-ticker { display: none; }
     body { background: #fff; color: #000; }
 }
 
 /* ---------- RESPONSIVE (new) ---------- */
+@media (max-width: 1024px) {
+    .testimonial-carousel .testimonial-card { min-width: calc(50% - 12px); }
+    .customer-gallery { grid-template-columns: repeat(4, 1fr); }
+    .rv-grid { grid-template-columns: repeat(4, 1fr); }
+}
 @media (max-width: 768px) {
     .chat-widget { bottom: 140px; right: 20px; }
     .chat-box { width: 260px; right: -10px; }
     .compare-float { bottom: 200px; right: 20px; }
     .lang-toggle { display: none; }
+    .testimonial-carousel .testimonial-card { min-width: calc(100% - 0px); }
+    .testi-nav { width: 32px; height: 32px; font-size: 1.1rem; }
+    .customer-gallery { grid-template-columns: repeat(2, 1fr); }
+    .quiz-promo-card { flex-direction: column; gap: 24px; padding: 32px; text-align: center; }
+    .quiz-promo-text p { max-width: 100%; }
+    .rv-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 480px) {
     .chat-box { width: 240px; }
+    .rv-grid { grid-template-columns: repeat(2, 1fr); }
+    .announcement-ticker { font-size: 0.65rem; height: 28px; }
 }

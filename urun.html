@@ -580,6 +580,9 @@
             return;
         }
 
+        // Track recently viewed
+        if (typeof addRecentlyViewed === 'function') addRecentlyViewed(currentProduct.id);
+
         // Page title
         document.title = 'ELEGANCE | ' + currentProduct.name;
         document.getElementById('pageTitle').innerHTML = currentProduct.name.split(' ').map((w, i) => i === 0 ? w : '<em>' + w + '</em>').join(' ');

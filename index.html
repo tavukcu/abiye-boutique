@@ -26,6 +26,24 @@
 </head>
 <body>
 
+    <!-- ========== DUYURU BANDI (TICKER) ========== -->
+    <div class="announcement-ticker" id="announcementTicker">
+        <div class="ticker-track">
+            <div class="ticker-content">
+                <span>✦ Yeni Sezon Koleksiyonu'nda <strong>%20 İndirim</strong> — Kod: ELEGANCE20</span>
+                <span>✦ 2.000₺ Üzeri <strong>Ücretsiz Kargo</strong></span>
+                <span>✦ İlk Alışverişe <strong>%15 İndirim</strong> — Kod: HOSGELDIN15</span>
+                <span>✦ 6 Aya Kadar <strong>Taksit İmkanı</strong></span>
+                <span>✦ <strong>Stil Testini</strong> Çöz, Sana Özel Öneriler Al</span>
+                <span>✦ Yeni Sezon Koleksiyonu'nda <strong>%20 İndirim</strong> — Kod: ELEGANCE20</span>
+                <span>✦ 2.000₺ Üzeri <strong>Ücretsiz Kargo</strong></span>
+                <span>✦ İlk Alışverişe <strong>%15 İndirim</strong> — Kod: HOSGELDIN15</span>
+                <span>✦ 6 Aya Kadar <strong>Taksit İmkanı</strong></span>
+                <span>✦ <strong>Stil Testini</strong> Çöz, Sana Özel Öneriler Al</span>
+            </div>
+        </div>
+    </div>
+
     <!-- ========== KAMPANYA BANNER ========== -->
     <div class="promo-bar" id="promoBar">
         <div class="promo-bar-content">
@@ -324,48 +342,60 @@
         </div>
     </section>
 
-    <!-- ========== TESTIMONIALS ========== -->
+    <!-- ========== TESTIMONIALS CAROUSEL ========== -->
     <section class="testimonials">
         <div class="container">
             <div class="section-head" data-reveal>
                 <span class="section-tag">Müşteri Yorumları</span>
                 <h2 class="section-title">Onlar <em>Ne Diyor?</em></h2>
             </div>
-            <div class="testimonial-grid" data-reveal>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Nişanım için aldığım abiye hayallerimin ötesindeydi. Kumaş kalitesi ve işçilik muhteşem. Herkese tavsiye ederim."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #c8a96e, #8b7355);">A</div>
-                        <div>
-                            <strong>Ayşe K.</strong>
-                            <span>İstanbul</span>
+            <div class="testimonial-carousel-wrap" data-reveal>
+                <button class="testi-nav testi-prev" id="testiPrev" aria-label="Önceki">‹</button>
+                <div class="testimonial-carousel" id="testiCarousel">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Nişanım için aldığım abiye hayallerimin ötesindeydi. Kumaş kalitesi ve işçilik muhteşem. Herkese tavsiye ederim."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background: linear-gradient(135deg, #c8a96e, #8b7355);">A</div>
+                            <div><strong>Ayşe K.</strong><span>İstanbul</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Mezuniyet balosu için mükemmel bir tercih oldu. Elbise tam kalıp geldi ve herkes bayıldı. Teşekkürler Élégance!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background: linear-gradient(135deg, #8b5a6b, #5a3a4b);">Z</div>
+                            <div><strong>Zeynep M.</strong><span>Ankara</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"İkinci alışverişim ve yine çok memnunum. Kargo hızlı, paketleme özenli. Premium hizmet gerçekten premium!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background: linear-gradient(135deg, #5a6b8b, #3a4b5a);">E</div>
+                            <div><strong>Elif S.</strong><span>İzmir</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Düğün davetlisi olarak aldığım elbiseyle gece boyunca iltifat yağmuruna tutuldum. Kumaş muhteşem!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background: linear-gradient(135deg, #6b5a8b, #4b3a6a);">S</div>
+                            <div><strong>Selin D.</strong><span>Bursa</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Beden tavsiye sistemi harika çalışıyor! Tam kalıp gelen elbise için teşekkürler. Kesinlikle tekrar alışveriş yapacağım."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background: linear-gradient(135deg, #8b6b5a, #6a4b3a);">M</div>
+                            <div><strong>Merve Y.</strong><span>Antalya</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Mezuniyet balosu için mükemmel bir tercih oldu. Elbise tam kalıp geldi ve herkes bayıldı. Teşekkürler Élégance!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #8b5a6b, #5a3a4b);">Z</div>
-                        <div>
-                            <strong>Zeynep M.</strong>
-                            <span>Ankara</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"İkinci alışverişim ve yine çok memnunum. Kargo hızlı, paketleme özenli. Premium hizmet gerçekten premium!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #5a6b8b, #3a4b5a);">E</div>
-                        <div>
-                            <strong>Elif S.</strong>
-                            <span>İzmir</span>
-                        </div>
-                    </div>
-                </div>
+                <button class="testi-nav testi-next" id="testiNext" aria-label="Sonraki">›</button>
             </div>
+            <div class="testi-dots" id="testiDots"></div>
         </div>
     </section>
 
@@ -405,6 +435,62 @@
                 <div class="insta-item" style="background: linear-gradient(135deg, #1a1015, #3a2028);"><span class="insta-overlay">♡ 278</span></div>
                 <div class="insta-item" style="background: linear-gradient(135deg, #001a10, #003a25);"><span class="insta-overlay">♡ 198</span></div>
             </div>
+        </div>
+    </section>
+
+    <!-- ========== MÜŞTERİ FOTOĞRAFLARI ========== -->
+    <section class="customer-photos">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">#EleganceStyle</span>
+                <h2 class="section-title">Müşterilerimizin <em>Tarzı</em></h2>
+                <p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.85rem;">Élégance giyerek özel anlarını yaşayan müşterilerimiz</p>
+            </div>
+            <div class="customer-gallery" data-reveal>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #2d1b4e, #1a0a2e);"></div><div class="cg-overlay"><span class="cg-name">@ayse.style</span><span class="cg-product">Midnight Noir</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #4a0020, #2a0015);"></div><div class="cg-overlay"><span class="cg-name">@zeynep.m</span><span class="cg-product">Bordeaux Dream</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #3a3020, #6a5a3a);"></div><div class="cg-overlay"><span class="cg-name">@elif.chic</span><span class="cg-product">Champagne Rose</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #8b7500, #3a2a00);"></div><div class="cg-overlay"><span class="cg-name">@selin.d</span><span class="cg-product">Golden Hour</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #004030, #001a10);"></div><div class="cg-overlay"><span class="cg-name">@merve.glam</span><span class="cg-product">Emerald Grace</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #8b0000, #2a0000);"></div><div class="cg-overlay"><span class="cg-name">@deniz.k</span><span class="cg-product">Crimson Elegance</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #d4a0a0, #3a2525);"></div><div class="cg-overlay"><span class="cg-name">@ece.pink</span><span class="cg-product">Blush Petal</span></div></div>
+                <div class="cg-item"><div class="cg-img" style="background: linear-gradient(135deg, #2d1b4e, #15082a);"></div><div class="cg-overlay"><span class="cg-name">@buse.style</span><span class="cg-product">Velvet Dusk</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STİL TESTİ PROMO ========== -->
+    <section class="style-quiz-promo">
+        <div class="container">
+            <div class="quiz-promo-card" data-reveal>
+                <div class="quiz-promo-visual">
+                    <div class="quiz-promo-circles">
+                        <span style="background: linear-gradient(135deg, #c8a96e, #8b7355);"></span>
+                        <span style="background: linear-gradient(135deg, #4a0020, #8b0000);"></span>
+                        <span style="background: linear-gradient(135deg, #000030, #1a1a5e);"></span>
+                    </div>
+                </div>
+                <div class="quiz-promo-text">
+                    <span class="section-tag">Stil Testi</span>
+                    <h2>Sana Uygun <em>Abiyeyi Bul</em></h2>
+                    <p>5 soruluk kısa testimizi çözerek tarzınıza en uygun abiyeyi keşfedin. Kişisel stil önerilerimizle özel gecelerinize hazırlanın.</p>
+                    <a href="stil-testi.html" class="btn-primary quiz-promo-btn">
+                        <span>Teste Başla</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SON GÖRÜNTÜLENEN ========== -->
+    <section class="recently-viewed" id="recentlyViewed" style="display:none;">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">Son Baktıklarınız</span>
+                <h2 class="section-title">Son Görüntülenen <em>Ürünler</em></h2>
+            </div>
+            <div class="rv-grid" id="rvGrid" data-reveal></div>
         </div>
     </section>
 
@@ -492,15 +578,17 @@
                     <h4>Hızlı Linkler</h4>
                     <a href="#koleksiyon">Koleksiyon</a>
                     <a href="blog.html">Blog</a>
+                    <a href="lookbook.html">Lookbook</a>
                     <a href="hakkimizda.html">Hakkımızda</a>
-                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="kampanyalar.html">Kampanyalar</a>
                 </div>
                 <div class="footer-col">
                     <h4>Müşteri Hizmetleri</h4>
                     <a href="siparis-takip.html">Sipariş Takibi</a>
-                    <a href="sepet.html">Sepetim</a>
+                    <a href="taksit.html">Taksit Seçenekleri</a>
+                    <a href="iletisim.html">İletişim</a>
+                    <a href="stil-testi.html">Stil Testi</a>
                     <a href="#sss">SSS</a>
-                    <a href="#iletisim">İletişim</a>
                 </div>
                 <div class="footer-col">
                     <h4>İletişim</h4>
@@ -1023,6 +1111,66 @@
     window.openQuickView = function(id) {
         window.location.href = 'urun.html?id=' + id;
     };
+
+    // ========== TESTIMONIALS CAROUSEL ==========
+    (function() {
+        const carousel = document.getElementById('testiCarousel');
+        const prevBtn = document.getElementById('testiPrev');
+        const nextBtn = document.getElementById('testiNext');
+        const dotsWrap = document.getElementById('testiDots');
+        if (!carousel) return;
+        const cards = carousel.querySelectorAll('.testimonial-card');
+        let currentIdx = 0;
+        let visibleCount = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
+        const totalSlides = Math.max(1, cards.length - visibleCount + 1);
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goTo(i));
+            dotsWrap.appendChild(dot);
+        }
+
+        function goTo(idx) {
+            currentIdx = Math.max(0, Math.min(idx, totalSlides - 1));
+            const cardWidth = cards[0].offsetWidth + 24;
+            carousel.style.transform = 'translateX(-' + (currentIdx * cardWidth) + 'px)';
+            dotsWrap.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+        }
+
+        prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
+        nextBtn.addEventListener('click', () => goTo(currentIdx + 1));
+
+        // Auto-play
+        let autoPlay = setInterval(() => goTo((currentIdx + 1) % totalSlides), 5000);
+        carousel.parentElement.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        carousel.parentElement.addEventListener('mouseleave', () => { autoPlay = setInterval(() => goTo((currentIdx + 1) % totalSlides), 5000); });
+
+        window.addEventListener('resize', () => {
+            visibleCount = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
+        });
+    })();
+
+    // ========== SON GÖRÜNTÜLENEN ÜRÜNLER ==========
+    (function() {
+        const rvIds = JSON.parse(localStorage.getItem('elegance_recently_viewed') || '[]');
+        if (rvIds.length === 0) return;
+        const section = document.getElementById('recentlyViewed');
+        const grid = document.getElementById('rvGrid');
+        if (!section || !grid) return;
+        section.style.display = '';
+        const allProducts = typeof products !== 'undefined' ? products : [];
+        rvIds.slice(0, 6).forEach(id => {
+            const p = allProducts.find(pr => pr.id === id);
+            if (!p) return;
+            const card = document.createElement('div');
+            card.className = 'rv-card';
+            card.innerHTML = '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy"><div class="rv-info"><h4>' + p.name + '</h4><span>₺' + p.price.toLocaleString('tr-TR') + '</span></div>';
+            card.addEventListener('click', () => { window.location.href = 'urun.html?id=' + p.id; });
+            grid.appendChild(card);
+        });
+    })();
     </script>
 </body>
 </html>

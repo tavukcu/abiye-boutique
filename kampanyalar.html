@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Kampanyalar</title>
+    <meta name="description" content="ELEGANCE - Premium abiye kampanyalari ve indirim firsatlari. Ozel kupon kodlariyla avantajli alisveris yapin.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* ========== CAMPAIGNS PAGE STYLES ========== */
+        .campaigns-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* Section Titles */
+        .campaigns-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .campaigns-section-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .campaigns-section-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        /* Campaign Grid */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-bottom: 80px;
+        }
+        .campaigns-grid .campaign-card:first-child {
+            grid-column: 1 / -1;
+        }
+
+        /* Campaign Card */
+        .campaign-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        .campaign-card:hover {
+            border-color: rgba(200, 169, 110, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .campaign-card-inner {
+            padding: 40px 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card Gradient Backgrounds */
+        .campaign-card.gradient-1 {
+            background: linear-gradient(135deg, #1a1015 0%, #2d1520 30%, #1a0a10 60%, #0f0a0a 100%);
+        }
+        .campaign-card.gradient-2 {
+            background: linear-gradient(135deg, #0f1520 0%, #152030 30%, #0a1018 60%, #0a0a0f 100%);
+        }
+        .campaign-card.gradient-3 {
+            background: linear-gradient(135deg, #151a0f 0%, #1f2815 30%, #0f150a 60%, #0a0f0a 100%);
+        }
+        .campaign-card.gradient-4 {
+            background: linear-gradient(135deg, #1a150f 0%, #2d2515 30%, #1a150a 60%, #0f0d0a 100%);
+        }
+        .campaign-card.gradient-5 {
+            background: linear-gradient(135deg, #150f1a 0%, #201530 30%, #150a20 60%, #0a0a0f 100%);
+        }
+
+        /* Card Badge */
+        .campaign-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+        .campaign-badge.active {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+        .campaign-badge.expired {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Card Content */
+        .campaign-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .campaign-card.featured h3 {
+            font-size: 2rem;
+        }
+        .campaign-discount {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .campaign-card.featured .campaign-discount {
+            font-size: 3.5rem;
+        }
+        .campaign-card p.campaign-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 500px;
+        }
+
+        /* Coupon Code */
+        .campaign-code-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .campaign-code {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(200, 169, 110, 0.08);
+            border: 1px dashed rgba(200, 169, 110, 0.4);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+        .campaign-copy-btn {
+            padding: 10px 18px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .campaign-copy-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* Countdown */
+        .campaign-countdown {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .campaign-countdown-item {
+            text-align: center;
+            min-width: 56px;
+        }
+        .campaign-countdown-num {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            background: rgba(200, 169, 110, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px 4px;
+            line-height: 1;
+        }
+        .campaign-countdown-label {
+            display: block;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* No Code Info */
+        .campaign-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(200, 169, 110, 0.06);
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .campaign-info svg {
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .campaign-info span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Featured card layout */
+        .campaign-card.featured .campaign-card-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+        }
+        .campaign-card.featured .campaign-countdown {
+            gap: 10px;
+        }
+
+        /* ========== PAST CAMPAIGNS ========== */
+        .past-campaigns {
+            border-top: 1px solid var(--border);
+            padding-top: 60px;
+        }
+        .past-campaigns .campaigns-grid {
+            margin-bottom: 0;
+        }
+        .past-campaigns .campaign-card {
+            opacity: 0.5;
+            pointer-events: none;
+            position: relative;
+        }
+        .past-campaigns .campaign-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.4);
+            border-radius: 8px;
+            z-index: 2;
+        }
+        .past-expired-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 3;
+            padding: 6px 16px;
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #e74c3c;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+            .campaigns-grid .campaign-card:first-child {
+                grid-column: auto;
+            }
+            .campaign-card.featured .campaign-card-inner {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .campaign-card h3 {
+                font-size: 1.3rem;
+            }
+            .campaign-card.featured h3 {
+                font-size: 1.5rem;
+            }
+            .campaign-discount {
+                font-size: 2.2rem;
+            }
+            .campaign-card.featured .campaign-discount {
+                font-size: 2.6rem;
+            }
+            .campaign-code-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .campaign-countdown {
+                gap: 8px;
+            }
+            .campaign-countdown-item {
+                min-width: 48px;
+            }
+            .campaign-countdown-num {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Kampanyalar</span>
+            <h1>Ozel <em>Firsatlar</em></h1>
+            <p>Premium abiye koleksiyonlarimizda gecerli kampanya ve indirimler</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Kampanyalar
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ACTIVE CAMPAIGNS ========== -->
+    <div class="campaigns-container">
+
+        <h2 class="campaigns-section-title">Aktif <em>Kampanyalar</em></h2>
+        <p class="campaigns-section-desc">Firsatlari kacirmayin, kupon kodlarini kullanarak avantajli alisveris yapin</p>
+
+        <div class="campaigns-grid" id="activeCampaigns">
+
+            <!-- Campaign 1: Featured - Yeni Sezon -->
+            <div class="campaign-card featured gradient-1">
+                <div class="campaign-card-inner">
+                    <div>
+                        <span class="campaign-badge active">Sinirli Sure</span>
+                        <h3>Yeni Sezon Indirimi</h3>
+                        <div class="campaign-discount">%20</div>
+                        <p class="campaign-desc">2025 Yeni Sezon koleksiyonumuzda tum urunlerde gecerli ozel indirim firsati. Zarafetinize zarafet katan tasarimlari uygun fiyatlarla kesfet.</p>
+                        <div class="campaign-code-wrap">
+                            <span class="campaign-code" id="code1">ELEGANCE20</span>
+                            <button class="campaign-copy-btn" onclick="copyCoupon('ELEGANCE20')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                                </svg>
+                                Kodu Kopyala
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="campaign-countdown" id="countdown1" data-days="15">
+                            <div class="campaign-countdown-item">
+                                <span class="campaign-countdown-num" id="cd1-days">00</span>
+                                <span class="campaign-countdown-label">Gun</span>
+                            </div>
+                            <div class="campaign-countdown-item">
+                                <span class="campaign-countdown-num" id="cd1-hours">00</span>
+                                <span class="campaign-countdown-label">Saat</span>
+                            </div>
+                            <div class="campaign-countdown-item">
+                                <span class="campaign-countdown-num" id="cd1-mins">00</span>
+                                <span class="campaign-countdown-label">Dakika</span>
+                            </div>
+                            <div class="campaign-countdown-item">
+                                <span class="campaign-countdown-num" id="cd1-secs">00</span>
+                                <span class="campaign-countdown-label">Saniye</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign 2: Ilk Alisveriste Ozel -->
+            <div class="campaign-card gradient-2">
+                <div class="campaign-card-inner">
+                    <span class="campaign-badge active">Yeni Uyelere Ozel</span>
+                    <h3>Ilk Alisverise Ozel</h3>
+                    <div class="campaign-discount">%15</div>
+                    <p class="campaign-desc">ELEGANCE ailesine katilanlara ozel hos geldin indirimi. Ilk siparisinizde gecerli.</p>
+                    <div class="campaign-code-wrap">
+                        <span class="campaign-code">HOSGELDIN15</span>
+                        <button class="campaign-copy-btn" onclick="copyCoupon('HOSGELDIN15')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                            </svg>
+                            Kodu Kopyala
+                        </button>
+                    </div>
+                    <div class="campaign-countdown" id="countdown2" data-days="30">
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd2-days">00</span>
+                            <span class="campaign-countdown-label">Gun</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd2-hours">00</span>
+                            <span class="campaign-countdown-label">Saat</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd2-mins">00</span>
+                            <span class="campaign-countdown-label">Dakika</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd2-secs">00</span>
+                            <span class="campaign-countdown-label">Saniye</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign 3: Sezon Sonu Firsati -->
+            <div class="campaign-card gradient-3">
+                <div class="campaign-card-inner">
+                    <span class="campaign-badge active">Sezon Sonu</span>
+                    <h3>Sezon Sonu Firsati</h3>
+                    <div class="campaign-discount">%10</div>
+                    <p class="campaign-desc">Secili sezon sonu urunlerinde gecerli indirim firsati. Stoklar tukenmeden alin.</p>
+                    <div class="campaign-code-wrap">
+                        <span class="campaign-code">SEZON10</span>
+                        <button class="campaign-copy-btn" onclick="copyCoupon('SEZON10')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                            </svg>
+                            Kodu Kopyala
+                        </button>
+                    </div>
+                    <div class="campaign-countdown" id="countdown3" data-days="10">
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd3-days">00</span>
+                            <span class="campaign-countdown-label">Gun</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd3-hours">00</span>
+                            <span class="campaign-countdown-label">Saat</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd3-mins">00</span>
+                            <span class="campaign-countdown-label">Dakika</span>
+                        </div>
+                        <div class="campaign-countdown-item">
+                            <span class="campaign-countdown-num" id="cd3-secs">00</span>
+                            <span class="campaign-countdown-label">Saniye</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign 4: Ucretsiz Kargo -->
+            <div class="campaign-card gradient-4">
+                <div class="campaign-card-inner">
+                    <span class="campaign-badge active">Kargo</span>
+                    <h3>Ucretsiz Kargo</h3>
+                    <div class="campaign-discount" style="font-size: 1.8rem;">2.000₺+</div>
+                    <p class="campaign-desc">2.000₺ ve uzeri alisverislerde kargo tamamen bizden. Tum Turkiye'ye gecerli.</p>
+                    <div class="campaign-info">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        <span>Kupon kodu gerekmez, otomatik uygulanir</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign 5: Arkadasini Getir -->
+            <div class="campaign-card gradient-5">
+                <div class="campaign-card-inner">
+                    <span class="campaign-badge active">Referans</span>
+                    <h3>Arkadasini Getir</h3>
+                    <div class="campaign-discount">%10 + %10</div>
+                    <p class="campaign-desc">Bir arkadasinizi ELEGANCE'a davet edin, hem siz hem arkadasiniz %10 indirim kazanin. Zarafeti paylasin!</p>
+                    <div class="campaign-info">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+                        </svg>
+                        <span>Detayli bilgi icin iletisime gecin</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========== PAST CAMPAIGNS ========== -->
+        <div class="past-campaigns">
+            <h2 class="campaigns-section-title">Gecmis <em>Kampanyalar</em></h2>
+            <p class="campaigns-section-desc">Suresi dolmus kampanyalar</p>
+
+            <div class="campaigns-grid">
+                <!-- Past Campaign 1 -->
+                <div class="campaign-card gradient-1" style="grid-column: auto;">
+                    <div class="past-expired-overlay">Suresi Doldu</div>
+                    <div class="campaign-card-inner">
+                        <span class="campaign-badge expired">Sona Erdi</span>
+                        <h3>Yilbasi Ozel Koleksiyonu</h3>
+                        <div class="campaign-discount">%25</div>
+                        <p class="campaign-desc">2024 Yilbasi ozel koleksiyonunda gecerli olan indirim kampanyasi.</p>
+                        <div class="campaign-code-wrap">
+                            <span class="campaign-code" style="opacity: 0.4;">YILBASI25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Past Campaign 2 -->
+                <div class="campaign-card gradient-2" style="grid-column: auto;">
+                    <div class="past-expired-overlay">Suresi Doldu</div>
+                    <div class="campaign-card-inner">
+                        <span class="campaign-badge expired">Sona Erdi</span>
+                        <h3>Sevgililer Gunu Firsati</h3>
+                        <div class="campaign-discount">%15</div>
+                        <p class="campaign-desc">Sevgililer Gunune ozel secili abiyelerde gecerli indirim kampanyasi.</p>
+                        <div class="campaign-code-wrap">
+                            <span class="campaign-code" style="opacity: 0.4;">SEVGILI15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="kampanyalar.html">Kampanyalar</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="iletisim.html">Iletisim</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== COUNTDOWN TIMERS ==========
+        function initCountdown(id, daysFromNow) {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + daysFromNow);
+            endDate.setHours(23, 59, 59, 0);
+
+            const daysEl = document.getElementById(id + '-days');
+            const hoursEl = document.getElementById(id + '-hours');
+            const minsEl = document.getElementById(id + '-mins');
+            const secsEl = document.getElementById(id + '-secs');
+
+            if (!daysEl) return;
+
+            function update() {
+                const now = new Date();
+                const diff = endDate - now;
+
+                if (diff <= 0) {
+                    daysEl.textContent = '00';
+                    hoursEl.textContent = '00';
+                    minsEl.textContent = '00';
+                    secsEl.textContent = '00';
+                    return;
+                }
+
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                daysEl.textContent = String(d).padStart(2, '0');
+                hoursEl.textContent = String(h).padStart(2, '0');
+                minsEl.textContent = String(m).padStart(2, '0');
+                secsEl.textContent = String(s).padStart(2, '0');
+            }
+
+            update();
+            setInterval(update, 1000);
+        }
+
+        initCountdown('cd1', 15);
+        initCountdown('cd2', 30);
+        initCountdown('cd3', 10);
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+
+    // ========== COPY COUPON ==========
+    function copyCoupon(code) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).then(function() {
+                showToast('Kupon kodu kopyalandi: ' + code);
+            }).catch(function() {
+                fallbackCopy(code);
+            });
+        } else {
+            fallbackCopy(code);
+        }
+    }
+
+    function fallbackCopy(code) {
+        const textarea = document.createElement('textarea');
+        textarea.value = code;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showToast('Kupon kodu kopyalandi: ' + code);
+        } catch (e) {
+            showToast('Kupon kodu: ' + code);
+        }
+        document.body.removeChild(textarea);
+    }
+    </script>
+</body>
+</html>
