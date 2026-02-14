@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Siparis Takibi</title>
+    <meta name="description" content="ELEGANCE siparis takibi. Siparisinizin durumunu siparis numaraniz ile sorgulayabilirsiniz.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #f0e6d3;
+            --text-body: #e8e0d5;
+        }
+        .track-error {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+        .track-error-icon {
+            color: var(--text-muted);
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+        .track-error h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .track-error p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .track-order-items {
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+        .track-order-items h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+        .track-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        .track-item:last-child { border-bottom: none; }
+        .track-item-name { color: var(--text-primary); }
+        .track-item-detail { color: var(--text-muted); font-size: 0.75rem; }
+        .track-item-price { color: var(--gold); font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Siparis Takibi</span>
+            <h1>Siparisinizi <em>Takip Edin</em></h1>
+            <p>Siparis numaraniz ile durumunuzu ogrenin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Siparis Takibi
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TRACKING CONTENT ========== -->
+    <div class="track-container">
+
+        <!-- Search Form -->
+        <div class="track-form">
+            <h3>Siparisinizi Sorgulayın</h3>
+            <p>Siparis numaranizi girerek kargonuzun durumunu ogrenebilirsiniz.</p>
+            <div class="track-input-row">
+                <input type="text" id="trackInput" placeholder="ELG-1001" maxlength="10">
+                <button id="trackBtn">Sorgula</button>
+            </div>
+        </div>
+
+        <!-- Error state -->
+        <div class="track-error" id="trackError">
+            <div class="track-error-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+            </div>
+            <h3>Siparis Bulunamadi</h3>
+            <p>Lutfen siparis numaranizi kontrol edip tekrar deneyin. Siparis numarasi ELG-XXXX formatindadir.</p>
+        </div>
+
+        <!-- Result -->
+        <div class="track-result" id="trackResult">
+            <div class="track-order-info" id="trackOrderInfo"></div>
+            <div class="track-timeline" id="trackTimeline"></div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== DEFAULT DEMO ORDERS ==========
+        const defaultOrders = [
+            {
+                orderNo: "ELG-1001",
+                customer: "Ayse Kaya",
+                date: "10 Ocak 2025",
+                total: 14999,
+                status: 3, // 0=Alindi, 1=Hazirlaniyor, 2=Kargoya verildi, 3=Teslim edildi
+                items: [
+                    { name: "Bordeaux Dream", size: "M", qty: 1, price: 14999 }
+                ],
+                steps: [
+                    { title: "Siparis Alindi", date: "10 Ocak 2025, 14:30" },
+                    { title: "Hazirlaniyor", date: "11 Ocak 2025, 09:15" },
+                    { title: "Kargoya Verildi", date: "12 Ocak 2025, 16:45" },
+                    { title: "Teslim Edildi", date: "14 Ocak 2025, 11:20" }
+                ]
+            },
+            {
+                orderNo: "ELG-1002",
+                customer: "Zeynep Demir",
+                date: "18 Ocak 2025",
+                total: 25998,
+                status: 2, // Kargoya verildi
+                items: [
+                    { name: "Champagne Rose", size: "S", qty: 1, price: 16999 },
+                    { name: "Golden Hour", size: "M", qty: 1, price: 9999 }
+                ],
+                steps: [
+                    { title: "Siparis Alindi", date: "18 Ocak 2025, 10:00" },
+                    { title: "Hazirlaniyor", date: "19 Ocak 2025, 11:30" },
+                    { title: "Kargoya Verildi", date: "20 Ocak 2025, 14:00" },
+                    { title: "Teslim Edildi", date: "" }
+                ]
+            },
+            {
+                orderNo: "ELG-1003",
+                customer: "Elif Sahin",
+                date: "22 Ocak 2025",
+                total: 12999,
+                status: 1, // Hazirlaniyor
+                items: [
+                    { name: "Midnight Noir", size: "L", qty: 1, price: 12999 }
+                ],
+                steps: [
+                    { title: "Siparis Alindi", date: "22 Ocak 2025, 19:45" },
+                    { title: "Hazirlaniyor", date: "23 Ocak 2025, 08:00" },
+                    { title: "Kargoya Verildi", date: "" },
+                    { title: "Teslim Edildi", date: "" }
+                ]
+            },
+            {
+                orderNo: "ELG-1004",
+                customer: "Merve Yilmaz",
+                date: "25 Ocak 2025",
+                total: 18999,
+                status: 0, // Siparis Alindi
+                items: [
+                    { name: "Pearl Essence", size: "M", qty: 1, price: 18999 }
+                ],
+                steps: [
+                    { title: "Siparis Alindi", date: "25 Ocak 2025, 22:10" },
+                    { title: "Hazirlaniyor", date: "" },
+                    { title: "Kargoya Verildi", date: "" },
+                    { title: "Teslim Edildi", date: "" }
+                ]
+            }
+        ];
+
+        function getOrders() {
+            // Check admin_orders in localStorage first, then use defaults
+            const stored = JSON.parse(localStorage.getItem('admin_orders') || 'null');
+            if (stored && stored.length > 0) {
+                // Map admin orders to tracking format if needed
+                return stored.map(o => {
+                    if (o.steps) return o; // Already in tracking format
+                    // Convert admin order format
+                    const statusMap = { 'Yeni': 0, 'Hazirlaniyor': 1, 'Kargoda': 2, 'Teslim Edildi': 3 };
+                    const statusNum = statusMap[o.status] !== undefined ? statusMap[o.status] : 0;
+                    return {
+                        orderNo: o.orderNo || o.id,
+                        customer: o.customer || 'Musteri',
+                        date: o.date || '',
+                        total: o.total || 0,
+                        status: statusNum,
+                        items: o.items || [],
+                        steps: [
+                            { title: "Siparis Alindi", date: o.date || '' },
+                            { title: "Hazirlaniyor", date: statusNum >= 1 ? 'Isleniyor' : '' },
+                            { title: "Kargoya Verildi", date: statusNum >= 2 ? 'Yolda' : '' },
+                            { title: "Teslim Edildi", date: statusNum >= 3 ? 'Tamamlandi' : '' }
+                        ]
+                    };
+                });
+            }
+            return defaultOrders;
+        }
+
+        const trackBtn = document.getElementById('trackBtn');
+        const trackInput = document.getElementById('trackInput');
+        const trackResult = document.getElementById('trackResult');
+        const trackError = document.getElementById('trackError');
+        const trackOrderInfo = document.getElementById('trackOrderInfo');
+        const trackTimeline = document.getElementById('trackTimeline');
+
+        function searchOrder() {
+            const query = trackInput.value.trim().toUpperCase();
+            if (!query) return;
+
+            const orders = getOrders();
+            const order = orders.find(o => {
+                const oNo = (o.orderNo || '').toUpperCase();
+                return oNo === query || oNo === 'ELG-' + query.replace('ELG-', '');
+            });
+
+            if (!order) {
+                trackResult.classList.remove('visible');
+                trackError.style.display = 'block';
+                return;
+            }
+
+            trackError.style.display = 'none';
+            trackResult.classList.add('visible');
+
+            // Render order info
+            const statusLabels = ['Siparis Alindi', 'Hazirlaniyor', 'Kargoya Verildi', 'Teslim Edildi'];
+            trackOrderInfo.innerHTML = `
+                <div class="track-order-row">
+                    <span>Siparis No</span>
+                    <span>${order.orderNo}</span>
+                </div>
+                <div class="track-order-row">
+                    <span>Musteri</span>
+                    <span>${order.customer}</span>
+                </div>
+                <div class="track-order-row">
+                    <span>Siparis Tarihi</span>
+                    <span>${order.date}</span>
+                </div>
+                <div class="track-order-row">
+                    <span>Durum</span>
+                    <span style="color:var(--gold);font-weight:600;">${statusLabels[order.status] || 'Bilinmiyor'}</span>
+                </div>
+                <div class="track-order-row">
+                    <span>Toplam</span>
+                    <span style="color:var(--gold);font-weight:600;">${formatPrice(order.total)}</span>
+                </div>
+                ${order.items && order.items.length > 0 ? `
+                <div class="track-order-items">
+                    <h4>Siparis Icerigi</h4>
+                    ${order.items.map(item => `
+                        <div class="track-item">
+                            <div>
+                                <div class="track-item-name">${item.name}</div>
+                                <div class="track-item-detail">Beden: ${item.size || '-'} | Adet: ${item.qty || 1}</div>
+                            </div>
+                            <div class="track-item-price">${formatPrice(item.price)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+            `;
+
+            // Render timeline
+            trackTimeline.innerHTML = '';
+            if (order.steps) {
+                order.steps.forEach((step, i) => {
+                    let cls = 'track-step';
+                    if (i < order.status) cls += ' completed';
+                    else if (i === order.status) cls += ' active completed';
+                    else cls += ' future';
+
+                    const stepEl = document.createElement('div');
+                    stepEl.className = cls;
+                    stepEl.innerHTML = `
+                        <div class="track-step-dot"></div>
+                        <div class="track-step-title">${step.title}</div>
+                        <div class="track-step-date">${step.date || (i <= order.status ? 'Tamamlandi' : 'Bekleniyor')}</div>
+                    `;
+                    trackTimeline.appendChild(stepEl);
+                });
+            }
+        }
+
+        trackBtn.addEventListener('click', searchOrder);
+        trackInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') searchOrder();
+        });
+
+        // Auto-uppercase input
+        trackInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>

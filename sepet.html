@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Sepetiniz</title>
+    <meta name="description" content="Sepetinizi görüntüleyin ve siparişinizi tamamlayın. Güvenli ödeme, ücretsiz kargo ve kolay iade.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* Variable aliases for pages.css compatibility */
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #e8e0d5;
+            --text-body: #a09888;
+        }
+
+        /* Override cursor for form elements on this page */
+        body, a, button, input, select, textarea, label { cursor: auto; }
+
+        /* ========== CART EMPTY STATE ========== */
+        .cart-empty-state {
+            text-align: center;
+            padding: 100px 24px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .cart-empty-state svg {
+            color: var(--text-muted);
+            opacity: 0.3;
+            margin-bottom: 24px;
+        }
+        .cart-empty-state h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .cart-empty-state p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .cart-empty-state .btn-shop {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .cart-empty-state .btn-shop:hover { opacity: 0.85; }
+
+        /* ========== CHECKOUT LAYOUT ========== */
+        .checkout-container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+        .checkout-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+
+        /* ========== CHECKOUT FORM ========== */
+        .checkout-section { margin-bottom: 36px; }
+        .checkout-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkout-section h3 svg { color: var(--gold); flex-shrink: 0; }
+        .checkout-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .checkout-form .form-group { margin-bottom: 16px; }
+        .checkout-form label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .checkout-form input,
+        .checkout-form select,
+        .checkout-form textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .checkout-form input:focus,
+        .checkout-form select:focus,
+        .checkout-form textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .checkout-form input.error,
+        .checkout-form select.error,
+        .checkout-form textarea.error {
+            border-color: #e74c3c;
+        }
+        .field-error {
+            font-size: 0.65rem;
+            color: #e74c3c;
+            margin-top: 4px;
+            display: none;
+        }
+        .field-error.visible { display: block; }
+        .checkout-form textarea { resize: vertical; min-height: 80px; }
+
+        /* ========== PAYMENT OPTIONS ========== */
+        .payment-options { display: flex; flex-direction: column; gap: 10px; }
+        .payment-opt {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-opt:hover, .payment-opt.active { border-color: var(--gold); }
+        .payment-opt input[type="radio"] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+        .payment-opt-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: rgba(200,169,110,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .payment-opt-label { flex: 1; }
+        .payment-opt-label span { font-size: 0.85rem; color: var(--text-body); display: block; }
+        .payment-opt-label small { display: block; color: var(--text-muted); font-size: 0.7rem; margin-top: 2px; }
+
+        /* Credit card fields */
+        .cc-fields {
+            margin-top: 16px;
+            padding: 20px;
+            background: rgba(200,169,110,0.03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: none;
+        }
+        .cc-fields.visible { display: block; }
+        .cc-fields .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+        /* ========== GIFT CARD ========== */
+        .gift-card-row {
+            display: flex;
+            gap: 10px;
+        }
+        .gift-card-row input { flex: 1; }
+        .gift-card-row button {
+            padding: 12px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .gift-card-row button:hover { background: var(--gold); color: var(--bg-dark); }
+        .gift-card-msg {
+            font-size: 0.7rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .gift-card-msg.visible { display: block; }
+        .gift-card-msg.success { color: #27ae60; }
+        .gift-card-msg.error { color: #e74c3c; }
+
+        /* ========== ORDER SUMMARY SIDEBAR ========== */
+        .order-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px;
+            position: sticky;
+            top: 100px;
+        }
+        .order-summary h3 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        /* Summary items */
+        .summary-items { max-height: 380px; overflow-y: auto; margin-bottom: 16px; }
+        .summary-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-item-img {
+            width: 60px;
+            height: 78px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .summary-item-img img { width: 100%; height: 100%; object-fit: cover; }
+        .summary-item-info { flex: 1; min-width: 0; }
+        .summary-item-name {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .summary-item-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; }
+
+        /* Quantity controls */
+        .summary-qty-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .summary-qty {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+        .summary-qty button {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--text-body);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .summary-qty button:hover { color: var(--gold); }
+        .summary-qty span {
+            width: 28px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .summary-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 2px 4px;
+        }
+        .summary-item-remove:hover { color: #e74c3c; }
+
+        .summary-item-price {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+            text-align: right;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Coupon area in summary */
+        .summary-coupon {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .summary-coupon input {
+            flex: 1;
+            padding: 10px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: inherit;
+        }
+        .summary-coupon input:focus { border-color: var(--gold); outline: none; }
+        .summary-coupon button {
+            padding: 10px 16px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        .summary-coupon button:hover { opacity: 0.85; }
+        .coupon-msg {
+            font-size: 0.7rem;
+            margin-top: -8px;
+            margin-bottom: 8px;
+            display: none;
+        }
+        .coupon-msg.visible { display: block; }
+        .coupon-msg.success { color: #27ae60; }
+        .coupon-msg.error { color: #e74c3c; }
+
+        /* Summary rows */
+        .summary-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+        .summary-row.discount { color: #27ae60; }
+        .summary-row.total {
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+            padding-top: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        .summary-row .free-shipping {
+            color: #27ae60;
+            font-weight: 500;
+        }
+
+        /* Submit button */
+        .btn-checkout-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-checkout-submit:hover { opacity: 0.85; }
+        .btn-checkout-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .security-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 12px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        .security-badges span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ========== ORDER SUCCESS OVERLAY ========== */
+        .order-success-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        .order-success-overlay.visible { opacity: 1; visibility: visible; }
+        .order-success-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .order-success-overlay.visible .order-success-box { transform: translateY(0); }
+        .order-success-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--gold);
+        }
+        .order-success-box h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .order-success-box p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .order-number {
+            display: inline-block;
+            background: rgba(200,169,110,0.08);
+            border: 1px solid rgba(200,169,110,0.2);
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin: 16px 0 24px;
+        }
+        .order-success-box .btn-shop {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .order-success-box .btn-shop:hover { opacity: 0.85; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .checkout-grid { grid-template-columns: 1fr; }
+            .order-summary { position: static; }
+        }
+        @media (max-width: 768px) {
+            .checkout-form .form-row { grid-template-columns: 1fr; }
+            .cc-fields .form-row-3 { grid-template-columns: 1fr; }
+            .page-header { padding: 120px 0 40px; }
+        }
+        @media (max-width: 480px) {
+            .checkout-container { padding: 24px 16px 60px; }
+            .order-summary { padding: 20px; }
+            .summary-coupon { flex-direction: column; }
+            .gift-card-row { flex-direction: column; }
+            .order-success-box { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet" style="color: var(--gold);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Sepet</span>
+            <h1>Sepetiniz</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a>
+                <span>/</span>
+                Sepetiniz
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CART CONTENT ========== -->
+    <div id="cartPageContent">
+        <!-- Dynamically rendered by JS -->
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                    <a href="index.html#iletisim">Iletisim</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="#">Iade & Degisim</a>
+                    <a href="#">Beden Rehberi</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== ORDER SUCCESS OVERLAY ========== -->
+    <div class="order-success-overlay" id="orderSuccessOverlay">
+        <div class="order-success-box">
+            <div class="order-success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <h2>Siparisiniz Alindi!</h2>
+            <p>Siparisiniz basariyla olusturuldu. Onay e-postasi kisa surede gonderilecektir.</p>
+            <div class="order-number" id="orderNumber">ELG-0000</div>
+            <p>Siparis durumunuzu bu numara ile takip edebilirsiniz.</p>
+            <a href="index.html" class="btn-shop">
+                <span>Alisverise Devam Et</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        // ==========================================
+        //  VALID COUPONS
+        // ==========================================
+        const validCoupons = {
+            'ELEGANCE20': { discount: 20, label: '%20 indirim' },
+            'HOSGELDIN15': { discount: 15, label: '%15 indirim' },
+            'SEZON10': { discount: 10, label: '%10 indirim' }
+        };
+
+        // ==========================================
+        //  STATE
+        // ==========================================
+        let appliedCoupon = null;
+        let appliedGiftCard = null;
+        let giftCardDiscount = 0;
+
+        const SHIPPING_THRESHOLD = 2000;
+        const SHIPPING_COST = 49.99;
+
+        // ==========================================
+        //  INIT
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPage();
+            updateCartBadge();
+            updateWishlistBadge();
+            initNavbar();
+            initLanguageToggle();
+        });
+
+        // ==========================================
+        //  RENDER PAGE
+        // ==========================================
+        function renderPage() {
+            const container = document.getElementById('cartPageContent');
+            if (cart.length === 0) {
+                container.innerHTML = renderEmptyState();
+            } else {
+                container.innerHTML = renderCheckout();
+                bindCheckoutEvents();
+                updateSummary();
+            }
+        }
+
+        // ==========================================
+        //  EMPTY STATE
+        // ==========================================
+        function renderEmptyState() {
+            return `
+                <div class="cart-empty-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <h2>Sepetiniz Bos</h2>
+                    <p>Henuz sepetinize urun eklemediniz. Koleksiyonumuzu kesfederek size en uygun abiyeyi bulun.</p>
+                    <a href="index.html" class="btn-shop">
+                        <span>Alisverise Basla</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        //  CHECKOUT LAYOUT
+        // ==========================================
+        function renderCheckout() {
+            return `
+                <div class="checkout-container">
+                    <div class="checkout-grid">
+                        <!-- LEFT: Form -->
+                        <div class="checkout-form-col">
+                            <form id="checkoutForm" class="checkout-form" novalidate>
+
+                                <!-- Teslimat Bilgileri -->
+                                <div class="checkout-section">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                            <circle cx="12" cy="10" r="3"/>
+                                        </svg>
+                                        Teslimat Bilgileri
+                                    </h3>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="fullName">Ad Soyad *</label>
+                                            <input type="text" id="fullName" name="fullName" placeholder="Adiniz Soyadiniz" required>
+                                            <div class="field-error" id="fullNameError">Lutfen ad soyad giriniz</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">E-posta *</label>
+                                            <input type="email" id="email" name="email" placeholder="ornek@email.com" required>
+                                            <div class="field-error" id="emailError">Gecerli bir e-posta adresi giriniz</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="phone">Telefon *</label>
+                                            <input type="tel" id="phone" name="phone" placeholder="0(5XX) XXX XX XX" required>
+                                            <div class="field-error" id="phoneError">Gecerli bir telefon numarasi giriniz</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="postalCode">Posta Kodu</label>
+                                            <input type="text" id="postalCode" name="postalCode" placeholder="34000">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Adres *</label>
+                                        <input type="text" id="address" name="address" placeholder="Mahalle, sokak, bina no, daire no" required>
+                                        <div class="field-error" id="addressError">Lutfen adres giriniz</div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="city">Il *</label>
+                                            <input type="text" id="city" name="city" placeholder="Istanbul" required>
+                                            <div class="field-error" id="cityError">Lutfen il giriniz</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="district">Ilce *</label>
+                                            <input type="text" id="district" name="district" placeholder="Kadikoy" required>
+                                            <div class="field-error" id="districtError">Lutfen ilce giriniz</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Odeme Yontemi -->
+                                <div class="checkout-section">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                            <line x1="1" y1="10" x2="23" y2="10"/>
+                                        </svg>
+                                        Odeme Yontemi
+                                    </h3>
+                                    <div class="payment-options">
+                                        <label class="payment-opt active" data-method="credit-card">
+                                            <input type="radio" name="paymentMethod" value="credit-card" checked>
+                                            <div class="payment-opt-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                                    <line x1="1" y1="10" x2="23" y2="10"/>
+                                                </svg>
+                                            </div>
+                                            <div class="payment-opt-label">
+                                                <span>Kredi Karti</span>
+                                                <small>Visa, Mastercard, Troy - 6 aya kadar taksit</small>
+                                            </div>
+                                        </label>
+                                        <label class="payment-opt" data-method="bank-transfer">
+                                            <input type="radio" name="paymentMethod" value="bank-transfer">
+                                            <div class="payment-opt-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                                </svg>
+                                            </div>
+                                            <div class="payment-opt-label">
+                                                <span>Havale / EFT</span>
+                                                <small>Banka havale veya EFT ile odeme</small>
+                                            </div>
+                                        </label>
+                                        <label class="payment-opt" data-method="cash-on-delivery">
+                                            <input type="radio" name="paymentMethod" value="cash-on-delivery">
+                                            <div class="payment-opt-icon">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <rect x="1" y="3" width="15" height="13"/>
+                                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                                                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                                                </svg>
+                                            </div>
+                                            <div class="payment-opt-label">
+                                                <span>Kapida Odeme</span>
+                                                <small>Kapida nakit veya kart ile odeme (+14.99 TL)</small>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <!-- Credit Card Fields -->
+                                    <div class="cc-fields visible" id="ccFields">
+                                        <div class="form-group">
+                                            <label for="cardNumber">Kart Numarasi *</label>
+                                            <input type="text" id="cardNumber" name="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+                                            <div class="field-error" id="cardNumberError">Gecerli bir kart numarasi giriniz</div>
+                                        </div>
+                                        <div class="form-row-3">
+                                            <div class="form-group">
+                                                <label for="cardExpiry">Son Kullanma *</label>
+                                                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="AA/YY" maxlength="5">
+                                                <div class="field-error" id="cardExpiryError">Gecersiz tarih</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cardCVV">CVV *</label>
+                                                <input type="text" id="cardCVV" name="cardCVV" placeholder="123" maxlength="4">
+                                                <div class="field-error" id="cardCVVError">Gecersiz CVV</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cardName">Kart Uzerindeki Isim</label>
+                                                <input type="text" id="cardName" name="cardName" placeholder="AD SOYAD">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hediye Karti -->
+                                <div class="checkout-section">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <polyline points="20 12 20 22 4 22 4 12"/>
+                                            <rect x="2" y="7" width="20" height="5"/>
+                                            <line x1="12" y1="22" x2="12" y2="7"/>
+                                            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+                                            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+                                        </svg>
+                                        Hediye Karti
+                                    </h3>
+                                    <div class="gift-card-row">
+                                        <input type="text" id="giftCardCode" placeholder="Hediye karti kodunuz">
+                                        <button type="button" id="giftCardApply">Uygula</button>
+                                    </div>
+                                    <div class="gift-card-msg" id="giftCardMsg"></div>
+                                </div>
+
+                                <!-- Siparis Notu -->
+                                <div class="checkout-section">
+                                    <h3>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                        </svg>
+                                        Siparis Notu
+                                    </h3>
+                                    <div class="form-group">
+                                        <textarea id="orderNote" name="orderNote" placeholder="Siparisleriniz ile ilgili eklemek istediginiz notlariniz (opsiyonel)" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <!-- RIGHT: Order Summary -->
+                        <div class="checkout-summary-col">
+                            <div class="order-summary" id="orderSummary">
+                                <h3>Siparis Ozeti</h3>
+                                <div class="summary-items" id="summaryItems">
+                                    <!-- JS renders items -->
+                                </div>
+                                <hr class="summary-divider">
+                                <div class="summary-coupon">
+                                    <input type="text" id="couponCode" placeholder="Kupon kodunuz">
+                                    <button type="button" id="couponApplyBtn">Uygula</button>
+                                </div>
+                                <div class="coupon-msg" id="couponMsgBox"></div>
+                                <hr class="summary-divider">
+                                <div class="summary-row" id="subtotalRow">
+                                    <span>Ara Toplam</span>
+                                    <span id="subtotalVal">0</span>
+                                </div>
+                                <div class="summary-row" id="shippingRow">
+                                    <span>Kargo</span>
+                                    <span id="shippingVal">Hesaplaniyor</span>
+                                </div>
+                                <div class="summary-row discount" id="couponRow" style="display:none;">
+                                    <span id="couponLabel">Kupon Indirimi</span>
+                                    <span id="couponVal">-0</span>
+                                </div>
+                                <div class="summary-row discount" id="giftCardRow" style="display:none;">
+                                    <span>Hediye Karti</span>
+                                    <span id="giftCardVal">-0</span>
+                                </div>
+                                <div class="summary-row total">
+                                    <span>Toplam</span>
+                                    <span id="totalVal">0</span>
+                                </div>
+                                <button type="button" class="btn-checkout-submit" id="submitOrder">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    <span>Siparisi Tamamla</span>
+                                </button>
+                                <div class="security-note">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Guvenli odeme ile korunmaktasiniz
+                                </div>
+                                <div class="security-badges">
+                                    <span>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                                        256-bit SSL
+                                    </span>
+                                    <span>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                        3D Secure
+                                    </span>
+                                    <span>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                        14 Gun Iade
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        //  RENDER SUMMARY ITEMS
+        // ==========================================
+        function renderSummaryItems() {
+            const container = document.getElementById('summaryItems');
+            if (!container) return;
+
+            container.innerHTML = cart.map(function(item, idx) {
+                return `
+                    <div class="summary-item" data-index="${idx}">
+                        <div class="summary-item-img">
+                            <img src="${item.image}" alt="${item.name}" loading="lazy">
+                        </div>
+                        <div class="summary-item-info">
+                            <div class="summary-item-name">${item.name}</div>
+                            <div class="summary-item-meta">Beden: ${item.size}</div>
+                            <div class="summary-qty-row">
+                                <div class="summary-qty">
+                                    <button type="button" class="qty-minus" data-index="${idx}">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button type="button" class="qty-plus" data-index="${idx}">+</button>
+                                </div>
+                                <button type="button" class="summary-item-remove" data-index="${idx}">Kaldir</button>
+                            </div>
+                        </div>
+                        <div class="summary-item-price">${formatPrice(item.price * item.quantity)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        //  CALCULATE & UPDATE SUMMARY
+        // ==========================================
+        function getSubtotal() {
+            return cart.reduce(function(sum, item) { return sum + (item.price * item.quantity); }, 0);
+        }
+
+        function updateSummary() {
+            renderSummaryItems();
+
+            var subtotal = getSubtotal();
+            var shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+            var couponDiscount = 0;
+
+            if (appliedCoupon) {
+                couponDiscount = Math.round(subtotal * (appliedCoupon.discount / 100));
+            }
+
+            var total = subtotal - couponDiscount - giftCardDiscount + shipping;
+            if (total < 0) total = 0;
+
+            var subtotalEl = document.getElementById('subtotalVal');
+            var shippingEl = document.getElementById('shippingVal');
+            var totalEl = document.getElementById('totalVal');
+            var couponRow = document.getElementById('couponRow');
+            var couponVal = document.getElementById('couponVal');
+            var couponLabel = document.getElementById('couponLabel');
+            var giftCardRowEl = document.getElementById('giftCardRow');
+            var giftCardValEl = document.getElementById('giftCardVal');
+
+            if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+            if (shippingEl) {
+                if (shipping === 0) {
+                    shippingEl.innerHTML = '<span class="free-shipping">Ucretsiz</span>';
+                } else {
+                    shippingEl.textContent = formatPrice(shipping);
+                }
+            }
+            if (totalEl) totalEl.textContent = formatPrice(total);
+
+            if (couponRow) {
+                if (appliedCoupon && couponDiscount > 0) {
+                    couponRow.style.display = 'flex';
+                    couponVal.textContent = '-' + formatPrice(couponDiscount);
+                    couponLabel.textContent = 'Kupon (' + appliedCoupon.label + ')';
+                } else {
+                    couponRow.style.display = 'none';
+                }
+            }
+
+            if (giftCardRowEl) {
+                if (giftCardDiscount > 0) {
+                    giftCardRowEl.style.display = 'flex';
+                    giftCardValEl.textContent = '-' + formatPrice(giftCardDiscount);
+                } else {
+                    giftCardRowEl.style.display = 'none';
+                }
+            }
+        }
+
+        // ==========================================
+        //  BIND CHECKOUT EVENTS
+        // ==========================================
+        function bindCheckoutEvents() {
+            // Quantity buttons & remove
+            document.getElementById('cartPageContent').addEventListener('click', function(e) {
+                var btn = e.target.closest('.qty-minus, .qty-plus, .summary-item-remove');
+                if (!btn) return;
+
+                var idx = parseInt(btn.dataset.index);
+
+                if (btn.classList.contains('qty-minus')) {
+                    if (cart[idx].quantity > 1) {
+                        cart[idx].quantity--;
+                    } else {
+                        cart.splice(idx, 1);
+                    }
+                } else if (btn.classList.contains('qty-plus')) {
+                    cart[idx].quantity++;
+                } else if (btn.classList.contains('summary-item-remove')) {
+                    cart.splice(idx, 1);
+                }
+
+                saveCart();
+                updateCartBadge();
+
+                if (cart.length === 0) {
+                    renderPage();
+                } else {
+                    updateSummary();
+                }
+            });
+
+            // Payment method toggle
+            var paymentOpts = document.querySelectorAll('.payment-opt');
+            paymentOpts.forEach(function(opt) {
+                opt.addEventListener('click', function() {
+                    paymentOpts.forEach(function(o) { o.classList.remove('active'); });
+                    opt.classList.add('active');
+                    var method = opt.dataset.method;
+                    var ccFields = document.getElementById('ccFields');
+                    if (ccFields) {
+                        if (method === 'credit-card') {
+                            ccFields.classList.add('visible');
+                        } else {
+                            ccFields.classList.remove('visible');
+                        }
+                    }
+                });
+            });
+
+            // Card number formatting
+            var cardInput = document.getElementById('cardNumber');
+            if (cardInput) {
+                cardInput.addEventListener('input', function(e) {
+                    var val = e.target.value.replace(/\D/g, '').substring(0, 16);
+                    var formatted = val.replace(/(.{4})/g, '$1 ').trim();
+                    e.target.value = formatted;
+                });
+            }
+
+            // Card expiry formatting
+            var expiryInput = document.getElementById('cardExpiry');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    var val = e.target.value.replace(/\D/g, '').substring(0, 4);
+                    if (val.length >= 3) {
+                        val = val.substring(0, 2) + '/' + val.substring(2);
+                    }
+                    e.target.value = val;
+                });
+            }
+
+            // CVV restrict to digits
+            var cvvInput = document.getElementById('cardCVV');
+            if (cvvInput) {
+                cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+                });
+            }
+
+            // Coupon apply
+            var couponBtn = document.getElementById('couponApplyBtn');
+            if (couponBtn) {
+                couponBtn.addEventListener('click', applyCoupon);
+            }
+            var couponInput = document.getElementById('couponCode');
+            if (couponInput) {
+                couponInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); }
+                });
+            }
+
+            // Gift card apply
+            var giftBtn = document.getElementById('giftCardApply');
+            if (giftBtn) {
+                giftBtn.addEventListener('click', applyGiftCard);
+            }
+
+            // Submit order
+            var submitBtn = document.getElementById('submitOrder');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', submitOrder);
+            }
+
+            // Clear error on input
+            document.querySelectorAll('.checkout-form input, .checkout-form textarea, .checkout-form select').forEach(function(el) {
+                el.addEventListener('input', function() {
+                    el.classList.remove('error');
+                    var errEl = document.getElementById(el.id + 'Error');
+                    if (errEl) errEl.classList.remove('visible');
+                });
+            });
+        }
+
+        // ==========================================
+        //  COUPON
+        // ==========================================
+        function applyCoupon() {
+            var input = document.getElementById('couponCode');
+            var msgBox = document.getElementById('couponMsgBox');
+            if (!input || !msgBox) return;
+
+            var code = input.value.trim().toUpperCase();
+            msgBox.className = 'coupon-msg';
+
+            if (!code) {
+                msgBox.textContent = 'Lutfen bir kupon kodu giriniz.';
+                msgBox.classList.add('visible', 'error');
+                return;
+            }
+
+            if (validCoupons[code]) {
+                appliedCoupon = validCoupons[code];
+                msgBox.textContent = '"' + code + '" kuponu uygulandi! ' + appliedCoupon.label + ' kazandiniz.';
+                msgBox.classList.add('visible', 'success');
+                input.disabled = true;
+                document.getElementById('couponApplyBtn').disabled = true;
+                updateSummary();
+                showToast('Kupon kodu uygulandi');
+            } else {
+                appliedCoupon = null;
+                msgBox.textContent = 'Gecersiz kupon kodu. Lutfen kontrol ediniz.';
+                msgBox.classList.add('visible', 'error');
+                updateSummary();
+            }
+        }
+
+        // ==========================================
+        //  GIFT CARD
+        // ==========================================
+        function applyGiftCard() {
+            var input = document.getElementById('giftCardCode');
+            var msgEl = document.getElementById('giftCardMsg');
+            if (!input || !msgEl) return;
+
+            var code = input.value.trim().toUpperCase();
+            msgEl.className = 'gift-card-msg';
+
+            if (!code) {
+                msgEl.textContent = 'Lutfen hediye karti kodunu giriniz.';
+                msgEl.classList.add('visible', 'error');
+                return;
+            }
+
+            var card = validateGiftCard(code);
+            if (card) {
+                appliedGiftCard = card;
+                var subtotal = getSubtotal();
+                giftCardDiscount = Math.min(card.balance, subtotal);
+                msgEl.textContent = 'Hediye karti uygulandi! Bakiye: ' + formatPrice(card.balance);
+                msgEl.classList.add('visible', 'success');
+                input.disabled = true;
+                document.getElementById('giftCardApply').disabled = true;
+                updateSummary();
+                showToast('Hediye karti uygulandi');
+            } else {
+                giftCardDiscount = 0;
+                appliedGiftCard = null;
+                msgEl.textContent = 'Gecersiz veya bakiyesi bitimis hediye karti.';
+                msgEl.classList.add('visible', 'error');
+                updateSummary();
+            }
+        }
+
+        // ==========================================
+        //  FORM VALIDATION
+        // ==========================================
+        function showFieldError(id, msg) {
+            var input = document.getElementById(id);
+            var errEl = document.getElementById(id + 'Error');
+            if (input) input.classList.add('error');
+            if (errEl) {
+                if (msg) errEl.textContent = msg;
+                errEl.classList.add('visible');
+            }
+        }
+
+        function clearFieldError(id) {
+            var input = document.getElementById(id);
+            var errEl = document.getElementById(id + 'Error');
+            if (input) input.classList.remove('error');
+            if (errEl) errEl.classList.remove('visible');
+        }
+
+        function validateForm() {
+            var valid = true;
+
+            // Full name
+            var name = document.getElementById('fullName').value.trim();
+            if (name.length < 3) { showFieldError('fullName', 'Lutfen gecerli bir ad soyad giriniz'); valid = false; }
+            else { clearFieldError('fullName'); }
+
+            // Email
+            var email = document.getElementById('email').value.trim();
+            var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRe.test(email)) { showFieldError('email', 'Gecerli bir e-posta adresi giriniz'); valid = false; }
+            else { clearFieldError('email'); }
+
+            // Phone
+            var phone = document.getElementById('phone').value.trim().replace(/\D/g, '');
+            if (phone.length < 10) { showFieldError('phone', 'Gecerli bir telefon numarasi giriniz'); valid = false; }
+            else { clearFieldError('phone'); }
+
+            // Address
+            var address = document.getElementById('address').value.trim();
+            if (address.length < 5) { showFieldError('address', 'Lutfen gecerli bir adres giriniz'); valid = false; }
+            else { clearFieldError('address'); }
+
+            // City
+            var city = document.getElementById('city').value.trim();
+            if (city.length < 2) { showFieldError('city', 'Lutfen il giriniz'); valid = false; }
+            else { clearFieldError('city'); }
+
+            // District
+            var district = document.getElementById('district').value.trim();
+            if (district.length < 2) { showFieldError('district', 'Lutfen ilce giriniz'); valid = false; }
+            else { clearFieldError('district'); }
+
+            // Credit card fields (only if credit card selected)
+            var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            if (paymentMethod && paymentMethod.value === 'credit-card') {
+                var cardNum = document.getElementById('cardNumber').value.replace(/\s/g, '');
+                if (cardNum.length < 15) { showFieldError('cardNumber', 'Gecerli bir kart numarasi giriniz'); valid = false; }
+                else { clearFieldError('cardNumber'); }
+
+                var expiry = document.getElementById('cardExpiry').value;
+                var expiryParts = expiry.split('/');
+                if (expiryParts.length !== 2 || parseInt(expiryParts[0]) < 1 || parseInt(expiryParts[0]) > 12) {
+                    showFieldError('cardExpiry', 'Gecersiz tarih (AA/YY)'); valid = false;
+                } else { clearFieldError('cardExpiry'); }
+
+                var cvv = document.getElementById('cardCVV').value;
+                if (cvv.length < 3) { showFieldError('cardCVV', 'Gecersiz CVV'); valid = false; }
+                else { clearFieldError('cardCVV'); }
+            }
+
+            return valid;
+        }
+
+        // ==========================================
+        //  SUBMIT ORDER
+        // ==========================================
+        function submitOrder() {
+            if (!validateForm()) {
+                showToast('Lutfen tum alanlari doldurunuz');
+                // Scroll to first error
+                var firstError = document.querySelector('.checkout-form input.error, .checkout-form textarea.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+                return;
+            }
+
+            // Generate order number
+            var orderNum = 'ELG-' + (1000 + Math.floor(Math.random() * 9000));
+
+            // Calculate totals
+            var subtotal = getSubtotal();
+            var shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+            var couponDiscount = appliedCoupon ? Math.round(subtotal * (appliedCoupon.discount / 100)) : 0;
+            var total = subtotal - couponDiscount - giftCardDiscount + shipping;
+            if (total < 0) total = 0;
+
+            // Build order object
+            var order = {
+                orderNumber: orderNum,
+                date: new Date().toISOString(),
+                status: 'confirmed',
+                customer: {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    address: document.getElementById('address').value.trim(),
+                    city: document.getElementById('city').value.trim(),
+                    district: document.getElementById('district').value.trim(),
+                    postalCode: document.getElementById('postalCode').value.trim()
+                },
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+                items: cart.map(function(item) {
+                    return {
+                        productId: item.productId,
+                        name: item.name,
+                        size: item.size,
+                        quantity: item.quantity,
+                        price: item.price,
+                        image: item.image
+                    };
+                }),
+                subtotal: subtotal,
+                shipping: shipping,
+                couponCode: appliedCoupon ? document.getElementById('couponCode').value.trim().toUpperCase() : null,
+                couponDiscount: couponDiscount,
+                giftCardDiscount: giftCardDiscount,
+                total: total,
+                note: document.getElementById('orderNote').value.trim()
+            };
+
+            // Save order to localStorage
+            var orders = JSON.parse(localStorage.getItem('elegance_orders') || '[]');
+            orders.unshift(order);
+            localStorage.setItem('elegance_orders', JSON.stringify(orders));
+
+            // Deduct gift card balance if used
+            if (appliedGiftCard && giftCardDiscount > 0) {
+                var cards = getGiftCards();
+                var cardIdx = cards.findIndex(function(c) { return c.code === appliedGiftCard.code; });
+                if (cardIdx >= 0) {
+                    cards[cardIdx].balance -= giftCardDiscount;
+                    if (cards[cardIdx].balance < 0) cards[cardIdx].balance = 0;
+                    localStorage.setItem('elegance_giftcards', JSON.stringify(cards));
+                }
+            }
+
+            // Clear cart
+            cart = [];
+            saveCart();
+            updateCartBadge();
+
+            // Show success
+            document.getElementById('orderNumber').textContent = orderNum;
+            document.getElementById('orderSuccessOverlay').classList.add('visible');
+        }
+
+        // ==========================================
+        //  NAVBAR
+        // ==========================================
+        function initNavbar() {
+            // Scroll effect
+            window.addEventListener('scroll', function() {
+                var navbar = document.getElementById('navbar');
+                if (navbar) {
+                    navbar.classList.toggle('scrolled', window.scrollY > 40);
+                }
+            });
+            // Trigger once
+            if (window.scrollY > 40) {
+                document.getElementById('navbar').classList.add('scrolled');
+            }
+
+            // Hamburger
+            var hamburger = document.getElementById('hamburgerBtn');
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    mobileMenu.classList.toggle('open');
+                });
+                // Close on link click
+                mobileMenu.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        mobileMenu.classList.remove('open');
+                    });
+                });
+            }
+        }
+
+        // ==========================================
+        //  LANGUAGE TOGGLE
+        // ==========================================
+        function initLanguageToggle() {
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+                btn.addEventListener('click', function() {
+                    currentLang = btn.dataset.lang;
+                    localStorage.setItem('elegance_lang', currentLang);
+                    document.querySelectorAll('.lang-btn').forEach(function(b) {
+                        b.classList.toggle('active', b.dataset.lang === currentLang);
+                    });
+                });
+            });
+        }
+
+    })();
+    </script>
+</body>
+</html>

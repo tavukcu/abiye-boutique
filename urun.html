@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Urun Detay</title>
+    <meta name="description" content="ELEGANCE premium abiye detay sayfasi.">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta property="og:type" content="product">
+    <meta property="og:locale" content="tr_TR">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="nav-action-btn" id="searchToggle" aria-label="Arama">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag" data-i18n="productDetail">Urun Detay</span>
+            <h1 id="pageTitle"><em>Yukleniyor...</em></h1>
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="index.html" data-i18n="home">Ana Sayfa</a>
+                <span>›</span>
+                <a href="index.html#koleksiyon" data-i18n="collection">Koleksiyon</a>
+                <span>›</span>
+                <span id="breadcrumbProduct">...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCT DETAIL ========== -->
+    <div class="pd-container">
+        <div class="pd-grid">
+            <!-- LEFT: Gallery -->
+            <div class="pd-gallery">
+                <div class="pd-main-image" id="mainImage">
+                    <img id="mainImg" src="" alt="">
+                    <span class="pd-zoom-hint" data-i18n="zoomHint">Yakinlastirmak icin tiklayin</span>
+                </div>
+                <div class="pd-thumbs" id="thumbs"></div>
+                <div class="pd-share" id="shareButtons">
+                    <button class="pd-share-btn" id="shareTwitter" title="Twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </button>
+                    <button class="pd-share-btn" id="shareFacebook" title="Facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    </button>
+                    <button class="pd-share-btn" id="sharePinterest" title="Pinterest">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                    </button>
+                    <button class="pd-share-btn" id="shareWhatsApp" title="WhatsApp">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: Product Info -->
+            <div class="pd-info">
+                <span class="pd-badge" id="pdBadge" style="display:none;"></span>
+                <div class="pd-category" id="pdCategory"></div>
+                <h2 class="pd-name" id="pdName"></h2>
+                <div class="pd-price-row" id="pdPriceRow">
+                    <span class="pd-price" id="pdPrice"></span>
+                    <span class="pd-old-price" id="pdOldPrice" style="display:none;"></span>
+                    <span class="pd-discount-tag" id="pdDiscount" style="display:none;"></span>
+                </div>
+                <p class="pd-desc" id="pdDesc"></p>
+
+                <!-- Color Options -->
+                <div class="pd-option">
+                    <div class="pd-option-label" data-i18n="colorLabel">RENK</div>
+                    <div class="pd-colors" id="pdColors"></div>
+                </div>
+
+                <!-- Size Options -->
+                <div class="pd-option">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span class="pd-option-label" style="margin-bottom:0;" data-i18n="sizeLabel">BEDEN</span>
+                        <button class="size-guide-link" id="sizeAdviceBtn" data-i18n="sizeAdvice">Beden Tavsiyesi</button>
+                    </div>
+                    <div class="pd-sizes" id="pdSizes"></div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="pd-qty-row">
+                    <span class="pd-option-label" data-i18n="qtyLabel">ADET</span>
+                    <div class="pd-qty">
+                        <button id="qtyMinus">-</button>
+                        <span id="qtyValue">1</span>
+                        <button id="qtyPlus">+</button>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="pd-actions">
+                    <button class="pd-btn-cart" id="addToCartBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                        </svg>
+                        <span data-i18n="addToCart">Sepete Ekle</span>
+                    </button>
+                    <button class="pd-btn-wish" id="addToWishBtn" title="Favorilere Ekle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                    <button class="pd-btn-compare" id="addToCompareBtn" title="Karsilastir">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Meta Info -->
+                <div class="pd-meta" id="pdMeta">
+                    <div class="pd-meta-item">
+                        <strong data-i18n="fabricLabel">Kumas</strong>
+                        <span id="metaFabric"></span>
+                    </div>
+                    <div class="pd-meta-item">
+                        <strong data-i18n="liningLabel">Astar</strong>
+                        <span id="metaLining"></span>
+                    </div>
+                    <div class="pd-meta-item">
+                        <strong data-i18n="careLabel">Bakim</strong>
+                        <span id="metaCare"></span>
+                    </div>
+                    <div class="pd-meta-item">
+                        <strong data-i18n="skuLabel">Urun Kodu</strong>
+                        <span id="metaSku"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== TABS ========== -->
+        <div class="pd-tabs">
+            <div class="pd-tab-nav" id="tabNav">
+                <button class="pd-tab-btn active" data-tab="desc" data-i18n="tabDesc">Aciklama</button>
+                <button class="pd-tab-btn" data-tab="reviews" data-i18n="tabReviews">Yorumlar</button>
+                <button class="pd-tab-btn" data-tab="sizeGuide" data-i18n="tabSizeGuide">Beden Rehberi</button>
+                <button class="pd-tab-btn" data-tab="sizeRec" data-i18n="tabSizeRec">Beden Tavsiyesi</button>
+            </div>
+
+            <!-- Tab: Description -->
+            <div class="pd-tab-panel active" id="tabDesc">
+                <div id="tabDescContent" style="color:var(--text-secondary); line-height:1.9; font-size:0.9rem;"></div>
+            </div>
+
+            <!-- Tab: Reviews -->
+            <div class="pd-tab-panel" id="tabReviews">
+                <div class="review-summary" id="reviewSummary">
+                    <div class="review-avg">
+                        <div class="review-avg-num" id="reviewAvgNum">0</div>
+                        <div class="review-avg-stars" id="reviewAvgStars"></div>
+                        <div class="review-avg-count" id="reviewAvgCount">0 yorum</div>
+                    </div>
+                    <div class="review-bars" id="reviewBars"></div>
+                </div>
+
+                <div class="review-form" id="reviewForm">
+                    <h4 data-i18n="writeReview">Yorum Yazin</h4>
+                    <input type="text" id="reviewName" placeholder="Adiniz" style="margin-bottom:12px;">
+                    <div class="review-stars-input" id="reviewStarsInput">
+                        <button data-star="1">&#9733;</button>
+                        <button data-star="2">&#9733;</button>
+                        <button data-star="3">&#9733;</button>
+                        <button data-star="4">&#9733;</button>
+                        <button data-star="5">&#9733;</button>
+                    </div>
+                    <textarea id="reviewText" placeholder="Yorumunuz..."></textarea>
+                    <button class="pd-btn-cart" id="submitReviewBtn" style="width:auto; padding:12px 28px;">
+                        <span data-i18n="submitReview">Yorum Gonder</span>
+                    </button>
+                </div>
+
+                <div class="review-list" id="reviewList"></div>
+            </div>
+
+            <!-- Tab: Size Guide -->
+            <div class="pd-tab-panel" id="tabSizeGuide">
+                <p style="color:var(--text-secondary); margin-bottom:24px; font-size:0.85rem;" data-i18n="sizeGuideDesc">Olculerinizi alarak asagidaki tablodan bedeninizi belirleyebilirsiniz.</p>
+                <table class="size-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="thSize">Beden</th>
+                            <th data-i18n="thBust">Gogus (cm)</th>
+                            <th data-i18n="thWaist">Bel (cm)</th>
+                            <th data-i18n="thHip">Kalca (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>XS</td><td>80-84</td><td>60-64</td><td>86-90</td></tr>
+                        <tr><td>S</td><td>84-88</td><td>64-68</td><td>90-94</td></tr>
+                        <tr><td>M</td><td>88-92</td><td>68-72</td><td>94-98</td></tr>
+                        <tr><td>L</td><td>92-96</td><td>72-76</td><td>98-102</td></tr>
+                        <tr><td>XL</td><td>96-100</td><td>76-80</td><td>102-106</td></tr>
+                    </tbody>
+                </table>
+                <p style="color:var(--text-muted); font-size:0.75rem; font-style:italic; margin-top:16px;" data-i18n="sizeGuideTip">Tam iki beden arasinda kaliyorsaniz, buyuk bedeni tercih etmenizi oneririz.</p>
+            </div>
+
+            <!-- Tab: Size Recommendation -->
+            <div class="pd-tab-panel" id="tabSizeRec">
+                <div class="size-rec">
+                    <h4 data-i18n="sizeRecTitle">Beden Tavsiyesi</h4>
+                    <p style="color:var(--text-secondary); font-size:0.8rem; margin-bottom:20px;" data-i18n="sizeRecDesc">Olculerinizi girin, size en uygun bedeni onerelim.</p>
+                    <div class="size-rec-form">
+                        <div>
+                            <label for="recBust" data-i18n="bust">Gogus (cm)</label>
+                            <input type="number" id="recBust" placeholder="88">
+                        </div>
+                        <div>
+                            <label for="recWaist" data-i18n="waist">Bel (cm)</label>
+                            <input type="number" id="recWaist" placeholder="68">
+                        </div>
+                        <div>
+                            <label for="recHip" data-i18n="hip">Kalca (cm)</label>
+                            <input type="number" id="recHip" placeholder="94">
+                        </div>
+                    </div>
+                    <button class="pd-btn-cart" id="calcSizeBtn" style="width:100%; margin-bottom:16px;">
+                        <span data-i18n="calcSize">Bedeni Hesapla</span>
+                    </button>
+                    <div class="size-rec-result" id="sizeRecResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RELATED PRODUCTS ========== -->
+    <section class="pd-related" style="background:var(--bg-secondary); padding:80px 0;">
+        <div class="container">
+            <h3 data-i18n="relatedTitle">Benzer <em>Urunler</em></h3>
+            <div class="pd-related-grid" id="relatedGrid"></div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== CHAT WIDGET ========== -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-box-header">
+                <h4>ELEGANCE Asistan</h4>
+                <button class="chat-box-close" id="chatClose">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-msg bot" data-i18n="chatWelcome">Merhaba! Size nasil yardimci olabilirim? Beden, kargo, iade veya urun hakkinda sorabilirsiniz.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Mesajinizi yazin..." autocomplete="off">
+                <button id="chatSendBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+                </button>
+            </div>
+        </div>
+        <button class="chat-toggle-btn" id="chatToggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+    </div>
+
+    <!-- ========== WHATSAPP BUTTON ========== -->
+    <a href="https://wa.me/905550000000" target="_blank" class="whatsapp-btn" id="whatsappBtn" aria-label="WhatsApp ile iletisime gecin">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Bize Yazin</span>
+    </a>
+
+    <!-- ========== TOAST NOTIFICATION ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <!-- ========== BACK TO TOP ========== -->
+    <button class="back-to-top" id="backToTop" aria-label="Yukari git">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script src="js/shared.js"></script>
+    <script>
+    /* ============================================
+       ELEGANCE - Product Detail Page Logic
+       ============================================ */
+
+    // ==========================================
+    // I18N TRANSLATIONS
+    // ==========================================
+    const i18n = {
+        tr: {
+            productDetail: 'Urun Detay',
+            home: 'Ana Sayfa',
+            collection: 'Koleksiyon',
+            zoomHint: 'Yakinlastirmak icin tiklayin',
+            colorLabel: 'RENK',
+            sizeLabel: 'BEDEN',
+            sizeAdvice: 'Beden Tavsiyesi',
+            qtyLabel: 'ADET',
+            addToCart: 'Sepete Ekle',
+            fabricLabel: 'Kumas',
+            liningLabel: 'Astar',
+            careLabel: 'Bakim',
+            skuLabel: 'Urun Kodu',
+            tabDesc: 'Aciklama',
+            tabReviews: 'Yorumlar',
+            tabSizeGuide: 'Beden Rehberi',
+            tabSizeRec: 'Beden Tavsiyesi',
+            writeReview: 'Yorum Yazin',
+            submitReview: 'Yorum Gonder',
+            sizeGuideDesc: 'Olculerinizi alarak asagidaki tablodan bedeninizi belirleyebilirsiniz.',
+            thSize: 'Beden', thBust: 'Gogus (cm)', thWaist: 'Bel (cm)', thHip: 'Kalca (cm)',
+            sizeGuideTip: 'Tam iki beden arasinda kaliyorsaniz, buyuk bedeni tercih etmenizi oneririz.',
+            sizeRecTitle: 'Beden Tavsiyesi',
+            sizeRecDesc: 'Olculerinizi girin, size en uygun bedeni onerelim.',
+            bust: 'Gogus (cm)', waist: 'Bel (cm)', hip: 'Kalca (cm)',
+            calcSize: 'Bedeni Hesapla',
+            relatedTitle: 'Benzer <em>Urunler</em>',
+            chatWelcome: 'Merhaba! Size nasil yardimci olabilirim? Beden, kargo, iade veya urun hakkinda sorabilirsiniz.',
+            reviewsCount: 'yorum',
+            noReviews: 'Henuz yorum yapilmamis. Ilk yorumu siz yapin!',
+            selectSize: 'Lutfen bir beden secin',
+            addedToCart: 'sepete eklendi',
+            removedFromFav: 'Favorilerden cikarildi',
+            addedToFav: 'Favorilere eklendi',
+            sizeRecResult: 'Olculerinize gore onerilen bedeniniz: ',
+            sizeRecNoMatch: 'Olculeriniz mevcut beden araliginin disinda. Lutfen bize ulasin.',
+            enterMeasurements: 'Lutfen tum olculeri girin.',
+            reviewAdded: 'Yorumunuz eklendi, tesekkurler!',
+            fillReview: 'Lutfen adinizi, puani ve yorumunuzu girin.',
+            productNotFound: 'Urun bulunamadi'
+        },
+        en: {
+            productDetail: 'Product Detail',
+            home: 'Home',
+            collection: 'Collection',
+            zoomHint: 'Click to zoom',
+            colorLabel: 'COLOR',
+            sizeLabel: 'SIZE',
+            sizeAdvice: 'Size Advice',
+            qtyLabel: 'QUANTITY',
+            addToCart: 'Add to Cart',
+            fabricLabel: 'Fabric',
+            liningLabel: 'Lining',
+            careLabel: 'Care',
+            skuLabel: 'Product Code',
+            tabDesc: 'Description',
+            tabReviews: 'Reviews',
+            tabSizeGuide: 'Size Guide',
+            tabSizeRec: 'Size Advice',
+            writeReview: 'Write a Review',
+            submitReview: 'Submit Review',
+            sizeGuideDesc: 'Take your measurements and find your size from the table below.',
+            thSize: 'Size', thBust: 'Bust (cm)', thWaist: 'Waist (cm)', thHip: 'Hip (cm)',
+            sizeGuideTip: 'If you are between two sizes, we recommend choosing the larger size.',
+            sizeRecTitle: 'Size Recommendation',
+            sizeRecDesc: 'Enter your measurements and we will suggest the best size for you.',
+            bust: 'Bust (cm)', waist: 'Waist (cm)', hip: 'Hip (cm)',
+            calcSize: 'Calculate Size',
+            relatedTitle: 'Related <em>Products</em>',
+            chatWelcome: 'Hello! How can I help you? You can ask about size, shipping, returns, or products.',
+            reviewsCount: 'reviews',
+            noReviews: 'No reviews yet. Be the first to review!',
+            selectSize: 'Please select a size',
+            addedToCart: 'added to cart',
+            removedFromFav: 'Removed from favorites',
+            addedToFav: 'Added to favorites',
+            sizeRecResult: 'Based on your measurements, recommended size: ',
+            sizeRecNoMatch: 'Your measurements are outside available size range. Please contact us.',
+            enterMeasurements: 'Please enter all measurements.',
+            reviewAdded: 'Your review has been added, thank you!',
+            fillReview: 'Please enter your name, rating and review.',
+            productNotFound: 'Product not found'
+        }
+    };
+
+    function t(key) {
+        return (i18n[currentLang] && i18n[currentLang][key]) || (i18n.tr[key]) || key;
+    }
+
+    function applyLanguage() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[currentLang] && i18n[currentLang][key]) {
+                el.innerHTML = i18n[currentLang][key];
+            }
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        });
+    }
+
+    // ==========================================
+    // CHAT BOT AUTO-RESPONSES
+    // ==========================================
+    const chatResponses = {
+        tr: {
+            beden: 'Beden secimi icin urun sayfasindaki "Beden Tavsiyesi" sekmesini kullanabilirsiniz. Gogus, bel ve kalca olculerinizi girerek size en uygun bedeni ogrenebilirsiniz.',
+            kargo: 'Siparisleriniz 1-3 is gunu icinde kargoya verilir. 2.000TL ustu siparislerde kargo ucretsizdir.',
+            iade: '14 gun icinde, etiketi sokulmedigi ve kullanilmamis haliyle ucretsiz iade yapabilirsiniz.',
+            fiyat: 'Fiyatlarimiz urun detay sayfasinda guncel olarak yer almaktadir. Kupon kodu kullanarak ek indirim alabilirsiniz.',
+            indirim: 'Mevcut kampanyalarimiz icin ana sayfamizi ziyaret edebilirsiniz. Butene abone olarak ozel firsatlardan haberdar olabilirsiniz.',
+            odeme: 'Kredi karti, banka karti, havale/EFT ve kapida odeme ile alisveris yapabilirsiniz. 6 aya kadar taksit imkani mevcuttur.',
+            teslimat: 'Teslimatlar genellikle 2-5 is gunu icerisinde gerceklestirilir. Kargo takibini siparis takip sayfasindan yapabilirsiniz.',
+            merhaba: 'Merhaba! ELEGANCE\'e hosgeldiniz. Size nasil yardimci olabilirim?',
+            tesekkur: 'Rica ederim! Baska bir sorunuz olursa sormaktan cekinmeyin.',
+            default: 'Anliyorum. Bu konuda size yardimci olmak isterim. Daha detayli bilgi icin +90 (212) 555 00 00 numarasindan veya WhatsApp uzerinden bize ulasabilirsiniz.'
+        },
+        en: {
+            beden: 'You can use the "Size Advice" tab on the product page. Enter your bust, waist and hip measurements to find the best size.',
+            size: 'You can use the "Size Advice" tab on the product page. Enter your bust, waist and hip measurements to find the best size.',
+            shipping: 'Orders are shipped within 1-3 business days. Free shipping on orders over 2,000TL.',
+            kargo: 'Orders are shipped within 1-3 business days. Free shipping on orders over 2,000TL.',
+            return: 'You can make a free return within 14 days, as long as tags are attached and the item is unused.',
+            iade: 'You can make a free return within 14 days, as long as tags are attached and the item is unused.',
+            price: 'Current prices are listed on the product detail page. You can use a coupon code for additional discounts.',
+            payment: 'We accept credit cards, bank transfers, and cash on delivery. Installment plans up to 6 months are available.',
+            delivery: 'Deliveries are usually completed within 2-5 business days. You can track your order from the order tracking page.',
+            hello: 'Hello! Welcome to ELEGANCE. How can I help you?',
+            thanks: 'You are welcome! Feel free to ask if you have more questions.',
+            default: 'I understand. For more detailed information, please contact us at +90 (212) 555 00 00 or via WhatsApp.'
+        }
+    };
+
+    function getChatResponse(msg) {
+        const lower = msg.toLowerCase();
+        const responses = currentLang === 'en' ? { ...chatResponses.tr, ...chatResponses.en } : chatResponses.tr;
+        for (const [keyword, reply] of Object.entries(responses)) {
+            if (keyword !== 'default' && lower.includes(keyword)) return reply;
+        }
+        return responses.default;
+    }
+
+    // ==========================================
+    // CORE VARIABLES
+    // ==========================================
+    let currentProduct = null;
+    let selectedColor = 0;
+    let selectedSize = null;
+    let quantity = 1;
+    let reviewRating = 0;
+
+    // ==========================================
+    // PARSE URL & LOAD PRODUCT
+    // ==========================================
+    function getProductIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return parseInt(params.get('id')) || 1;
+    }
+
+    function initProduct() {
+        const id = getProductIdFromURL();
+        currentProduct = getProduct(id);
+
+        if (!currentProduct) {
+            document.getElementById('pageTitle').innerHTML = '<em>' + t('productNotFound') + '</em>';
+            return;
+        }
+
+        // Page title
+        document.title = 'ELEGANCE | ' + currentProduct.name;
+        document.getElementById('pageTitle').innerHTML = currentProduct.name.split(' ').map((w, i) => i === 0 ? w : '<em>' + w + '</em>').join(' ');
+        document.getElementById('breadcrumbProduct').textContent = currentProduct.name;
+
+        // OG tags
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.content = 'ELEGANCE | ' + currentProduct.name;
+
+        // Main image
+        const mainImg = document.getElementById('mainImg');
+        mainImg.src = currentProduct.image;
+        mainImg.alt = currentProduct.name;
+
+        // Thumbnails (simulate multiple images from main + color variants)
+        renderThumbnails();
+
+        // Badge
+        const badge = document.getElementById('pdBadge');
+        if (currentProduct.badge) {
+            badge.textContent = currentProduct.badge;
+            badge.style.display = 'inline-block';
+        }
+
+        // Category
+        document.getElementById('pdCategory').textContent = currentProduct.categoryLabel;
+
+        // Name
+        document.getElementById('pdName').textContent = currentProduct.name;
+
+        // Price
+        document.getElementById('pdPrice').textContent = formatPrice(currentProduct.price);
+        if (currentProduct.oldPrice) {
+            const oldEl = document.getElementById('pdOldPrice');
+            oldEl.textContent = formatPrice(currentProduct.oldPrice);
+            oldEl.style.display = 'inline';
+            const disc = Math.round((1 - currentProduct.price / currentProduct.oldPrice) * 100);
+            const discEl = document.getElementById('pdDiscount');
+            discEl.textContent = '%' + disc;
+            discEl.style.display = 'inline';
+        }
+
+        // Description
+        document.getElementById('pdDesc').textContent = currentProduct.description;
+        document.getElementById('tabDescContent').innerHTML = '<p>' + currentProduct.description + '</p>' +
+            '<p style="margin-top:16px;">Bu ozel tasarim, en kaliteli kumaslar kullanilarak titizlikle uretilmistir. ' +
+            'Her detayi ozenle islenip, sizin icin benzersiz bir deneyim sunmak amaciyla hazirlanmistir.</p>' +
+            '<ul style="margin-top:16px; padding-left:20px; list-style:disc;">' +
+            '<li style="margin-bottom:8px;">El isciligi detaylar</li>' +
+            '<li style="margin-bottom:8px;">Premium kumas kalitesi</li>' +
+            '<li style="margin-bottom:8px;">Mukemmel kalip</li>' +
+            '<li style="margin-bottom:8px;">Ozel paketleme</li>' +
+            '</ul>';
+
+        // Colors
+        renderColors();
+
+        // Sizes
+        renderSizes();
+
+        // Meta
+        document.getElementById('metaFabric').textContent = currentProduct.fabric || '-';
+        document.getElementById('metaLining').textContent = currentProduct.lining || '-';
+        document.getElementById('metaCare').textContent = currentProduct.care || '-';
+        document.getElementById('metaSku').textContent = 'ELG-' + String(currentProduct.id).padStart(4, '0');
+
+        // Wishlist button state
+        updateWishBtnState();
+
+        // Reviews
+        renderReviews();
+
+        // Related products
+        renderRelated();
+    }
+
+    // ==========================================
+    // THUMBNAILS
+    // ==========================================
+    function renderThumbnails() {
+        const container = document.getElementById('thumbs');
+        container.innerHTML = '';
+
+        // Generate thumbnails from colors + main image
+        const imgs = [currentProduct.image];
+        // Add color-varied thumbnail URLs (different crop parameters)
+        if (currentProduct.image.includes('unsplash')) {
+            imgs.push(currentProduct.image.replace('w=600', 'w=601'));
+            imgs.push(currentProduct.image.replace('w=600', 'w=602'));
+            imgs.push(currentProduct.image.replace('w=600', 'w=603'));
+        }
+
+        imgs.forEach((src, i) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'pd-thumb' + (i === 0 ? ' active' : '');
+            thumb.innerHTML = '<img src="' + src + '" alt="' + currentProduct.name + ' - ' + (i + 1) + '">';
+            thumb.addEventListener('click', () => {
+                document.getElementById('mainImg').src = src;
+                container.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+            container.appendChild(thumb);
+        });
+    }
+
+    // ==========================================
+    // COLORS
+    // ==========================================
+    function renderColors() {
+        const container = document.getElementById('pdColors');
+        container.innerHTML = '';
+        currentProduct.colors.forEach((color, i) => {
+            const btn = document.createElement('div');
+            btn.className = 'pd-color-opt' + (i === 0 ? ' active' : '');
+            btn.style.background = color;
+            btn.title = color;
+            btn.addEventListener('click', () => {
+                selectedColor = i;
+                container.querySelectorAll('.pd-color-opt').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    // ==========================================
+    // SIZES
+    // ==========================================
+    function renderSizes() {
+        const container = document.getElementById('pdSizes');
+        container.innerHTML = '';
+        currentProduct.sizes.forEach(size => {
+            const btn = document.createElement('button');
+            btn.className = 'pd-size-opt';
+            btn.textContent = size;
+            btn.addEventListener('click', () => {
+                selectedSize = size;
+                container.querySelectorAll('.pd-size-opt').forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    // ==========================================
+    // ZOOM FUNCTIONALITY
+    // ==========================================
+    const mainImageWrap = document.getElementById('mainImage');
+    const mainImg = document.getElementById('mainImg');
+
+    mainImageWrap.addEventListener('click', function() {
+        this.classList.toggle('zoomed');
+    });
+
+    mainImageWrap.addEventListener('mousemove', function(e) {
+        if (!this.classList.contains('zoomed')) return;
+        const rect = this.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        mainImg.style.transformOrigin = x + '% ' + y + '%';
+    });
+
+    mainImageWrap.addEventListener('mouseleave', function() {
+        if (this.classList.contains('zoomed')) {
+            this.classList.remove('zoomed');
+            mainImg.style.transformOrigin = 'center center';
+        }
+    });
+
+    // ==========================================
+    // QUANTITY
+    // ==========================================
+    document.getElementById('qtyMinus').addEventListener('click', () => {
+        if (quantity > 1) { quantity--; document.getElementById('qtyValue').textContent = quantity; }
+    });
+    document.getElementById('qtyPlus').addEventListener('click', () => {
+        if (quantity < 10) { quantity++; document.getElementById('qtyValue').textContent = quantity; }
+    });
+
+    // ==========================================
+    // ADD TO CART
+    // ==========================================
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+        if (!currentProduct) return;
+        if (!selectedSize) {
+            showToast(t('selectSize'));
+            return;
+        }
+        addToCart(currentProduct.id, selectedSize, quantity, selectedColor);
+    });
+
+    // ==========================================
+    // WISHLIST
+    // ==========================================
+    function updateWishBtnState() {
+        const btn = document.getElementById('addToWishBtn');
+        if (!currentProduct) return;
+        btn.classList.toggle('active', wishlist.includes(currentProduct.id));
+    }
+
+    document.getElementById('addToWishBtn').addEventListener('click', () => {
+        if (!currentProduct) return;
+        toggleWishlist(currentProduct.id);
+        updateWishBtnState();
+    });
+
+    // ==========================================
+    // COMPARE
+    // ==========================================
+    document.getElementById('addToCompareBtn').addEventListener('click', () => {
+        if (!currentProduct) return;
+        toggleCompare(currentProduct.id);
+    });
+
+    // ==========================================
+    // SOCIAL SHARE
+    // ==========================================
+    function setupShareButtons() {
+        if (!currentProduct) return;
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(currentProduct.name + ' - ELEGANCE Premium Abiye');
+
+        document.getElementById('shareTwitter').addEventListener('click', () => {
+            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank', 'width=600,height=400');
+        });
+        document.getElementById('shareFacebook').addEventListener('click', () => {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=400');
+        });
+        document.getElementById('sharePinterest').addEventListener('click', () => {
+            const img = encodeURIComponent(currentProduct.image);
+            window.open('https://pinterest.com/pin/create/button/?url=' + url + '&media=' + img + '&description=' + text, '_blank', 'width=600,height=400');
+        });
+        document.getElementById('shareWhatsApp').addEventListener('click', () => {
+            window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+        });
+    }
+
+    // ==========================================
+    // TABS
+    // ==========================================
+    document.querySelectorAll('.pd-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.dataset.tab;
+            document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.pd-tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const panelMap = { desc: 'tabDesc', reviews: 'tabReviews', sizeGuide: 'tabSizeGuide', sizeRec: 'tabSizeRec' };
+            document.getElementById(panelMap[tab]).classList.add('active');
+        });
+    });
+
+    // Size advice button scrolls to Size Rec tab
+    document.getElementById('sizeAdviceBtn').addEventListener('click', () => {
+        document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.pd-tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector('[data-tab="sizeRec"]').classList.add('active');
+        document.getElementById('tabSizeRec').classList.add('active');
+        document.getElementById('tabSizeRec').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // ==========================================
+    // REVIEWS
+    // ==========================================
+    function renderReviews() {
+        if (!currentProduct) return;
+        const reviews = getReviews(currentProduct.id);
+
+        // Summary
+        const avgNum = document.getElementById('reviewAvgNum');
+        const avgStars = document.getElementById('reviewAvgStars');
+        const avgCount = document.getElementById('reviewAvgCount');
+        const barsContainer = document.getElementById('reviewBars');
+
+        if (reviews.length === 0) {
+            avgNum.textContent = '0';
+            avgStars.textContent = '';
+            avgCount.textContent = '0 ' + t('reviewsCount');
+            barsContainer.innerHTML = '';
+            document.getElementById('reviewList').innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:40px 0;">' + t('noReviews') + '</p>';
+            return;
+        }
+
+        const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1);
+        avgNum.textContent = avg;
+        avgStars.textContent = getStarString(Math.round(parseFloat(avg)));
+        avgCount.textContent = reviews.length + ' ' + t('reviewsCount');
+
+        // Bar chart
+        barsContainer.innerHTML = '';
+        for (let star = 5; star >= 1; star--) {
+            const count = reviews.filter(r => r.rating === star).length;
+            const pct = (count / reviews.length) * 100;
+            barsContainer.innerHTML += '<div class="review-bar-row"><span>' + star + '</span><div class="review-bar"><div class="review-bar-fill" style="width:' + pct + '%"></div></div><span>' + count + '</span></div>';
+        }
+
+        // Review cards
+        const list = document.getElementById('reviewList');
+        list.innerHTML = '';
+        reviews.forEach(r => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = '<div class="review-card-top"><span class="review-card-author">' + escapeHtml(r.name) + '</span><span class="review-card-date">' + r.date + '</span></div>' +
+                '<div class="review-card-stars">' + getStarString(r.rating) + '</div>' +
+                '<div class="review-card-text">' + escapeHtml(r.comment) + '</div>';
+            list.appendChild(card);
+        });
+    }
+
+    function getStarString(n) {
+        let s = '';
+        for (let i = 0; i < 5; i++) s += i < n ? '\u2605' : '\u2606';
+        return s;
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // Star rating input
+    document.querySelectorAll('#reviewStarsInput button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            reviewRating = parseInt(btn.dataset.star);
+            document.querySelectorAll('#reviewStarsInput button').forEach((b, i) => {
+                b.classList.toggle('active', i < reviewRating);
+            });
+        });
+        btn.addEventListener('mouseenter', () => {
+            const star = parseInt(btn.dataset.star);
+            document.querySelectorAll('#reviewStarsInput button').forEach((b, i) => {
+                b.classList.toggle('active', i < star);
+            });
+        });
+    });
+    document.getElementById('reviewStarsInput').addEventListener('mouseleave', () => {
+        document.querySelectorAll('#reviewStarsInput button').forEach((b, i) => {
+            b.classList.toggle('active', i < reviewRating);
+        });
+    });
+
+    // Submit review
+    document.getElementById('submitReviewBtn').addEventListener('click', () => {
+        const name = document.getElementById('reviewName').value.trim();
+        const comment = document.getElementById('reviewText').value.trim();
+        if (!name || !reviewRating || !comment) {
+            showToast(t('fillReview'));
+            return;
+        }
+        const review = {
+            name: name,
+            rating: reviewRating,
+            comment: comment,
+            date: new Date().toLocaleDateString('tr-TR')
+        };
+        addReview(currentProduct.id, review);
+        document.getElementById('reviewName').value = '';
+        document.getElementById('reviewText').value = '';
+        reviewRating = 0;
+        document.querySelectorAll('#reviewStarsInput button').forEach(b => b.classList.remove('active'));
+        showToast(t('reviewAdded'));
+        renderReviews();
+    });
+
+    // ==========================================
+    // SIZE RECOMMENDATION
+    // ==========================================
+    const sizeChart = [
+        { size: 'XS', bust: [80, 84], waist: [60, 64], hip: [86, 90] },
+        { size: 'S',  bust: [84, 88], waist: [64, 68], hip: [90, 94] },
+        { size: 'M',  bust: [88, 92], waist: [68, 72], hip: [94, 98] },
+        { size: 'L',  bust: [92, 96], waist: [72, 76], hip: [98, 102] },
+        { size: 'XL', bust: [96, 100], waist: [76, 80], hip: [102, 106] }
+    ];
+
+    document.getElementById('calcSizeBtn').addEventListener('click', () => {
+        const bust = parseFloat(document.getElementById('recBust').value);
+        const waist = parseFloat(document.getElementById('recWaist').value);
+        const hip = parseFloat(document.getElementById('recHip').value);
+        const resultEl = document.getElementById('sizeRecResult');
+
+        if (!bust || !waist || !hip) {
+            showToast(t('enterMeasurements'));
+            return;
+        }
+
+        let recommended = null;
+        for (const entry of sizeChart) {
+            const bustFit = bust >= entry.bust[0] && bust <= entry.bust[1];
+            const waistFit = waist >= entry.waist[0] && waist <= entry.waist[1];
+            const hipFit = hip >= entry.hip[0] && hip <= entry.hip[1];
+            // At least 2 of 3 measurements fit
+            const fits = [bustFit, waistFit, hipFit].filter(Boolean).length;
+            if (fits >= 2) { recommended = entry.size; break; }
+        }
+
+        // If no exact match, find closest by average distance
+        if (!recommended) {
+            let minDist = Infinity;
+            for (const entry of sizeChart) {
+                const bustMid = (entry.bust[0] + entry.bust[1]) / 2;
+                const waistMid = (entry.waist[0] + entry.waist[1]) / 2;
+                const hipMid = (entry.hip[0] + entry.hip[1]) / 2;
+                const dist = Math.abs(bust - bustMid) + Math.abs(waist - waistMid) + Math.abs(hip - hipMid);
+                if (dist < minDist) { minDist = dist; recommended = entry.size; }
+            }
+        }
+
+        if (recommended) {
+            // Check if this size is available for this product
+            const available = currentProduct.sizes.includes(recommended);
+            let msg = t('sizeRecResult') + '<strong>' + recommended + '</strong>';
+            if (!available) {
+                // Find nearest available
+                const sizeOrder = ['XS', 'S', 'M', 'L', 'XL'];
+                const recIdx = sizeOrder.indexOf(recommended);
+                let nearest = null;
+                for (let d = 1; d < sizeOrder.length; d++) {
+                    if (recIdx + d < sizeOrder.length && currentProduct.sizes.includes(sizeOrder[recIdx + d])) { nearest = sizeOrder[recIdx + d]; break; }
+                    if (recIdx - d >= 0 && currentProduct.sizes.includes(sizeOrder[recIdx - d])) { nearest = sizeOrder[recIdx - d]; break; }
+                }
+                if (nearest) msg += ' (Bu urun icin en yakin mevcut beden: <strong>' + nearest + '</strong>)';
+            }
+            resultEl.innerHTML = msg;
+            resultEl.classList.add('visible');
+
+            // Auto-select the recommended size
+            const availableSize = currentProduct.sizes.includes(recommended) ? recommended : null;
+            if (availableSize) {
+                selectedSize = availableSize;
+                document.querySelectorAll('.pd-size-opt').forEach(s => {
+                    s.classList.toggle('active', s.textContent === availableSize);
+                });
+            }
+        } else {
+            resultEl.innerHTML = t('sizeRecNoMatch');
+            resultEl.classList.add('visible');
+        }
+    });
+
+    // ==========================================
+    // RELATED PRODUCTS
+    // ==========================================
+    function renderRelated() {
+        if (!currentProduct) return;
+        const related = products
+            .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+            .slice(0, 4);
+
+        // If not enough from same category, fill from others
+        if (related.length < 4) {
+            const others = products.filter(p => p.id !== currentProduct.id && !related.find(r => r.id === p.id));
+            while (related.length < 4 && others.length > 0) {
+                related.push(others.shift());
+            }
+        }
+
+        const grid = document.getElementById('relatedGrid');
+        grid.innerHTML = '';
+        related.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'pd-related-card';
+            const imgSrc = p.image || '';
+            const imgStyle = imgSrc ? '' : 'style="background:' + p.gradient + ';"';
+            card.innerHTML = (imgSrc
+                ? '<img src="' + imgSrc + '" alt="' + p.name + '">'
+                : '<div style="width:100%; aspect-ratio:3/4; border-radius:6px; ' + p.gradient + '"></div>') +
+                '<h4>' + p.name + '</h4>' +
+                '<p>' + formatPrice(p.price) + (p.oldPrice ? ' <s style="color:var(--text-muted); font-size:0.75rem;">' + formatPrice(p.oldPrice) + '</s>' : '') + '</p>';
+            card.addEventListener('click', () => {
+                window.location.href = 'urun.html?id=' + p.id;
+            });
+            grid.appendChild(card);
+        });
+    }
+
+    // ==========================================
+    // CHAT WIDGET
+    // ==========================================
+    const chatToggle = document.getElementById('chatToggle');
+    const chatBox = document.getElementById('chatBox');
+    const chatClose = document.getElementById('chatClose');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatToggle.addEventListener('click', () => chatBox.classList.toggle('open'));
+    chatClose.addEventListener('click', () => chatBox.classList.remove('open'));
+
+    function sendChatMessage() {
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+
+        // User message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'chat-msg user';
+        userDiv.textContent = msg;
+        chatMessages.appendChild(userDiv);
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Bot reply after delay
+        setTimeout(() => {
+            const botDiv = document.createElement('div');
+            botDiv.className = 'chat-msg bot';
+            botDiv.textContent = getChatResponse(msg);
+            chatMessages.appendChild(botDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 800 + Math.random() * 700);
+    }
+
+    chatSendBtn.addEventListener('click', sendChatMessage);
+    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+
+    // ==========================================
+    // LANGUAGE TOGGLE
+    // ==========================================
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentLang = btn.dataset.lang;
+            localStorage.setItem('elegance_lang', currentLang);
+            applyLanguage();
+        });
+    });
+
+    // ==========================================
+    // NAVBAR & UI UTILITIES
+    // ==========================================
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Navbar scroll effect (already has .scrolled class for inner pages)
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // ==========================================
+    // INIT
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        initProduct();
+        setupShareButtons();
+        updateCartBadge();
+        updateWishlistBadge();
+        applyLanguage();
+    });
+
+    </script>
+</body>
+</html>

@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
@@ -60,22 +61,31 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#koleksiyon">Koleksiyon</a></li>
                 <li><a href="#kategoriler">Kategoriler</a></li>
-                <li><a href="#hakkimizda">Hakkımızda</a></li>
-                <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
             </ul>
 
             <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
                 <button class="nav-action-btn" id="searchToggle" aria-label="Arama">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
                 </button>
-                <button class="nav-action-btn" id="wishlistToggle" aria-label="Favoriler">
+                <button class="nav-action-btn" id="authToggle" aria-label="Hesabım">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </button>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                     <span class="action-badge" id="wishlistBadge">0</span>
-                </button>
+                </a>
                 <button class="nav-action-btn" id="cartToggle" aria-label="Sepet">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
@@ -91,8 +101,10 @@
         <div class="mobile-menu-inner">
             <a href="#koleksiyon" class="mobile-link">Koleksiyon</a>
             <a href="#kategoriler" class="mobile-link">Kategoriler</a>
-            <a href="#hakkimizda" class="mobile-link">Hakkımızda</a>
-            <a href="#iletisim" class="mobile-link">İletişim</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkımızda</a>
+            <a href="favoriler.html" class="mobile-link">Favorilerim</a>
+            <a href="siparis-takip.html" class="mobile-link">Sipariş Takibi</a>
         </div>
     </div>
 
@@ -479,16 +491,16 @@
                 <div class="footer-col">
                     <h4>Hızlı Linkler</h4>
                     <a href="#koleksiyon">Koleksiyon</a>
-                    <a href="#kategoriler">Kategoriler</a>
-                    <a href="#hakkimizda">Hakkımızda</a>
-                    <a href="#iletisim">İletişim</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkımızda</a>
+                    <a href="favoriler.html">Favorilerim</a>
                 </div>
                 <div class="footer-col">
                     <h4>Müşteri Hizmetleri</h4>
-                    <a href="#">Sipariş Takibi</a>
-                    <a href="#">İade & Değişim</a>
-                    <a href="#">Beden Rehberi</a>
-                    <a href="#">SSS</a>
+                    <a href="siparis-takip.html">Sipariş Takibi</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="#sss">SSS</a>
+                    <a href="#iletisim">İletişim</a>
                 </div>
                 <div class="footer-col">
                     <h4>İletişim</h4>
@@ -627,12 +639,12 @@
                 <span>Toplam</span>
                 <span id="cartTotal">₺0</span>
             </div>
-            <button class="btn-primary btn-checkout">
+            <a href="sepet.html" class="btn-primary btn-checkout" style="text-align:center;">
                 <span>Ödemeye Geç</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
-            </button>
+            </a>
             <p class="cart-note">Güvenli ödeme • 14 gün iade garantisi</p>
         </div>
     </aside>
@@ -734,6 +746,283 @@
         <source src="img/bg-music.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- ========== CANLI DESTEK CHAT ========== -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-box-header">
+                <h4>Canlı Destek</h4>
+                <button class="chat-box-close" id="chatClose">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-msg bot">Merhaba! ÉLÉGANCE'a hoş geldiniz. Size nasıl yardımcı olabilirim?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Mesajınızı yazın...">
+                <button id="chatSend">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+            </div>
+        </div>
+        <button class="chat-toggle-btn" id="chatToggleBtn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </button>
+    </div>
+
+    <!-- ========== ÜYELİK MODAL ========== -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <button class="auth-close" id="authClose">&times;</button>
+            <h3>ÉLÉGANCE</h3>
+            <p>Hesabınıza giriş yapın veya yeni hesap oluşturun</p>
+            <div class="auth-tab-btns">
+                <button class="auth-tab-btn active" data-tab="login">Giriş Yap</button>
+                <button class="auth-tab-btn" data-tab="register">Kayıt Ol</button>
+            </div>
+            <div class="auth-tab-panel active" id="authLogin">
+                <form id="loginForm">
+                    <div class="form-group"><label>E-posta</label><input type="email" id="loginEmail" required placeholder="ornek@mail.com"></div>
+                    <div class="form-group"><label>Şifre</label><input type="password" id="loginPassword" required placeholder="••••••"></div>
+                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;"><span>Giriş Yap</span></button>
+                </form>
+            </div>
+            <div class="auth-tab-panel" id="authRegister">
+                <form id="registerForm">
+                    <div class="form-group"><label>Ad Soyad</label><input type="text" id="regName" required placeholder="Adınız Soyadınız"></div>
+                    <div class="form-group"><label>E-posta</label><input type="email" id="regEmail" required placeholder="ornek@mail.com"></div>
+                    <div class="form-group"><label>Şifre</label><input type="password" id="regPassword" required placeholder="En az 6 karakter"></div>
+                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;"><span>Kayıt Ol</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== KARŞILAŞTIRMA BUTONU ========== -->
+    <div class="compare-float" id="compareFloat" title="Ürün Karşılaştır">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+        <span class="compare-float-badge" id="compareBadge">0</span>
+    </div>
+
+    <!-- ========== KARŞILAŞTIRMA MODAL ========== -->
+    <div class="compare-modal" id="compareModal">
+        <div class="compare-content">
+            <div class="compare-header">
+                <h3>Ürün Karşılaştırma</h3>
+                <button id="compareClose" style="color:var(--text-muted);font-size:1.4rem;">&times;</button>
+            </div>
+            <div id="compareBody"></div>
+        </div>
+    </div>
+
+    <!-- ========== PAGE TRANSITION ========== -->
+    <div class="page-transition" id="pageTransition">
+        <span class="preloader-brand">ÉLÉGANCE</span>
+    </div>
+
     <script src="js/app.js"></script>
+    <script>
+    /* ============================================
+       NEW FEATURES - Chat, Auth, Compare, Language, 3D Tilt, Page Transitions
+       ============================================ */
+
+    // ========== CHAT WIDGET ==========
+    const chatBox = document.getElementById('chatBox');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+
+    document.getElementById('chatToggleBtn')?.addEventListener('click', () => chatBox.classList.toggle('open'));
+    document.getElementById('chatClose')?.addEventListener('click', () => chatBox.classList.remove('open'));
+
+    const botResponses = {
+        'merhaba': 'Merhaba! Size nasıl yardımcı olabilirim?',
+        'fiyat': 'Ürün fiyatlarımız ₺7.999\'dan başlamaktadır. Koleksiyonumuzu incelemek ister misiniz?',
+        'kargo': 'Türkiye genelinde 2-5 iş günü içinde teslimat yapıyoruz. ₺2.000 üzeri siparişlerde kargo ücretsizdir.',
+        'iade': '14 gün içinde koşulsuz iade ve değişim yapabilirsiniz. Etiketin sökülmemiş olması yeterli.',
+        'beden': 'Beden tablomuza göre seçim yapabilirsiniz. Tereddütte kalırsanız bir üst bedeni tercih edin.',
+        'indirim': 'Şu an ELEGANCE20 koduyla %20 indirim kazanabilirsiniz!',
+        'taksit': 'Kredi kartına 6 aya kadar taksit imkanı sunuyoruz.',
+        'iletisim': 'Bize +90 (212) 555 00 00 veya WhatsApp üzerinden ulaşabilirsiniz.',
+        'default': 'Anlıyorum. Detaylı bilgi için WhatsApp hattımızdan bize ulaşabilirsiniz: +90 (212) 555 00 00'
+    };
+
+    function sendChatMsg() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        chatMessages.innerHTML += '<div class="chat-msg user">' + text + '</div>';
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        setTimeout(() => {
+            const lower = text.toLowerCase();
+            let reply = botResponses.default;
+            for (const [key, val] of Object.entries(botResponses)) {
+                if (key !== 'default' && lower.includes(key)) { reply = val; break; }
+            }
+            chatMessages.innerHTML += '<div class="chat-msg bot">' + reply + '</div>';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 800);
+    }
+
+    document.getElementById('chatSend')?.addEventListener('click', sendChatMsg);
+    chatInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChatMsg(); });
+
+    // ========== AUTH MODAL ==========
+    const authModal = document.getElementById('authModal');
+    document.getElementById('authToggle')?.addEventListener('click', () => {
+        const user = JSON.parse(sessionStorage.getItem('elegance_user') || 'null');
+        if (user) { showToast('Hoş geldiniz, ' + user.name); return; }
+        authModal.classList.add('open');
+    });
+    document.getElementById('authClose')?.addEventListener('click', () => authModal.classList.remove('open'));
+    authModal?.addEventListener('click', (e) => { if (e.target === authModal) authModal.classList.remove('open'); });
+
+    document.querySelectorAll('.auth-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.auth-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.auth-tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab === 'login' ? 'authLogin' : 'authRegister').classList.add('active');
+        });
+    });
+
+    document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const users = JSON.parse(localStorage.getItem('elegance_users') || '[]');
+        const user = users.find(u => u.email === email);
+        if (user) {
+            sessionStorage.setItem('elegance_user', JSON.stringify(user));
+            authModal.classList.remove('open');
+            showToast('Hoş geldiniz, ' + user.name);
+        } else { showToast('Hesap bulunamadı, lütfen kayıt olun'); }
+    });
+
+    document.getElementById('registerForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const user = { name, email, date: new Date().toISOString() };
+        const users = JSON.parse(localStorage.getItem('elegance_users') || '[]');
+        if (users.find(u => u.email === email)) { showToast('Bu e-posta ile zaten kayıt var'); return; }
+        users.push(user);
+        localStorage.setItem('elegance_users', JSON.stringify(users));
+        sessionStorage.setItem('elegance_user', JSON.stringify(user));
+        authModal.classList.remove('open');
+        showToast('Kayıt başarılı! Hoş geldiniz, ' + name);
+    });
+
+    // ========== COMPARE ==========
+    const compareFloat = document.getElementById('compareFloat');
+    const compareModal = document.getElementById('compareModal');
+    const compareBadge = document.getElementById('compareBadge');
+
+    function getCompareList() { return JSON.parse(localStorage.getItem('elegance_compare') || '[]'); }
+
+    function updateCompareUI() {
+        const list = getCompareList();
+        compareBadge.textContent = list.length;
+        compareFloat.classList.toggle('visible', list.length > 0);
+    }
+
+    window.toggleCompare = function(productId) {
+        let list = getCompareList();
+        const idx = list.indexOf(productId);
+        if (idx >= 0) { list.splice(idx, 1); showToast('Karşılaştırmadan çıkarıldı'); }
+        else { if (list.length >= 4) { showToast('En fazla 4 ürün karşılaştırabilirsiniz'); return; } list.push(productId); showToast('Karşılaştırmaya eklendi'); }
+        localStorage.setItem('elegance_compare', JSON.stringify(list));
+        updateCompareUI();
+    };
+
+    compareFloat?.addEventListener('click', () => {
+        const list = getCompareList();
+        if (list.length < 2) { showToast('Karşılaştırmak için en az 2 ürün ekleyin'); return; }
+        const prods = list.map(id => products.find(p => p.id === id)).filter(Boolean);
+        let html = '<table class="compare-table"><thead><tr><th></th>';
+        prods.forEach(p => { html += '<th><img src="' + p.image + '" alt="' + p.name + '"><span class="compare-name">' + p.name + '</span></th>'; });
+        html += '</tr></thead><tbody>';
+        const rows = [
+            ['Fiyat', p => '₺' + p.price.toLocaleString('tr-TR')],
+            ['Kategori', p => p.categoryLabel],
+            ['Renk', p => p.color],
+            ['Bedenler', p => p.sizes.join(', ')],
+            ['Etiket', p => p.badge || '-']
+        ];
+        rows.forEach(([label, fn]) => {
+            html += '<tr><td>' + label + '</td>';
+            prods.forEach(p => { html += '<td>' + fn(p) + '</td>'; });
+            html += '</tr>';
+        });
+        html += '</tbody></table>';
+        document.getElementById('compareBody').innerHTML = html;
+        compareModal.classList.add('open');
+    });
+
+    document.getElementById('compareClose')?.addEventListener('click', () => compareModal.classList.remove('open'));
+    compareModal?.addEventListener('click', (e) => { if (e.target === compareModal) compareModal.classList.remove('open'); });
+    updateCompareUI();
+
+    // ========== LANGUAGE TOGGLE ==========
+    const translations = {
+        en: {
+            'Koleksiyonu Keşfet': 'Explore Collection', 'Zarafetin': 'The Noblest', 'En Asil Hali': 'Form of Elegance',
+            'Tümü': 'All', 'Uzun Abiye': 'Long Gown', 'Kısa Abiye': 'Short Gown', 'Nişanlık': 'Engagement', 'Mezuniyet': 'Graduation',
+            'Sepete Ekle': 'Add to Cart', 'Hızlı Bakış': 'Quick View', 'Beden Rehberi': 'Size Guide', 'Abone Ol': 'Subscribe'
+        }
+    };
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const lang = btn.dataset.lang;
+            localStorage.setItem('elegance_lang', lang);
+            if (lang === 'en') {
+                document.querySelectorAll('[data-tr]').forEach(el => {
+                    const key = el.dataset.tr;
+                    if (translations.en[key]) el.textContent = translations.en[key];
+                });
+                showToast('Language changed to English');
+            } else {
+                location.reload();
+            }
+        });
+    });
+
+    // ========== 3D TILT ON PRODUCT CARDS ==========
+    if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    const rotateX = ((y / rect.height) - 0.5) * -8;
+                    const rotateY = ((x / rect.width) - 0.5) * 8;
+                    card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+                } else {
+                    card.style.transform = '';
+                }
+            });
+        });
+    }
+
+    // ========== PAGE TRANSITIONS ==========
+    document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith('.html') && !href.startsWith('#') && !href.startsWith('http')) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const transition = document.getElementById('pageTransition');
+                transition.classList.add('active');
+                setTimeout(() => { window.location.href = href; }, 400);
+            });
+        }
+    });
+
+    // ========== PRODUCT CARD → DETAIL PAGE LINK ==========
+    const origOpenQuickView = window.openQuickView;
+    window.openQuickView = function(id) {
+        window.location.href = 'urun.html?id=' + id;
+    };
+    </script>
 </body>
 </html>

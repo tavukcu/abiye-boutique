@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Moda Rehberi - Blog</title>
+    <meta name="description" content="Abiye moda trendleri, stil önerileri ve gece elbisesi rehberi. ELEGANCE Blog ile zarafetin sırlarını keşfedin.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #f0e6d3;
+            --text-body: #e8e0d5;
+        }
+        .blog-search {
+            max-width: 500px;
+            margin: 0 auto 48px;
+            position: relative;
+        }
+        .blog-search input {
+            width: 100%;
+            padding: 16px 24px 16px 52px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .blog-search input:focus { border-color: var(--gold); }
+        .blog-search input::placeholder { color: var(--text-muted); }
+        .blog-search svg {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+        }
+        .blog-no-results {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+        .blog-no-results h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .blog-no-results p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        /* Article Modal */
+        .article-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        .article-modal.open { opacity: 1; visibility: visible; }
+        .article-modal-content {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            max-width: 720px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 48px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .article-modal.open .article-modal-content { transform: translateY(0); }
+        .article-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-modal-close:hover { color: var(--gold); }
+        .article-modal-tag {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+            display: block;
+        }
+        .article-modal-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--cream);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .article-modal-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            display: block;
+        }
+        .article-modal-body {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        .article-modal-body p { margin-bottom: 16px; }
+        .blog-card { cursor: pointer; }
+        .blog-featured { cursor: pointer; }
+        @media (max-width: 768px) {
+            .article-modal-content { padding: 32px 24px; }
+            .article-modal-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Blog</span>
+            <h1>Moda <em>Rehberi</em></h1>
+            <p>Trendler, stil onerileri ve ilham veren icerikler</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Blog
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BLOG CONTENT ========== -->
+    <div class="blog-container">
+
+        <!-- Search -->
+        <div class="blog-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input type="text" id="blogSearchInput" placeholder="Makale ara...">
+        </div>
+
+        <!-- Featured Article -->
+        <div class="blog-featured" id="blogFeatured"></div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid" id="blogGrid"></div>
+
+        <!-- No Results -->
+        <div class="blog-no-results" id="blogNoResults">
+            <h3>Sonuc bulunamadi</h3>
+            <p>Farkli bir anahtar kelime ile tekrar deneyin.</p>
+        </div>
+    </div>
+
+    <!-- ========== ARTICLE MODAL ========== -->
+    <div class="article-modal" id="articleModal">
+        <div class="article-modal-content">
+            <button class="article-modal-close" id="articleModalClose" aria-label="Kapat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <span class="article-modal-tag" id="modalArticleTag"></span>
+            <h2 class="article-modal-title" id="modalArticleTitle"></h2>
+            <span class="article-modal-date" id="modalArticleDate"></span>
+            <div class="article-modal-body" id="modalArticleBody"></div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== BLOG DATA ==========
+        const articles = [
+            {
+                id: 1,
+                tag: "Trend",
+                title: "2025 Ilkbahar/Yaz Abiye Trendleri",
+                excerpt: "Bu sezonun en gozde abiye trendlerini kesfedin. Pastel tonlar, asimetrik kesimler ve cesur siluetler bu yilin one cikan temalari arasinda.",
+                date: "15 Ocak 2025",
+                gradient: "linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #c8a96e 100%)",
+                featured: true,
+                body: "<p>2025 ilkbahar/yaz sezonunda abiye modasi, cesur ve zarif bir donusum yasiyor. Bu yilin koleksiyonlarinda one cikan trendler arasinda pastel tonlar, asimetrik kesimler ve minimalist siluetler yer aliyor.</p><p>Lavanta, toz pembe ve mint yesili gibi yumusak tonlar bu sezonun favori renkleri. Tasarimcilar bu renkleri saten ve ipek kumaslarla birlestirerek hem romantik hem de modern bir goruntum yaratmayi basariyor.</p><p>Asimetrik kesimler, tek omuz detaylari ve farkli uzunluklardaki etekler de bu sezonun vazgecilmezleri arasinda. Ozellikle tek omuz tasarimlar, gece davetlerinin en gozde parcalari olmaya devam ediyor.</p><p>Minimalist yaklasim da guclenerek devam ediyor. Sade kesimler, temiz hatlar ve az ama oz aksesuar kullanimi, zarafeti on plana cikariyor. ELEGANCE olarak bu sezonda da en son trendleri koleksiyonlarimiza yansitmaya devam ediyoruz.</p>"
+            },
+            {
+                id: 2,
+                tag: "Rehber",
+                title: "Abiye Renginizi Nasil Secmelisiniz?",
+                excerpt: "Ten renginize ve etkinlik turune gore en dogru abiye rengini secmenin ipuclari. Uzman onerileriyle mukemmel uyumu yakalayin.",
+                date: "8 Ocak 2025",
+                gradient: "linear-gradient(135deg, #2a0a0a 0%, #5a1020 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Dogru abiye rengini secmek, genel gorunumunuzu tamamiyla degistirebilir. Ten renginize, sac renginize ve etkinligin turune gore yapacaginiz secim, sizi gecenin yildizi yapabilir.</p><p>Acik tenliler icin: Lacivert, zumrut yesili ve bordo tonlari harika bir kontrast yaratir. Pastel tonlar da acik tenle guzel bir uyum saglar.</p><p>Bugday tenliler icin: Altın, sampanya ve mercan tonlari cildinizi isiltili gosterir. Toprak tonlari da sicak bir goruntum sunar.</p><p>Koyu tenliler icin: Beyaz, kirmizi ve cobalt mavisi gibi canli renkler muhtesem durur. Metalik tonlar da ozellikle gece etkinlikleri icin ideal bir secimdir.</p><p>Etkinlik turune gore ise; dugun davetleri icin pastel ve romantik tonlar, is yemekleri icin koyu ve klasik renkler, mezuniyet balosu icin ise daha cesur ve genc renkler tercih edilebilir.</p>"
+            },
+            {
+                id: 3,
+                tag: "Stil",
+                title: "Abiyenizle Uyumlu Aksesuar Secimi",
+                excerpt: "Dogru aksesuar, abiyenizi tamamen donusturebilir. Takidan cantaya, ayakkabidan sac aksesuarina kadar kombin ipuclari.",
+                date: "2 Ocak 2025",
+                gradient: "linear-gradient(135deg, #2a2215 0%, #5a4a20 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Aksesuar secimi, abiye kiyafetinizin etkisini katlamak icin en onemli adimlardan biridir. Dogru aksesuar, sade bir abiyeyi bile goz kamastirici hale getirebilir.</p><p><strong>Taki Secimi:</strong> Yaka detayli abiyelerle minimal takilar, sade yakalı abiyelerle ise gosterisli kolyeler tercih edin. Altin tonlu abiyeler icin altin takılar, gumus tonlar icin gumus takilar ideal secimdir.</p><p><strong>Canta Secimi:</strong> Gece davetleri icin clutch cantalar vazgecilmezdir. Abiyenizin ana rengine uyumlu veya metalik tonlarda bir clutch, kombinizinizi tamamlar.</p><p><strong>Ayakkabi:</strong> Uzun abiyelerle ince topuklu ayakkabilar, kisa abiyelerle ise hem ince hem kalin topuk modelleri uyumludur. Nude tonlari her abiyeyle uyum saglar.</p><p><strong>Sac Aksesuarlari:</strong> Tac, tokalar ve inci detaylar ozellikle nisan ve dugun gibi ozel gunler icin abiyenize ekstra bir zarafet katar.</p>"
+            },
+            {
+                id: 4,
+                tag: "Bilgi",
+                title: "Abiye Kumaslari: Kapsamli Rehber",
+                excerpt: "Ipekten tule, satenden kadifiye kadar abiye kumaslarinin ozellikleri, avantajlari ve hangi durumda hangisini secmeniz gerektigi.",
+                date: "25 Aralik 2024",
+                gradient: "linear-gradient(135deg, #0a1a2e 0%, #1b3050 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Abiye secerken kumasin kalitesi ve turu, kiyafetin durusu ve hissi acisindan son derece onemlidir. Iste en cok kullanilan abiye kumaslari ve ozellikleri:</p><p><strong>Ipek:</strong> Kumaslarin kralicesi olarak bilinen ipek, dogal parlakligi ve yumusak dokusuyla luksun simgesidir. Nefes alabilir yapisi sayesinde hem yaz hem kis mevsimlerinde konforu saglar.</p><p><strong>Saten:</strong> Parlak yuzeyiyle goz alici bir goruntum sunan saten, ozellikle uzun abiye ve gelinliklerde tercih edilir. Vucut hatlarini zarif bir sekilde sarar.</p><p><strong>Tul:</strong> Hafif ve seffaf yapisiyla katmanli tasarimlarda siklikla kullanilir. Prenses kesim eteklerin ve romantik tasarimlarin vazgecilmezidir.</p><p><strong>Kadife:</strong> Zengin dokusu ve derin renkleriyle kis sezonunun favori kumasi kadife, luksun ve sicakligin bir araya gelisini temsil eder.</p><p><strong>Dantel:</strong> Romantik ve feminen bir goruntum icin idealdir. Ozellikle nisan ve nikah elbiseleri icin en cok tercih edilen kumaslar arasindadir.</p>"
+            },
+            {
+                id: 5,
+                tag: "Ilham",
+                title: "Unlu Stil: Kirmizi Hali Goruntuleri",
+                excerpt: "Dunyanin en stil sahibi kadinlarindan ilham alin. Kirmizi hali etkinliklerinde giyilen en gozde abiye modelleri ve kombinleri.",
+                date: "18 Aralik 2024",
+                gradient: "linear-gradient(135deg, #1a1015 0%, #3a2028 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Kirmizi hali etkinlikleri, moda dunyasinin en onemli vitrinidir. Her yil duzenlenen gala gecelerinde, film festivalleri ve odul torenlerinde giyilen abiyeler, trendleri belirlemede buyuk rol oynar.</p><p>Bu sezonun en cok konusulan kirmizi hali goruntuleri arasinda minimalist siyah abiyeler, dramatik tren detaylari ve retro ilhamli tasarimlar yer aliyor.</p><p>Ozellikle tek renk ve sade kesimli abiyeler, statement takilarla kombinlenerek gosterisli bir goruntum yaratıyor. Siyah ve beyaz klasik renkler her zaman kirmizi halinin favorisi olmaya devam ederken, bu sezon zumrut yesili ve koyu bordo tonlari da buyuk ilgi gordu.</p><p>ELEGANCE koleksiyonlari da bu kirmizi hali ilhamindan beslenerek, her kadinin kendi ozel gecesinde bir yildiz gibi hissetmesini saglamak icin tasarlaniyor.</p>"
+            },
+            {
+                id: 6,
+                tag: "Trend",
+                title: "Dugun Davetlisi Kiyafet Rehberi",
+                excerpt: "Dugun davetlerine ne giymeli? Mevsime, mekana ve dugun turune gore ideal kiyafet secimleri ve yapilmamasi gereken hatalar.",
+                date: "10 Aralik 2024",
+                gradient: "linear-gradient(135deg, #001a10 0%, #003a25 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Dugun davetlerine katilirken dogru kiyafet secimi yapmak, hem kendinizi iyi hissetmeniz hem de etkinligin ruhuna uyum saglamaniz acisindan onemlidir.</p><p><strong>Mevsime Gore:</strong> Yaz dugunleri icin hafif kumaslar ve acik tonlar, kis dugunleri icin kadife ve koyu tonlar ideal secimdir. Ilkbahar icin pastel tonlar, sonbahar icin ise toprak tonlari onerilir.</p><p><strong>Mekana Gore:</strong> Otel dugunu icin uzun ve sik abiyeler, kir dugunu icin daha rahat ve hafif modeller, plaj dugunu icin ise ucusan kumaslar ve bohem detaylar uygundur.</p><p><strong>Yapilmamasi Gerekenler:</strong> Beyaz veya krem giymekten kacinin - bu renkler gelinin ayricaligidir. Cok acik veya cok kisa kiyafetlerden de kacininiz. Gelinin kiyafetinden daha gosterisli olmamaya ozen gosterin.</p><p><strong>Oneriler:</strong> Midi boy elbiseler her turlu dugun icin guvenli bir secimdir. Metalik tonlar gece dugunleri icin harika bir tercih olabilir. Konforlu ayakkabilar secmeyi de unutmayin!</p>"
+            },
+            {
+                id: 7,
+                tag: "Rehber",
+                title: "Abiye Bakimi ve Saklama Ipuclari",
+                excerpt: "Pahali abiyelerinizin omrunu uzatmak icin dogru bakim ve saklama yontemleri. Uzman onerileriyle kiyafetlerinizi yillar boyu koruyun.",
+                date: "5 Aralik 2024",
+                gradient: "linear-gradient(135deg, #2a1a00 0%, #5a3a10 50%, #c8a96e 100%)",
+                featured: false,
+                body: "<p>Premium abiyeleriniz ozel bakim gerektirir. Dogru bakim ve saklama yontemleriyle kiyafetlerinizi yillarca ilk gunku gibi tutabilirsiniz.</p><p><strong>Temizlik:</strong> Cogu abiye icin kuru temizleme en guvenli yontemdir. Ozellikle boncuk, payet ve dantel detayli kiyafetlerinizi asla camasir makinesine atmayin.</p><p><strong>Saklama:</strong> Abiyelerinizi bez kiliflarda, askida saklayin. Plastik kilif kullanmaktan kacinin cunku nem tutabilir. Agir boncuklu abiyeler icin ise katlanarak saklamak, askinin kiyafeti deforme etmesini onler.</p><p><strong>Leke Cikarma:</strong> Leke olustugunda hemen mudahale edin. Hafifce nemli bir bezle lekeyi silmeye calisin, ovalamaktan kacinin. Ciddi lekeler icin mutlaka profesyonel temizlik tercih edin.</p><p><strong>Utu:</strong> Dusuk isida, tersten utuleyin veya buharlayici kullanin. Ozellikle ipek ve saten kumaslar icin buharlayici en guvenli yontemdir.</p>"
+            }
+        ];
+
+        // ========== RENDER FEATURED ==========
+        const featuredArticle = articles.find(a => a.featured);
+        const featuredEl = document.getElementById('blogFeatured');
+        if (featuredArticle) {
+            featuredEl.innerHTML = `
+                <div class="blog-featured-img" style="background: ${featuredArticle.gradient}; min-height: 300px;"></div>
+                <div class="blog-featured-body">
+                    <span class="blog-featured-tag">${featuredArticle.tag}</span>
+                    <h2 class="blog-featured-title">${featuredArticle.title}</h2>
+                    <p class="blog-featured-excerpt">${featuredArticle.excerpt}</p>
+                    <span style="font-size:0.75rem;color:var(--text-muted)">${featuredArticle.date}</span>
+                </div>
+            `;
+            featuredEl.onclick = () => openArticle(featuredArticle.id);
+        }
+
+        // ========== RENDER GRID ==========
+        const gridEl = document.getElementById('blogGrid');
+        const gridArticles = articles.filter(a => !a.featured);
+
+        function renderGrid(list) {
+            gridEl.innerHTML = '';
+            if (list.length === 0) {
+                document.getElementById('blogNoResults').style.display = 'block';
+                return;
+            }
+            document.getElementById('blogNoResults').style.display = 'none';
+            list.forEach(a => {
+                const card = document.createElement('div');
+                card.className = 'blog-card';
+                card.innerHTML = `
+                    <div class="blog-card-img" style="background: ${a.gradient}; min-height: 200px;"></div>
+                    <div class="blog-card-body">
+                        <div class="blog-card-tag">${a.tag}</div>
+                        <h3 class="blog-card-title">${a.title}</h3>
+                        <p class="blog-card-excerpt">${a.excerpt}</p>
+                        <div class="blog-card-footer">
+                            <span>${a.date}</span>
+                            <span class="blog-card-read">Devamini Oku</span>
+                        </div>
+                    </div>
+                `;
+                card.onclick = () => openArticle(a.id);
+                gridEl.appendChild(card);
+            });
+        }
+        renderGrid(gridArticles);
+
+        // ========== SEARCH ==========
+        const searchInput = document.getElementById('blogSearchInput');
+        searchInput.addEventListener('input', function() {
+            const q = this.value.toLowerCase().trim();
+            if (!q) {
+                featuredEl.style.display = '';
+                renderGrid(gridArticles);
+                return;
+            }
+            const all = articles.filter(a =>
+                a.title.toLowerCase().includes(q) ||
+                a.excerpt.toLowerCase().includes(q) ||
+                a.tag.toLowerCase().includes(q) ||
+                a.body.toLowerCase().includes(q)
+            );
+            featuredEl.style.display = 'none';
+            renderGrid(all);
+        });
+
+        // ========== ARTICLE MODAL ==========
+        const modal = document.getElementById('articleModal');
+        function openArticle(id) {
+            const a = articles.find(x => x.id === id);
+            if (!a) return;
+            document.getElementById('modalArticleTag').textContent = a.tag;
+            document.getElementById('modalArticleTitle').textContent = a.title;
+            document.getElementById('modalArticleDate').textContent = a.date;
+            document.getElementById('modalArticleBody').innerHTML = a.body;
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.getElementById('articleModalClose').onclick = closeModal;
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        // Restore lang
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>
