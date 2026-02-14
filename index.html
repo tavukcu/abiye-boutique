@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÉLÉGANCE | Premium Abiye Koleksiyonu</title>
+    <meta name="description" content="En özel anlarınız için tasarlanmış premium abiye koleksiyonu. Zarif, şık ve benzersiz abiye modelleri. Uzun abiye, kısa abiye, nişanlık ve mezuniyet elbiseleri.">
+    <meta name="keywords" content="abiye, premium abiye, uzun abiye, kısa abiye, nişanlık, mezuniyet elbisesi, gece elbisesi, özel tasarım">
+    <meta name="author" content="ÉLÉGANCE">
+    <meta name="theme-color" content="#0a0a0a">
+    <!-- Open Graph -->
+    <meta property="og:title" content="ÉLÉGANCE | Premium Abiye Koleksiyonu">
+    <meta property="og:description" content="Zarafetin en asil hali. El işçiliğiyle tasarlanmış premium abiye koleksiyonu.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========== KAMPANYA BANNER ========== -->
+    <div class="promo-bar" id="promoBar">
+        <div class="promo-bar-content">
+            <span>Yeni Sezon Koleksiyonu'nda <strong>%20 İndirim</strong> — Kod: <strong>ELEGANCE20</strong></span>
+        </div>
+        <button class="promo-bar-close" id="promoBarClose" aria-label="Kapat">&times;</button>
+    </div>
+
+    <!-- ========== PRELOADER ========== -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-line"></div>
+            <span class="preloader-brand">ÉLÉGANCE</span>
+            <div class="preloader-line"></div>
+        </div>
+    </div>
+
+    <!-- ========== CUSTOM CURSOR ========== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menü aç/kapa">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="#" class="nav-logo">ÉLÉGANCE</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#koleksiyon">Koleksiyon</a></li>
+                <li><a href="#kategoriler">Kategoriler</a></li>
+                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="nav-action-btn" id="searchToggle" aria-label="Arama">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </button>
+                <button class="nav-action-btn" id="wishlistToggle" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </button>
+                <button class="nav-action-btn" id="cartToggle" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="#hakkimizda" class="mobile-link">Hakkımızda</a>
+            <a href="#iletisim" class="mobile-link">İletişim</a>
+        </div>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-shimmer"></div>
+        <div class="hero-particles">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <p class="hero-tag" data-reveal>— 2025 Yeni Sezon —</p>
+                <h1 class="hero-title" data-reveal>
+                    Zarafetin<br><em>En Asil Hali</em>
+                </h1>
+                <p class="hero-desc" data-reveal>Her anınızı özel kılan, el işçiliğiyle tasarlanmış premium abiye koleksiyonu</p>
+                <a href="#koleksiyon" class="btn-primary hero-cta" data-reveal>
+                    <span>Koleksiyonu Keşfet</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="hero-visual" data-reveal>
+                <img src="img/hero-illustration.png" alt="Élégance Abiye İllüstrasyon">
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Aşağı Kaydır</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========== MARQUEE ========== -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span>HAUTE COUTURE</span><span class="mq-diamond">◆</span>
+                <span>PREMIUM ABİYE</span><span class="mq-diamond">◆</span>
+                <span>ÖZEL TASARIM</span><span class="mq-diamond">◆</span>
+                <span>EL İŞÇİLİĞİ</span><span class="mq-diamond">◆</span>
+                <span>HAUTE COUTURE</span><span class="mq-diamond">◆</span>
+                <span>PREMIUM ABİYE</span><span class="mq-diamond">◆</span>
+                <span>ÖZEL TASARIM</span><span class="mq-diamond">◆</span>
+                <span>EL İŞÇİLİĞİ</span><span class="mq-diamond">◆</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CATEGORIES ========== -->
+    <section class="categories" id="kategoriler">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">Kategoriler</span>
+                <h2 class="section-title">Tarzınızı <em>Keşfedin</em></h2>
+            </div>
+            <div class="category-grid">
+                <div class="category-card" data-category="uzun" data-reveal>
+                    <div class="category-bg" style="background: linear-gradient(160deg, #1a0a2e 0%, #2d1b4e 40%, #1a0a2e 100%);"></div>
+                    <div class="category-overlay"></div>
+                    <div class="category-info">
+                        <span class="category-count">12 Ürün</span>
+                        <h3>Uzun Abiye</h3>
+                        <span class="category-cta">Keşfet <span>→</span></span>
+                    </div>
+                </div>
+                <div class="category-card" data-category="kisa" data-reveal>
+                    <div class="category-bg" style="background: linear-gradient(160deg, #2a0a0a 0%, #4e1b1b 40%, #2a0a0a 100%);"></div>
+                    <div class="category-overlay"></div>
+                    <div class="category-info">
+                        <span class="category-count">8 Ürün</span>
+                        <h3>Kısa Abiye</h3>
+                        <span class="category-cta">Keşfet <span>→</span></span>
+                    </div>
+                </div>
+                <div class="category-card" data-category="nisan" data-reveal>
+                    <div class="category-bg" style="background: linear-gradient(160deg, #2a2215 0%, #4e3d1b 40%, #2a2215 100%);"></div>
+                    <div class="category-overlay"></div>
+                    <div class="category-info">
+                        <span class="category-count">6 Ürün</span>
+                        <h3>Nişanlık</h3>
+                        <span class="category-cta">Keşfet <span>→</span></span>
+                    </div>
+                </div>
+                <div class="category-card" data-category="mezuniyet" data-reveal>
+                    <div class="category-bg" style="background: linear-gradient(160deg, #0a1a2e 0%, #1b2d4e 40%, #0a1a2e 100%);"></div>
+                    <div class="category-overlay"></div>
+                    <div class="category-info">
+                        <span class="category-count">5 Ürün</span>
+                        <h3>Mezuniyet</h3>
+                        <span class="category-cta">Keşfet <span>→</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCTS ========== -->
+    <section class="products" id="koleksiyon">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">Koleksiyon</span>
+                <h2 class="section-title">Öne Çıkan <em>Ürünler</em></h2>
+            </div>
+            <div class="countdown-banner" data-reveal>
+                <span class="countdown-label">Sezon Sonu İndirimi Bitiyor:</span>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-unit"><span id="cdDays">00</span><small>Gün</small></div>
+                    <div class="countdown-sep">:</div>
+                    <div class="countdown-unit"><span id="cdHours">00</span><small>Saat</small></div>
+                    <div class="countdown-sep">:</div>
+                    <div class="countdown-unit"><span id="cdMins">00</span><small>Dakika</small></div>
+                    <div class="countdown-sep">:</div>
+                    <div class="countdown-unit"><span id="cdSecs">00</span><small>Saniye</small></div>
+                </div>
+            </div>
+            <div class="filter-bar" data-reveal>
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="uzun">Uzun Abiye</button>
+                <button class="filter-btn" data-filter="kisa">Kısa Abiye</button>
+                <button class="filter-btn" data-filter="nisan">Nişanlık</button>
+                <button class="filter-btn" data-filter="mezuniyet">Mezuniyet</button>
+            </div>
+            <div class="product-grid" id="productGrid">
+                <!-- JS ile render edilecek -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item" data-reveal>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>
+                        </svg>
+                    </div>
+                    <h4>Özel Tasarım</h4>
+                    <p>Her parça özenle tasarlanmış, benzersiz bir sanat eseridir</p>
+                </div>
+                <div class="feature-item" data-reveal>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h4>Premium Kalite</h4>
+                    <p>En kaliteli kumaşlar ve malzemeler kullanılarak üretilmiştir</p>
+                </div>
+                <div class="feature-item" data-reveal>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h4>Ücretsiz Kargo</h4>
+                    <p>2.000₺ üzeri siparişlerde Türkiye geneli ücretsiz kargo</p>
+                </div>
+                <div class="feature-item" data-reveal>
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                        </svg>
+                    </div>
+                    <h4>Kolay İade</h4>
+                    <p>14 gün içinde koşulsuz iade ve değişim garantisi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="hakkimizda">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-visual" data-reveal>
+                    <div class="about-img-wrapper">
+                        <div class="about-img" style="background: linear-gradient(135deg, #1a1015 0%, #2d1f28 30%, #c8a96e 70%, #2d1f28 100%);"></div>
+                        <div class="about-img-frame"></div>
+                    </div>
+                    <div class="about-stat">
+                        <span class="stat-number" data-count="15">0</span>
+                        <span class="stat-label">Yıllık Deneyim</span>
+                    </div>
+                </div>
+                <div class="about-text" data-reveal>
+                    <span class="section-tag">Hakkımızda</span>
+                    <h2 class="section-title">Zarafeti <em>Yeniden</em> Tanımlıyoruz</h2>
+                    <p class="about-desc">
+                        2010 yılından bu yana, Élégance olarak kadın modasının en prestijli segmentinde
+                        yer alıyoruz. Her bir tasarımımız, geleneksel el işçiliği ile modern estetiği
+                        bir araya getirerek benzersiz bir zarafet sunuyor.
+                    </p>
+                    <p class="about-desc">
+                        Koleksiyonlarımız, İtalyan ve Fransız modaevlerinden ilham alarak,
+                        Türk kadınının zarif duruşunu uluslararası standartlarda yansıtmayı hedefliyor.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight">
+                            <span class="highlight-num" data-count="500">0</span>
+                            <span class="highlight-text">Mutlu Müşteri</span>
+                        </div>
+                        <div class="highlight">
+                            <span class="highlight-num" data-count="200">0</span>
+                            <span class="highlight-text">Özel Tasarım</span>
+                        </div>
+                        <div class="highlight">
+                            <span class="highlight-num" data-count="50">0</span>
+                            <span class="highlight-text">Koleksiyon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">Müşteri Yorumları</span>
+                <h2 class="section-title">Onlar <em>Ne Diyor?</em></h2>
+            </div>
+            <div class="testimonial-grid" data-reveal>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Nişanım için aldığım abiye hayallerimin ötesindeydi. Kumaş kalitesi ve işçilik muhteşem. Herkese tavsiye ederim."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #c8a96e, #8b7355);">A</div>
+                        <div>
+                            <strong>Ayşe K.</strong>
+                            <span>İstanbul</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Mezuniyet balosu için mükemmel bir tercih oldu. Elbise tam kalıp geldi ve herkes bayıldı. Teşekkürler Élégance!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #8b5a6b, #5a3a4b);">Z</div>
+                        <div>
+                            <strong>Zeynep M.</strong>
+                            <span>Ankara</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"İkinci alışverişim ve yine çok memnunum. Kargo hızlı, paketleme özenli. Premium hizmet gerçekten premium!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #5a6b8b, #3a4b5a);">E</div>
+                        <div>
+                            <strong>Elif S.</strong>
+                            <span>İzmir</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LOOKBOOK VIDEO ========== -->
+    <section class="lookbook">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">Lookbook</span>
+                <h2 class="section-title">Sahne <em>Arkası</em></h2>
+            </div>
+            <div class="lookbook-video" data-reveal>
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <div class="video-bg" style="background: linear-gradient(135deg, #1a1015 0%, #2d1f28 40%, #0a0a0a 100%);"></div>
+                    <div class="video-play-btn" id="videoPlayBtn">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <span>Koleksiyonu İzle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INSTAGRAM FEED ========== -->
+    <section class="instagram-feed">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">@elegance</span>
+                <h2 class="section-title">Bizi <em>Takip Edin</em></h2>
+            </div>
+            <div class="insta-grid" data-reveal>
+                <div class="insta-item" style="background: linear-gradient(135deg, #1a0a2e, #2d1b4e);"><span class="insta-overlay">♡ 234</span></div>
+                <div class="insta-item" style="background: linear-gradient(135deg, #2a0a0a, #5a1020);"><span class="insta-overlay">♡ 189</span></div>
+                <div class="insta-item" style="background: linear-gradient(135deg, #2a2215, #5a4a20);"><span class="insta-overlay">♡ 312</span></div>
+                <div class="insta-item" style="background: linear-gradient(135deg, #0a1a2e, #1b3050);"><span class="insta-overlay">♡ 156</span></div>
+                <div class="insta-item" style="background: linear-gradient(135deg, #1a1015, #3a2028);"><span class="insta-overlay">♡ 278</span></div>
+                <div class="insta-item" style="background: linear-gradient(135deg, #001a10, #003a25);"><span class="insta-overlay">♡ 198</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== NEWSLETTER ========== -->
+    <section class="newsletter" id="iletisim">
+        <div class="newsletter-bg"></div>
+        <div class="container">
+            <div class="newsletter-content" data-reveal>
+                <span class="section-tag">Bülten</span>
+                <h2 class="section-title">Yeni Koleksiyonlardan<br><em>İlk Siz Haberdar Olun</em></h2>
+                <p>Özel indirimler, yeni sezon koleksiyonları ve stil önerileri için bültenimize abone olun.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input-wrap">
+                        <input type="email" placeholder="E-posta adresiniz" required>
+                        <button type="submit" class="btn-primary">
+                            <span>Abone Ol</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SSS ========== -->
+    <section class="faq" id="sss">
+        <div class="container">
+            <div class="section-head" data-reveal>
+                <span class="section-tag">SSS</span>
+                <h2 class="section-title">Sıkça Sorulan <em>Sorular</em></h2>
+            </div>
+            <div class="faq-list" data-reveal>
+                <div class="faq-item">
+                    <button class="faq-question">Siparişim ne zaman kargoya verilir?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Siparişleriniz, ödeme onayından sonra 1-3 iş günü içinde kargoya teslim edilir. Özel tasarım ürünlerde bu süre 5-7 iş gününe kadar uzayabilir.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">İade ve değişim koşullarınız nelerdir?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Ürünü teslim aldığınız tarihten itibaren 14 gün içinde, etiketleri sökülmemiş ve kullanılmamış olması koşuluyla ücretsiz iade veya değişim yapabilirsiniz.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Bedenimi nasıl seçmeliyim?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Her ürün sayfasında detaylı beden tablosu bulunmaktadır. Göğüs, bel ve kalça ölçülerinizi alarak tablodaki karşılığını seçebilirsiniz. Tereddüt ettiğinizde WhatsApp hattımızdan yardım alabilirsiniz.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Ödeme seçenekleri nelerdir?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Kredi kartı, banka kartı, havale/EFT ve kapıda ödeme seçenekleri mevcuttur. Kredi kartına 6 aya kadar taksit imkanı sunulmaktadır.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Özel tasarım sipariş verebilir miyim?<span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Evet! Özel gününüz için size özel tasarım abiye sipariş verebilirsiniz. Detaylı bilgi için WhatsApp hattımızdan veya mağazamızdan bize ulaşabilirsiniz.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">ÉLÉGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonları.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hızlı Linkler</h4>
+                    <a href="#koleksiyon">Koleksiyon</a>
+                    <a href="#kategoriler">Kategoriler</a>
+                    <a href="#hakkimizda">Hakkımızda</a>
+                    <a href="#iletisim">İletişim</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Müşteri Hizmetleri</h4>
+                    <a href="#">Sipariş Takibi</a>
+                    <a href="#">İade & Değişim</a>
+                    <a href="#">Beden Rehberi</a>
+                    <a href="#">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>İletişim</h4>
+                    <p>Bağdat Caddesi No: 123<br>Kadıköy, İstanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ÉLÉGANCE. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Koşulları</a>
+                    <a href="#">Çerez Politikası</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SEARCH OVERLAY ========== -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose" aria-label="Kapat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="search-inner">
+            <h3>Ne Arıyorsunuz?</h3>
+            <div class="search-input-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Abiye, renk, beden ara..." autocomplete="off">
+            </div>
+            <div class="search-suggestions">
+                <span>Popüler:</span>
+                <button class="search-tag">Siyah Abiye</button>
+                <button class="search-tag">Uzun Abiye</button>
+                <button class="search-tag">Nişanlık</button>
+                <button class="search-tag">Bordo</button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- ========== QUICK VIEW MODAL ========== -->
+    <div class="modal-overlay" id="quickViewModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Kapat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="modal-grid">
+                <div class="modal-image" id="modalImage"></div>
+                <div class="modal-details">
+                    <span class="modal-category" id="modalCategory"></span>
+                    <h2 class="modal-name" id="modalName"></h2>
+                    <div class="modal-price" id="modalPrice"></div>
+                    <p class="modal-desc" id="modalDesc"></p>
+                    <div class="modal-colors">
+                        <span class="modal-label">Renk:</span>
+                        <div class="color-options" id="modalColors"></div>
+                    </div>
+                    <div class="modal-sizes">
+                        <div class="modal-label-row">
+                            <span class="modal-label">Beden:</span>
+                            <button class="size-guide-link" id="openSizeGuide">Beden Rehberi</button>
+                        </div>
+                        <div class="size-options" id="modalSizes"></div>
+                    </div>
+                    <div class="modal-quantity">
+                        <span class="modal-label">Adet:</span>
+                        <div class="quantity-control">
+                            <button class="qty-btn" id="qtyMinus">−</button>
+                            <span class="qty-value" id="qtyValue">1</span>
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-primary btn-add-cart" id="addToCartBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                            </svg>
+                            <span>Sepete Ekle</span>
+                        </button>
+                        <button class="btn-wishlist-modal" id="addToWishlistBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CART DRAWER ========== -->
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Sepetiniz</h3>
+            <button class="cart-close" id="cartClose" aria-label="Kapat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-body" id="cartBody">
+            <div class="cart-empty" id="cartEmpty">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+                <p>Sepetiniz boş</p>
+                <span>Alışverişe başlamak için koleksiyonu keşfedin</span>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-subtotal">
+                <span>Ara Toplam</span>
+                <span id="cartSubtotal">₺0</span>
+            </div>
+            <div class="cart-shipping">
+                <span>Kargo</span>
+                <span id="cartShipping">Hesaplanacak</span>
+            </div>
+            <div class="coupon-area">
+                <div class="coupon-input-wrap" id="couponWrap">
+                    <input type="text" id="couponInput" placeholder="Kupon kodunuz">
+                    <button id="couponApply">Uygula</button>
+                </div>
+                <p class="coupon-msg" id="couponMsg"></p>
+            </div>
+            <div class="cart-total">
+                <span>Toplam</span>
+                <span id="cartTotal">₺0</span>
+            </div>
+            <button class="btn-primary btn-checkout">
+                <span>Ödemeye Geç</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+            <p class="cart-note">Güvenli ödeme • 14 gün iade garantisi</p>
+        </div>
+    </aside>
+
+    <!-- ========== TOAST NOTIFICATION ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <!-- ========== BACK TO TOP ========== -->
+    <button class="back-to-top" id="backToTop" aria-label="Yukarı git">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- ========== BEDEN REHBERİ MODAL ========== -->
+    <div class="size-guide-overlay" id="sizeGuideModal">
+        <div class="size-guide-content">
+            <button class="modal-close" id="sizeGuideClose" aria-label="Kapat">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <h3>Beden Rehberi</h3>
+            <p class="size-guide-desc">Ölçülerinizi alarak aşağıdaki tablodan bedeninizi belirleyebilirsiniz.</p>
+            <table class="size-table">
+                <thead>
+                    <tr><th>Beden</th><th>Göğüs (cm)</th><th>Bel (cm)</th><th>Kalça (cm)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>XS</td><td>80-84</td><td>60-64</td><td>86-90</td></tr>
+                    <tr><td>S</td><td>84-88</td><td>64-68</td><td>90-94</td></tr>
+                    <tr><td>M</td><td>88-92</td><td>68-72</td><td>94-98</td></tr>
+                    <tr><td>L</td><td>92-96</td><td>72-76</td><td>98-102</td></tr>
+                    <tr><td>XL</td><td>96-100</td><td>76-80</td><td>102-106</td></tr>
+                </tbody>
+            </table>
+            <p class="size-guide-tip">Tam iki beden arasında kalıyorsanız, büyük bedeni tercih etmenizi öneririz.</p>
+        </div>
+    </div>
+
+    <!-- ========== HOŞGELDİN POPUP ========== -->
+    <div class="welcome-popup-overlay" id="welcomePopup">
+        <div class="welcome-popup">
+            <button class="welcome-close" id="welcomeClose" aria-label="Kapat">&times;</button>
+            <div class="welcome-content">
+                <span class="welcome-tag">Hoş Geldiniz</span>
+                <h3>İlk Alışverişinize Özel<br><em>%15 İndirim</em></h3>
+                <p>Bültenimize abone olun, indirim kodunuz anında e-postanıza gelsin.</p>
+                <form class="welcome-form" id="welcomeForm">
+                    <input type="email" placeholder="E-posta adresiniz" required>
+                    <button type="submit" class="btn-primary"><span>Kodu Al</span></button>
+                </form>
+                <button class="welcome-skip" id="welcomeSkip">Hayır, teşekkürler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ÇEREZ BİLDİRİMİ ========== -->
+    <div class="cookie-bar" id="cookieBar">
+        <div class="cookie-text">
+            <p>Bu web sitesi deneyiminizi geliştirmek için çerezler kullanmaktadır. Siteyi kullanmaya devam ederek <a href="#">Çerez Politikamızı</a> kabul etmiş olursunuz.</p>
+        </div>
+        <div class="cookie-actions">
+            <button class="cookie-accept" id="cookieAccept">Kabul Et</button>
+            <button class="cookie-decline" id="cookieDecline">Reddet</button>
+        </div>
+    </div>
+
+    <!-- ========== WHATSAPP BUTTON ========== -->
+    <a href="https://wa.me/905550000000" target="_blank" class="whatsapp-btn" id="whatsappBtn" aria-label="WhatsApp ile iletişime geçin">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Bize Yazın</span>
+    </a>
+
+    <!-- ========== SON GÖRÜNTÜLENENLER ========== -->
+    <div class="recently-viewed" id="recentlyViewed" style="display:none;">
+        <div class="container">
+            <h4 class="rv-title">Son Görüntülediğiniz</h4>
+            <div class="rv-grid" id="rvGrid"></div>
+        </div>
+    </div>
+
+    <!-- ========== MUSIC PLAYER ========== -->
+    <button class="music-toggle" id="musicToggle" aria-label="Müzik aç/kapa">
+        <div class="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="img/bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
