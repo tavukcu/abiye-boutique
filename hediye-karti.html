@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Hediye Karti</title>
+    <meta name="description" content="ELEGANCE hediye karti ile sevdiklerinize zarafet hediye edin. Premium abiye koleksiyonumuzdan secim yapmalarini saglayin.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #f0e6d3;
+            --text-body: #e8e0d5;
+        }
+
+        /* ========== GIFT CARD PAGE ========== */
+        .gc-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Amount Selection */
+        .gc-section {
+            margin-bottom: 48px;
+        }
+        .gc-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .gc-section-title svg { color: var(--gold); flex-shrink: 0; }
+
+        .gc-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .gc-amount-card {
+            padding: 28px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .gc-amount-card:hover {
+            border-color: var(--gold);
+        }
+        .gc-amount-card.selected {
+            border-color: var(--gold);
+            background: rgba(200,169,110,0.08);
+        }
+        .gc-amount-card .gc-amount-value {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .gc-amount-card .gc-amount-label {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .gc-custom-amount {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .gc-custom-amount label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .gc-custom-amount input {
+            flex: 1;
+            max-width: 250px;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        .gc-custom-amount input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        /* Gift Card Preview & Form Layout */
+        .gc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Gift Card Preview */
+        .gc-preview-card {
+            aspect-ratio: 1.6/1;
+            border-radius: 16px;
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+        .gc-preview-card.design-klasik {
+            background: linear-gradient(135deg, #1a1510 0%, #2d2418 30%, #c8a96e 70%, #2d2418 100%);
+        }
+        .gc-preview-card.design-cicek {
+            background: linear-gradient(135deg, #1a0a1e 0%, #3d1845 30%, #c8a96e 70%, #3d1845 100%);
+        }
+        .gc-preview-card.design-gece {
+            background: linear-gradient(135deg, #0a0a1e 0%, #0a1a3a 30%, #c8a96e 70%, #0a1a3a 100%);
+        }
+        .gc-preview-card.design-minimal {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+        .gc-preview-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .gc-preview-logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .gc-preview-tag {
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+        .gc-preview-amount {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .gc-preview-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .gc-preview-names {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+        .gc-preview-names span {
+            display: block;
+        }
+        .gc-preview-code {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Design Selection */
+        .gc-designs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .gc-design-option {
+            aspect-ratio: 1.6/1;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .gc-design-option:hover { border-color: rgba(200,169,110,0.4); }
+        .gc-design-option.selected { border-color: var(--gold); }
+        .gc-design-option .gc-design-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 6px;
+            text-align: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0,0,0,0.6);
+        }
+
+        /* Recipient Form */
+        .gc-form .gc-form-group {
+            margin-bottom: 16px;
+        }
+        .gc-form label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .gc-form input,
+        .gc-form textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .gc-form input:focus,
+        .gc-form textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .gc-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .gc-char-counter {
+            text-align: right;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .gc-char-counter.warn { color: #e74c3c; }
+
+        .gc-buy-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .gc-buy-btn:hover { opacity: 0.85; }
+
+        /* Success Overlay */
+        .gc-success-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        .gc-success-overlay.visible { opacity: 1; visibility: visible; }
+        .gc-success-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .gc-success-overlay.visible .gc-success-box { transform: translateY(0); }
+        .gc-success-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--gold);
+            animation: gcPulse 0.6s ease-out;
+        }
+        @keyframes gcPulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .gc-success-box h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .gc-success-box p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .gc-success-code {
+            display: inline-block;
+            background: rgba(200,169,110,0.08);
+            border: 1px solid rgba(200,169,110,0.2);
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin: 16px 0 24px;
+        }
+        .gc-success-close {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .gc-success-close:hover { opacity: 0.85; }
+
+        /* Balance Check Section */
+        .gc-balance-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+        }
+        .gc-balance-inner {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .gc-balance-inner h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+        .gc-balance-inner p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .gc-balance-row {
+            display: flex;
+            gap: 10px;
+        }
+        .gc-balance-row input {
+            flex: 1;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .gc-balance-row input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .gc-balance-row button {
+            padding: 14px 24px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .gc-balance-row button:hover { background: var(--gold); color: var(--bg-dark); }
+        .gc-balance-result {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .gc-balance-result.success {
+            display: block;
+            background: rgba(39,174,96,0.08);
+            border: 1px solid rgba(39,174,96,0.2);
+            color: #27ae60;
+        }
+        .gc-balance-result.error {
+            display: block;
+            background: rgba(231,76,60,0.08);
+            border: 1px solid rgba(231,76,60,0.2);
+            color: #e74c3c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gc-amounts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gc-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .gc-designs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gc-preview-card {
+                padding: 24px;
+            }
+            .gc-preview-amount {
+                font-size: 2rem;
+            }
+            .gc-balance-row {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 480px) {
+            .gc-container { padding: 24px 16px 60px; }
+            .gc-amounts { gap: 10px; }
+            .gc-amount-card { padding: 20px 12px; }
+            .gc-amount-card .gc-amount-value { font-size: 1.2rem; }
+            .gc-custom-amount { flex-direction: column; align-items: stretch; }
+            .gc-custom-amount input { max-width: 100%; }
+            .gc-success-box { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Hediye Karti</span>
+            <h1>Sevdiklerinize Zarafet <em>Hediye Edin</em></h1>
+            <p>ELEGANCE hediye karti ile ozel anlari unutulmaz kilin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Hediye Karti
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GIFT CARD CONTENT ========== -->
+    <div class="gc-container">
+
+        <!-- Amount Selection -->
+        <div class="gc-section">
+            <h3 class="gc-section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                </svg>
+                Tutar Secin
+            </h3>
+            <div class="gc-amounts">
+                <div class="gc-amount-card" data-amount="500">
+                    <span class="gc-amount-value">&#8378;500</span>
+                    <span class="gc-amount-label">Hediye Karti</span>
+                </div>
+                <div class="gc-amount-card" data-amount="1000">
+                    <span class="gc-amount-value">&#8378;1.000</span>
+                    <span class="gc-amount-label">Hediye Karti</span>
+                </div>
+                <div class="gc-amount-card" data-amount="2000">
+                    <span class="gc-amount-value">&#8378;2.000</span>
+                    <span class="gc-amount-label">Hediye Karti</span>
+                </div>
+                <div class="gc-amount-card selected" data-amount="5000">
+                    <span class="gc-amount-value">&#8378;5.000</span>
+                    <span class="gc-amount-label">Hediye Karti</span>
+                </div>
+            </div>
+            <div class="gc-custom-amount">
+                <label>veya ozel tutar giriniz:</label>
+                <input type="number" id="gcCustomAmount" placeholder="Tutar (TL)" min="100" max="50000">
+            </div>
+        </div>
+
+        <!-- Preview + Form Grid -->
+        <div class="gc-grid">
+
+            <!-- Left: Preview -->
+            <div>
+                <div class="gc-section">
+                    <h3 class="gc-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        Kart Onizleme
+                    </h3>
+                    <div class="gc-preview-card design-klasik" id="gcPreviewCard">
+                        <div class="gc-preview-top">
+                            <span class="gc-preview-logo">ELEGANCE</span>
+                            <span class="gc-preview-tag">Hediye Karti</span>
+                        </div>
+                        <div class="gc-preview-amount" id="gcPreviewAmount">&#8378;5.000</div>
+                        <div class="gc-preview-bottom">
+                            <div class="gc-preview-names">
+                                <span id="gcPreviewFrom">Gonderen: ---</span>
+                                <span id="gcPreviewTo">Alici: ---</span>
+                            </div>
+                            <span class="gc-preview-code" id="gcPreviewCode">ELG-XXXX-XXXX</span>
+                        </div>
+                    </div>
+
+                    <!-- Design Options -->
+                    <div class="gc-designs">
+                        <div class="gc-design-option selected" data-design="klasik" style="background: linear-gradient(135deg, #1a1510 0%, #2d2418 30%, #c8a96e 70%, #2d2418 100%);">
+                            <span class="gc-design-name">Klasik Gold</span>
+                        </div>
+                        <div class="gc-design-option" data-design="cicek" style="background: linear-gradient(135deg, #1a0a1e 0%, #3d1845 30%, #c8a96e 70%, #3d1845 100%);">
+                            <span class="gc-design-name">Cicek</span>
+                        </div>
+                        <div class="gc-design-option" data-design="gece" style="background: linear-gradient(135deg, #0a0a1e 0%, #0a1a3a 30%, #c8a96e 70%, #0a1a3a 100%);">
+                            <span class="gc-design-name">Gece</span>
+                        </div>
+                        <div class="gc-design-option" data-design="minimal" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);">
+                            <span class="gc-design-name">Minimal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Recipient Form -->
+            <div>
+                <div class="gc-section">
+                    <h3 class="gc-section-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Alici Bilgileri
+                    </h3>
+                    <div class="gc-form">
+                        <div class="gc-form-group">
+                            <label for="gcSenderName">Gonderen Adi *</label>
+                            <input type="text" id="gcSenderName" placeholder="Adiniz">
+                        </div>
+                        <div class="gc-form-group">
+                            <label for="gcRecipientName">Alici Adi *</label>
+                            <input type="text" id="gcRecipientName" placeholder="Alicinin adi">
+                        </div>
+                        <div class="gc-form-group">
+                            <label for="gcRecipientEmail">Alici E-posta *</label>
+                            <input type="email" id="gcRecipientEmail" placeholder="alici@email.com">
+                        </div>
+                        <div class="gc-form-group">
+                            <label for="gcMessage">Kisisel Mesaj</label>
+                            <textarea id="gcMessage" placeholder="Ozel bir mesaj yazin... (maks. 200 karakter)" maxlength="200"></textarea>
+                            <div class="gc-char-counter"><span id="gcCharCount">0</span>/200</div>
+                        </div>
+                        <button class="gc-buy-btn" id="gcBuyBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+                            </svg>
+                            <span>Hediye Kartini Satin Al</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========== BALANCE CHECK ========== -->
+    <div class="gc-balance-section">
+        <div class="gc-container">
+            <div class="gc-balance-inner">
+                <h2>Hediye Karti <em>Bakiye Sorgula</em></h2>
+                <p>Hediye karti kodunuzu girerek kalan bakiyenizi ogrenin</p>
+                <div class="gc-balance-row">
+                    <input type="text" id="gcBalanceCode" placeholder="ELG-XXXX-XXXX" maxlength="13">
+                    <button type="button" id="gcBalanceBtn">Sorgula</button>
+                </div>
+                <div class="gc-balance-result" id="gcBalanceResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SUCCESS OVERLAY ========== -->
+    <div class="gc-success-overlay" id="gcSuccessOverlay">
+        <div class="gc-success-box">
+            <div class="gc-success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <h2>Hediye Kartiniz Hazir!</h2>
+            <p>Hediye karti basariyla olusturuldu. Aliciya e-posta ile gonderilecektir.</p>
+            <div class="gc-success-code" id="gcSuccessCode">ELG-XXXX-XXXX</div>
+            <p>Bu kodu saklayiniz. Alisveriste kullanilabilir.</p>
+            <button class="gc-success-close" id="gcSuccessClose">Tamam</button>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        // ========== STATE ==========
+        let selectedAmount = 5000;
+        let selectedDesign = 'klasik';
+
+        // ========== AMOUNT SELECTION ==========
+        const amountCards = document.querySelectorAll('.gc-amount-card');
+        const customAmountInput = document.getElementById('gcCustomAmount');
+
+        amountCards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                amountCards.forEach(function(c) { c.classList.remove('selected'); });
+                card.classList.add('selected');
+                selectedAmount = parseInt(card.dataset.amount);
+                customAmountInput.value = '';
+                updatePreview();
+            });
+        });
+
+        customAmountInput.addEventListener('input', function() {
+            var val = parseInt(this.value);
+            if (val && val >= 100) {
+                amountCards.forEach(function(c) { c.classList.remove('selected'); });
+                selectedAmount = val;
+                updatePreview();
+            }
+        });
+
+        // ========== DESIGN SELECTION ==========
+        var designOptions = document.querySelectorAll('.gc-design-option');
+        designOptions.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                designOptions.forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                selectedDesign = opt.dataset.design;
+                updatePreview();
+            });
+        });
+
+        // ========== LIVE PREVIEW ==========
+        var previewCard = document.getElementById('gcPreviewCard');
+        var previewAmount = document.getElementById('gcPreviewAmount');
+        var previewFrom = document.getElementById('gcPreviewFrom');
+        var previewTo = document.getElementById('gcPreviewTo');
+        var senderInput = document.getElementById('gcSenderName');
+        var recipientInput = document.getElementById('gcRecipientName');
+
+        function updatePreview() {
+            // Amount
+            previewAmount.textContent = '\u20BA' + Number(selectedAmount).toLocaleString('tr-TR');
+
+            // Design
+            previewCard.className = 'gc-preview-card design-' + selectedDesign;
+
+            // Names
+            var senderName = senderInput.value.trim() || '---';
+            var recipientName = recipientInput.value.trim() || '---';
+            previewFrom.textContent = 'Gonderen: ' + senderName;
+            previewTo.textContent = 'Alici: ' + recipientName;
+        }
+
+        senderInput.addEventListener('input', updatePreview);
+        recipientInput.addEventListener('input', updatePreview);
+
+        // ========== CHARACTER COUNTER ==========
+        var messageInput = document.getElementById('gcMessage');
+        var charCount = document.getElementById('gcCharCount');
+        messageInput.addEventListener('input', function() {
+            var len = this.value.length;
+            charCount.textContent = len;
+            charCount.parentElement.classList.toggle('warn', len >= 190);
+        });
+
+        // ========== GENERATE CODE ==========
+        function generateCode() {
+            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            var part1 = '', part2 = '';
+            for (var i = 0; i < 4; i++) {
+                part1 += chars.charAt(Math.floor(Math.random() * chars.length));
+                part2 += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'ELG-' + part1 + '-' + part2;
+        }
+
+        // ========== PURCHASE ==========
+        var buyBtn = document.getElementById('gcBuyBtn');
+        buyBtn.addEventListener('click', function() {
+            var sender = senderInput.value.trim();
+            var recipient = recipientInput.value.trim();
+            var email = document.getElementById('gcRecipientEmail').value.trim();
+            var message = messageInput.value.trim();
+
+            // Validation
+            if (!sender) { showToast('Lutfen gonderen adini giriniz'); senderInput.focus(); return; }
+            if (!recipient) { showToast('Lutfen alici adini giriniz'); recipientInput.focus(); return; }
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Lutfen gecerli bir e-posta adresi giriniz');
+                document.getElementById('gcRecipientEmail').focus();
+                return;
+            }
+            if (selectedAmount < 100) { showToast('Minimum tutar 100 TL olmalidir'); return; }
+
+            // Generate unique code
+            var code = generateCode();
+
+            // Ensure unique
+            var existingCards = getGiftCards();
+            while (existingCards.find(function(c) { return c.code === code; })) {
+                code = generateCode();
+            }
+
+            // Save to localStorage
+            var giftCard = {
+                code: code,
+                balance: selectedAmount,
+                from: sender,
+                to: recipient,
+                email: email,
+                message: message,
+                design: selectedDesign,
+                date: new Date().toISOString()
+            };
+
+            existingCards.push(giftCard);
+            localStorage.setItem('elegance_giftcards', JSON.stringify(existingCards));
+
+            // Show success
+            document.getElementById('gcSuccessCode').textContent = code;
+            document.getElementById('gcPreviewCode').textContent = code;
+            document.getElementById('gcSuccessOverlay').classList.add('visible');
+        });
+
+        // Close success overlay
+        document.getElementById('gcSuccessClose').addEventListener('click', function() {
+            document.getElementById('gcSuccessOverlay').classList.remove('visible');
+            // Reset form
+            senderInput.value = '';
+            recipientInput.value = '';
+            document.getElementById('gcRecipientEmail').value = '';
+            messageInput.value = '';
+            charCount.textContent = '0';
+            document.getElementById('gcPreviewCode').textContent = 'ELG-XXXX-XXXX';
+            updatePreview();
+        });
+
+        // ========== BALANCE CHECK ==========
+        var balanceBtn = document.getElementById('gcBalanceBtn');
+        var balanceInput = document.getElementById('gcBalanceCode');
+        var balanceResult = document.getElementById('gcBalanceResult');
+
+        // Auto-format code input
+        balanceInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+
+        balanceBtn.addEventListener('click', checkBalance);
+        balanceInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkBalance();
+        });
+
+        function checkBalance() {
+            var code = balanceInput.value.trim().toUpperCase();
+            balanceResult.className = 'gc-balance-result';
+
+            if (!code) {
+                balanceResult.textContent = 'Lutfen hediye karti kodunu giriniz.';
+                balanceResult.classList.add('error');
+                return;
+            }
+
+            var cards = getGiftCards();
+            var card = cards.find(function(c) { return c.code === code; });
+
+            if (card) {
+                if (card.balance > 0) {
+                    balanceResult.innerHTML = '<strong>Kalan Bakiye:</strong> ' + formatPrice(card.balance) +
+                        '<br><span style="font-size:0.75rem;opacity:0.7;">Olusturma tarihi: ' + new Date(card.date).toLocaleDateString('tr-TR') +
+                        ' | Gonderen: ' + card.from + '</span>';
+                    balanceResult.classList.add('success');
+                } else {
+                    balanceResult.textContent = 'Bu hediye kartinin bakiyesi tukenmistir.';
+                    balanceResult.classList.add('error');
+                }
+            } else {
+                balanceResult.textContent = 'Gecersiz hediye karti kodu. Lutfen kontrol ediniz.';
+                balanceResult.classList.add('error');
+            }
+        }
+
+        // ========== NAVBAR ==========
+        var hamburger = document.getElementById('hamburgerBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                currentLang = btn.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        var savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>

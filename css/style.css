@@ -3071,6 +3071,151 @@ body.has-promo .hero { padding-top: 38px; }
 .rv-info h4 { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 400; color: var(--text-primary); margin-bottom: 4px; }
 .rv-info span { color: var(--gold); font-size: 0.75rem; font-weight: 600; }
 
+/* ---------- MEGA MENU ---------- */
+.nav-links li { position: relative; }
+.mega-dropdown {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+    min-width: 280px; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px);
+    border: 1px solid var(--border); padding: 24px 28px;
+    opacity: 0; visibility: hidden; transition: all 0.3s var(--ease);
+    pointer-events: none; z-index: 100;
+}
+.nav-links li:hover .mega-dropdown {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto;
+}
+.mega-dropdown-title {
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px; display: block;
+}
+.mega-dropdown a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; font-size: 0.8rem; color: var(--text-secondary);
+    border-bottom: 1px solid rgba(200,169,110,0.06); transition: all 0.2s;
+}
+.mega-dropdown a:last-child { border-bottom: none; }
+.mega-dropdown a:hover { color: var(--gold); padding-left: 6px; }
+.mega-dropdown a::after { display: none; }
+.mega-dropdown .mega-icon {
+    width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    background: rgba(200,169,110,0.06); color: var(--gold); font-size: 0.85rem; flex-shrink: 0;
+}
+.mega-dropdown .mega-link-text { display: flex; flex-direction: column; }
+.mega-dropdown .mega-link-text span { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ---------- ADVANCED FILTERS ---------- */
+.advanced-filters {
+    display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 32px; padding: 20px 0;
+}
+.filter-group { position: relative; }
+.filter-group-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border: 1px solid var(--border); font-size: 0.7rem;
+    font-weight: 400; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-secondary); transition: all 0.3s; background: transparent;
+}
+.filter-group-btn:hover, .filter-group-btn.active { border-color: var(--gold); color: var(--gold); }
+.filter-group-btn svg { width: 12px; height: 12px; }
+.filter-dropdown {
+    position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    min-width: 200px; background: var(--bg-card); border: 1px solid var(--border);
+    padding: 16px; z-index: 50; opacity: 0; visibility: hidden;
+    transition: all 0.3s; border-radius: 4px;
+}
+.filter-dropdown.open { opacity: 1; visibility: visible; }
+.filter-dropdown label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; font-size: 0.8rem; color: var(--text-secondary); cursor: pointer;
+}
+.filter-dropdown label:hover { color: var(--text-primary); }
+.filter-dropdown input[type="checkbox"] { accent-color: var(--gold); width: 14px; height: 14px; }
+.filter-color-grid { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 4px; }
+.filter-color-swatch {
+    width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent;
+    cursor: pointer; transition: all 0.3s; position: relative;
+}
+.filter-color-swatch.active, .filter-color-swatch:hover { border-color: var(--gold); }
+.price-range-wrap { padding: 8px 0; }
+.price-range-wrap input[type="range"] {
+    width: 100%; accent-color: var(--gold); background: transparent;
+    -webkit-appearance: none; height: 4px; border-radius: 2px;
+}
+.price-range-wrap input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--gold); cursor: pointer;
+}
+.price-range-labels {
+    display: flex; justify-content: space-between; font-size: 0.7rem;
+    color: var(--text-muted); margin-top: 6px;
+}
+.active-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
+.active-filter-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border: 1px solid var(--gold); font-size: 0.65rem;
+    color: var(--gold); background: rgba(200,169,110,0.05);
+}
+.active-filter-tag button { color: var(--gold); font-size: 0.9rem; line-height: 1; }
+
+/* ---------- SOCIAL PROOF ---------- */
+.social-proof-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: rgba(200,169,110,0.06); border: 1px solid var(--border);
+    border-radius: 6px; margin-top: 16px; font-size: 0.78rem; color: var(--text-secondary);
+}
+.social-proof-bar .live-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #27ae60;
+    animation: livePulse 2s ease-in-out infinite;
+}
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.social-proof-bar strong { color: var(--gold); font-weight: 600; }
+
+/* ---------- STOCK NOTIFY INLINE ---------- */
+.stock-notify-inline {
+    display: flex; gap: 8px; margin-top: 12px; align-items: center;
+}
+.stock-notify-inline input {
+    flex: 1; padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text-primary); border-radius: 4px; font-family: inherit; font-size: 0.8rem;
+}
+.stock-notify-inline input:focus { border-color: var(--gold); outline: none; }
+.stock-notify-inline button {
+    padding: 10px 16px; background: var(--gold); color: var(--bg-primary);
+    border: none; border-radius: 4px; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1px; cursor: pointer; white-space: nowrap;
+}
+
+/* ---------- WHATSAPP ORDER BUTTON ---------- */
+.btn-whatsapp-order {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 14px; background: #25D366; color: #fff;
+    border: none; border-radius: 4px; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+    margin-top: 10px; transition: opacity 0.3s; text-decoration: none;
+}
+.btn-whatsapp-order:hover { opacity: 0.85; }
+.btn-whatsapp-order svg { flex-shrink: 0; }
+
+/* ---------- SHIPPING CALCULATOR ---------- */
+.shipping-calc {
+    margin-top: 16px; padding: 16px; background: rgba(200,169,110,0.04);
+    border: 1px solid var(--border); border-radius: 8px;
+}
+.shipping-calc h4 {
+    font-family: var(--font-heading); font-size: 0.9rem; font-weight: 400;
+    color: var(--text-primary); margin-bottom: 10px;
+}
+.shipping-calc select {
+    width: 100%; padding: 10px 14px; background: var(--bg-card);
+    border: 1px solid var(--border); color: var(--text-primary); border-radius: 4px;
+    font-family: inherit; font-size: 0.85rem; cursor: pointer;
+}
+.shipping-calc select:focus { border-color: var(--gold); outline: none; }
+.shipping-calc-result {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 10px; padding: 8px 0; font-size: 0.8rem; color: var(--text-secondary);
+}
+.shipping-calc-result .free { color: #27ae60; font-weight: 600; }
+
 /* ---------- PRINT ---------- */
 @media print {
     .navbar, .hero-particles, .hero-shimmer, .marquee, .cursor-dot, .cursor-ring,
@@ -3085,6 +3230,8 @@ body.has-promo .hero { padding-top: 38px; }
     .testimonial-carousel .testimonial-card { min-width: calc(50% - 12px); }
     .customer-gallery { grid-template-columns: repeat(4, 1fr); }
     .rv-grid { grid-template-columns: repeat(4, 1fr); }
+    .mega-dropdown { display: none; }
+    .advanced-filters { gap: 12px; }
 }
 @media (max-width: 768px) {
     .chat-widget { bottom: 140px; right: 20px; }
@@ -3097,9 +3244,16 @@ body.has-promo .hero { padding-top: 38px; }
     .quiz-promo-card { flex-direction: column; gap: 24px; padding: 32px; text-align: center; }
     .quiz-promo-text p { max-width: 100%; }
     .rv-grid { grid-template-columns: repeat(3, 1fr); }
+    .mega-dropdown { display: none; }
+    .advanced-filters { gap: 8px; }
+    .filter-group-btn { padding: 6px 12px; font-size: 0.6rem; }
 }
 @media (max-width: 480px) {
     .chat-box { width: 240px; }
     .rv-grid { grid-template-columns: repeat(2, 1fr); }
     .announcement-ticker { font-size: 0.65rem; height: 28px; }
+    .advanced-filters { flex-direction: column; align-items: stretch; }
+    .filter-dropdown { left: 0; transform: none; width: 100%; }
+    .social-proof-bar { font-size: 0.7rem; }
+    .stock-notify-inline { flex-direction: column; }
 }

@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Hesabim</title>
+    <meta name="description" content="ELEGANCE hesabinizi yonetin. Siparislerinizi takip edin, adreslerinizi duzenleyin ve favorilerinizi inceleyin.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #f0e6d3;
+            --text-body: #e8e0d5;
+        }
+
+        /* ========== AUTH PAGE ========== */
+        .auth-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 36px;
+        }
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .auth-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-form-group {
+            margin-bottom: 16px;
+        }
+        .auth-form label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .auth-form input:focus { border-color: var(--gold); outline: none; }
+        .auth-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.3s;
+            font-family: inherit;
+        }
+        .auth-submit:hover { opacity: 0.85; }
+
+        /* ========== ACCOUNT PAGE ========== */
+        .account-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .account-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .account-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(200,169,110,0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--gold);
+        }
+        .account-user-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--cream);
+        }
+        .account-user-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .account-logout {
+            padding: 10px 24px;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .account-logout:hover { border-color: #e74c3c; color: #e74c3c; }
+
+        /* Tabs */
+        .account-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .account-tab {
+            padding: 14px 24px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .account-tab:hover { color: var(--text-secondary); }
+        .account-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        .account-panel { display: none; }
+        .account-panel.active { display: block; }
+
+        /* Profile Form */
+        .profile-form { max-width: 600px; }
+        .profile-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .profile-form .form-group { margin-bottom: 16px; }
+        .profile-form label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .profile-form input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .profile-form input:focus { border-color: var(--gold); outline: none; }
+        .profile-save {
+            padding: 14px 36px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            font-family: inherit;
+        }
+        .profile-save:hover { opacity: 0.85; }
+
+        /* Orders */
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .order-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .order-card-number {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+        .order-card-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .order-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .order-status.hazirlaniyor { background: rgba(241,196,15,0.1); color: #f1c40f; border: 1px solid rgba(241,196,15,0.2); }
+        .order-status.kargoda { background: rgba(52,152,219,0.1); color: #3498db; border: 1px solid rgba(52,152,219,0.2); }
+        .order-status.teslim { background: rgba(39,174,96,0.1); color: #27ae60; border: 1px solid rgba(39,174,96,0.2); }
+        .order-status.confirmed { background: rgba(200,169,110,0.1); color: var(--gold); border: 1px solid rgba(200,169,110,0.2); }
+
+        .order-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .order-item-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .order-item-img {
+            width: 48px;
+            height: 62px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .order-item-img img { width: 100%; height: 100%; object-fit: cover; }
+        .order-item-info { flex: 1; min-width: 0; }
+        .order-item-name {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .order-item-meta {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .order-item-price {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        .order-card-total {
+            text-align: right;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .order-card-total span { color: var(--gold); font-weight: 600; }
+
+        /* Addresses */
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .address-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+        }
+        .address-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+        .address-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .address-card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .address-card-actions button {
+            padding: 6px 14px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .addr-edit-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        .addr-edit-btn:hover { background: var(--gold); color: var(--bg-dark); }
+        .addr-delete-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .addr-delete-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+
+        .add-address-card {
+            background: var(--bg-card);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 200px;
+        }
+        .add-address-card:hover { border-color: var(--gold); }
+        .add-address-card svg { color: var(--text-muted); margin-bottom: 12px; }
+        .add-address-card span {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Address Modal */
+        .addr-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        .addr-modal.open { opacity: 1; visibility: visible; }
+        .addr-modal-content {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            max-width: 520px;
+            width: 100%;
+            padding: 36px;
+            position: relative;
+            border-radius: 8px;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-out);
+        }
+        .addr-modal.open .addr-modal-content { transform: translateY(0); }
+        .addr-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .addr-modal-close:hover { color: var(--gold); }
+        .addr-modal h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 24px;
+        }
+        .addr-modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .addr-modal .form-group { margin-bottom: 16px; }
+        .addr-modal label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .addr-modal input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-body);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .addr-modal input:focus { border-color: var(--gold); outline: none; }
+        .addr-modal-save {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.3s;
+            font-family: inherit;
+        }
+        .addr-modal-save:hover { opacity: 0.85; }
+
+        /* Favorites Grid */
+        .acc-fav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .acc-fav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .acc-fav-card:hover { border-color: rgba(200,169,110,0.3); }
+        .acc-fav-img {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .acc-fav-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .acc-fav-card:hover .acc-fav-img img { transform: scale(1.05); }
+        .acc-fav-body { padding: 16px; }
+        .acc-fav-name {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .acc-fav-price {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .acc-fav-actions { display: flex; gap: 8px; }
+        .acc-fav-actions button {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .acc-fav-cart-btn {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border: none;
+        }
+        .acc-fav-cart-btn:hover { opacity: 0.85; }
+        .acc-fav-remove-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .acc-fav-remove-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+
+        /* Points */
+        .points-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .points-balance-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        .points-balance-value {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .points-balance-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .points-tl-card {
+            background: rgba(200,169,110,0.05);
+            border: 1px solid rgba(200,169,110,0.15);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        .points-tl-value {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--cream);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .points-tl-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+        .points-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        .points-table td {
+            padding: 14px 16px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .points-table tr:last-child td { border-bottom: none; }
+
+        .points-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .points-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+        .points-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+        }
+        .empty-state svg { color: var(--text-muted); opacity: 0.3; margin-bottom: 16px; }
+        .empty-state h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .empty-state p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .empty-state a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 12px 28px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .empty-state a:hover { opacity: 0.85; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .account-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+            .profile-form .form-row { grid-template-columns: 1fr; }
+            .addr-modal .form-row { grid-template-columns: 1fr; }
+            .points-overview { grid-template-columns: 1fr; }
+            .address-grid { grid-template-columns: 1fr; }
+            .acc-fav-grid { grid-template-columns: repeat(2, 1fr); }
+            .account-tabs { gap: 0; }
+            .account-tab { padding: 12px 14px; font-size: 0.6rem; }
+            .auth-box { padding: 28px 20px; }
+        }
+        @media (max-width: 480px) {
+            .account-container { padding: 24px 16px 60px; }
+            .auth-container { padding: 24px 16px 60px; }
+            .acc-fav-grid { grid-template-columns: 1fr; }
+            .account-tab { padding: 10px 10px; font-size: 0.55rem; letter-spacing: 0.5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">Hesabim</span>
+            <h1>Hosgeldiniz</h1>
+            <p>Hesabinizi yonetin, siparislerinizi takip edin</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>Hesabim
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div id="accountPageContent">
+        <!-- JS renders auth or account view -->
+    </div>
+
+    <!-- ========== ADDRESS MODAL ========== -->
+    <div class="addr-modal" id="addrModal">
+        <div class="addr-modal-content">
+            <button class="addr-modal-close" id="addrModalClose" aria-label="Kapat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <h3 id="addrModalTitle">Yeni Adres Ekle</h3>
+            <form id="addrForm">
+                <div class="form-group">
+                    <label for="addrTitle">Adres Basligi *</label>
+                    <input type="text" id="addrTitle" placeholder="Ev, Is vb.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addrCity">Il *</label>
+                        <input type="text" id="addrCity" placeholder="Istanbul">
+                    </div>
+                    <div class="form-group">
+                        <label for="addrDistrict">Ilce *</label>
+                        <input type="text" id="addrDistrict" placeholder="Kadikoy">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addrFull">Adres *</label>
+                    <input type="text" id="addrFull" placeholder="Mahalle, sokak, bina no, daire no">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addrPostal">Posta Kodu</label>
+                        <input type="text" id="addrPostal" placeholder="34000">
+                    </div>
+                    <div class="form-group">
+                        <label for="addrPhone">Telefon *</label>
+                        <input type="tel" id="addrPhone" placeholder="0(5XX) XXX XX XX">
+                    </div>
+                </div>
+                <input type="hidden" id="addrEditIndex" value="-1">
+                <button type="button" class="addr-modal-save" id="addrSaveBtn">Adresi Kaydet</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="index.html#sss">SSS</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="#">Cerez Politikasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        var contentEl = document.getElementById('accountPageContent');
+        var activeTab = 'profile';
+        var editingAddrIndex = -1;
+
+        // ========== INIT ==========
+        function init() {
+            var user = getCurrentUser();
+            if (user) {
+                renderAccountView(user);
+            } else {
+                renderAuthView();
+            }
+        }
+
+        // ========== AUTH VIEW (LOGIN/REGISTER) ==========
+        function renderAuthView() {
+            contentEl.innerHTML = '\
+            <div class="auth-container">\
+                <div class="auth-box">\
+                    <div class="auth-tabs">\
+                        <button class="auth-tab active" data-tab="login">Giris Yap</button>\
+                        <button class="auth-tab" data-tab="register">Kayit Ol</button>\
+                    </div>\
+                    <div class="auth-form active" id="authLoginForm">\
+                        <div class="auth-form-group">\
+                            <label for="loginEmail">E-posta</label>\
+                            <input type="email" id="loginEmail" placeholder="ornek@email.com">\
+                        </div>\
+                        <div class="auth-form-group">\
+                            <label for="loginPassword">Sifre</label>\
+                            <input type="password" id="loginPassword" placeholder="Sifreniz">\
+                        </div>\
+                        <button class="auth-submit" id="loginBtn">Giris Yap</button>\
+                    </div>\
+                    <div class="auth-form" id="authRegisterForm">\
+                        <div class="auth-form-group">\
+                            <label for="regName">Ad Soyad</label>\
+                            <input type="text" id="regName" placeholder="Adiniz Soyadiniz">\
+                        </div>\
+                        <div class="auth-form-group">\
+                            <label for="regEmail">E-posta</label>\
+                            <input type="email" id="regEmail" placeholder="ornek@email.com">\
+                        </div>\
+                        <div class="auth-form-group">\
+                            <label for="regPassword">Sifre</label>\
+                            <input type="password" id="regPassword" placeholder="En az 6 karakter">\
+                        </div>\
+                        <div class="auth-form-group">\
+                            <label for="regPasswordConfirm">Sifre (Tekrar)</label>\
+                            <input type="password" id="regPasswordConfirm" placeholder="Sifrenizi tekrar giriniz">\
+                        </div>\
+                        <button class="auth-submit" id="registerBtn">Kayit Ol</button>\
+                    </div>\
+                </div>\
+            </div>';
+
+            // Auth tab switching
+            contentEl.querySelectorAll('.auth-tab').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    contentEl.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    var target = tab.dataset.tab;
+                    document.getElementById('authLoginForm').classList.toggle('active', target === 'login');
+                    document.getElementById('authRegisterForm').classList.toggle('active', target === 'register');
+                });
+            });
+
+            // Login
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                var email = document.getElementById('loginEmail').value.trim();
+                var password = document.getElementById('loginPassword').value.trim();
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showToast('Lutfen gecerli bir e-posta giriniz');
+                    return;
+                }
+                if (!password || password.length < 3) {
+                    showToast('Lutfen sifrenizi giriniz');
+                    return;
+                }
+                // Check existing users for name
+                var users = JSON.parse(localStorage.getItem('elegance_users') || '[]');
+                var existingUser = users.find(function(u) { return u.email === email; });
+                var name = existingUser ? existingUser.name : email.split('@')[0];
+                var user = loginUser(email, name);
+                showToast('Hosgeldiniz, ' + user.name);
+                init();
+            });
+
+            // Register
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                var name = document.getElementById('regName').value.trim();
+                var email = document.getElementById('regEmail').value.trim();
+                var password = document.getElementById('regPassword').value.trim();
+                var passwordConfirm = document.getElementById('regPasswordConfirm').value.trim();
+
+                if (!name || name.length < 2) { showToast('Lutfen adinizi giriniz'); return; }
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Lutfen gecerli bir e-posta giriniz'); return; }
+                if (!password || password.length < 6) { showToast('Sifre en az 6 karakter olmalidir'); return; }
+                if (password !== passwordConfirm) { showToast('Sifreler eslesmiyor'); return; }
+
+                var user = loginUser(email, name);
+                showToast('Hesabiniz olusturuldu. Hosgeldiniz!');
+                init();
+            });
+        }
+
+        // ========== ACCOUNT VIEW ==========
+        function renderAccountView(user) {
+            var initials = (user.name || 'U').split(' ').map(function(w) { return w[0]; }).join('').toUpperCase().substring(0, 2);
+
+            contentEl.innerHTML = '\
+            <div class="account-container">\
+                <div class="account-header">\
+                    <div class="account-user">\
+                        <div class="account-avatar">' + initials + '</div>\
+                        <div class="account-user-info">\
+                            <h3>' + (user.name || 'Kullanici') + '</h3>\
+                            <p>' + (user.email || '') + '</p>\
+                        </div>\
+                    </div>\
+                    <button class="account-logout" id="logoutBtn">\
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;">\
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>\
+                        </svg>\
+                        Cikis Yap\
+                    </button>\
+                </div>\
+                <div class="account-tabs">\
+                    <button class="account-tab active" data-tab="profile">Profilim</button>\
+                    <button class="account-tab" data-tab="orders">Siparislerim</button>\
+                    <button class="account-tab" data-tab="addresses">Adreslerim</button>\
+                    <button class="account-tab" data-tab="favorites">Favorilerim</button>\
+                    <button class="account-tab" data-tab="points">Puanlarim</button>\
+                </div>\
+                <div class="account-panel active" id="panelProfile"></div>\
+                <div class="account-panel" id="panelOrders"></div>\
+                <div class="account-panel" id="panelAddresses"></div>\
+                <div class="account-panel" id="panelFavorites"></div>\
+                <div class="account-panel" id="panelPoints"></div>\
+            </div>';
+
+            // Tab switching
+            contentEl.querySelectorAll('.account-tab').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    contentEl.querySelectorAll('.account-tab').forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    activeTab = tab.dataset.tab;
+                    contentEl.querySelectorAll('.account-panel').forEach(function(p) { p.classList.remove('active'); });
+                    var panelId = 'panel' + activeTab.charAt(0).toUpperCase() + activeTab.slice(1);
+                    document.getElementById(panelId).classList.add('active');
+                    renderActiveTab(user);
+                });
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                logoutUser();
+                showToast('Basariyla cikis yapildi');
+                init();
+            });
+
+            // Render initial tab
+            renderActiveTab(user);
+        }
+
+        function renderActiveTab(user) {
+            switch(activeTab) {
+                case 'profile': renderProfile(user); break;
+                case 'orders': renderOrders(); break;
+                case 'addresses': renderAddresses(); break;
+                case 'favorites': renderFavorites(); break;
+                case 'points': renderPoints(); break;
+            }
+        }
+
+        // ========== PROFILE TAB ==========
+        function renderProfile(user) {
+            var profile = JSON.parse(localStorage.getItem('elegance_profile_' + user.email) || '{}');
+            var panel = document.getElementById('panelProfile');
+
+            panel.innerHTML = '\
+            <div class="profile-form">\
+                <div class="form-row">\
+                    <div class="form-group">\
+                        <label for="profileName">Ad Soyad</label>\
+                        <input type="text" id="profileName" value="' + escapeHtml(profile.name || user.name || '') + '">\
+                    </div>\
+                    <div class="form-group">\
+                        <label for="profileEmail">E-posta</label>\
+                        <input type="email" id="profileEmail" value="' + escapeHtml(profile.email || user.email || '') + '">\
+                    </div>\
+                </div>\
+                <div class="form-row">\
+                    <div class="form-group">\
+                        <label for="profilePhone">Telefon</label>\
+                        <input type="tel" id="profilePhone" value="' + escapeHtml(profile.phone || '') + '" placeholder="0(5XX) XXX XX XX">\
+                    </div>\
+                    <div class="form-group">\
+                        <label for="profileBirthdate">Dogum Tarihi</label>\
+                        <input type="date" id="profileBirthdate" value="' + escapeHtml(profile.birthdate || '') + '">\
+                    </div>\
+                </div>\
+                <button class="profile-save" id="profileSaveBtn">Profili Kaydet</button>\
+            </div>';
+
+            document.getElementById('profileSaveBtn').addEventListener('click', function() {
+                var profileData = {
+                    name: document.getElementById('profileName').value.trim(),
+                    email: document.getElementById('profileEmail').value.trim(),
+                    phone: document.getElementById('profilePhone').value.trim(),
+                    birthdate: document.getElementById('profileBirthdate').value
+                };
+                localStorage.setItem('elegance_profile_' + user.email, JSON.stringify(profileData));
+                showToast('Profil bilgileriniz kaydedildi');
+            });
+        }
+
+        // ========== ORDERS TAB ==========
+        function renderOrders() {
+            var orders = JSON.parse(localStorage.getItem('elegance_orders') || '[]');
+            var panel = document.getElementById('panelOrders');
+
+            if (orders.length === 0) {
+                panel.innerHTML = '\
+                <div class="empty-state">\
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">\
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>\
+                    </svg>\
+                    <h3>Henuz siparisleriniz yok</h3>\
+                    <p>Ilk siparisinizi olusturmak icin koleksiyonumuzu kesfedin.</p>\
+                    <a href="index.html#koleksiyon">Koleksiyonu Kesfet</a>\
+                </div>';
+                return;
+            }
+
+            var html = '';
+            orders.forEach(function(order) {
+                var statusClass = 'confirmed';
+                var statusText = 'Onaylandi';
+                if (order.status === 'hazirlaniyor' || order.status === 'preparing') { statusClass = 'hazirlaniyor'; statusText = 'Hazirlaniyor'; }
+                else if (order.status === 'kargoda' || order.status === 'shipping') { statusClass = 'kargoda'; statusText = 'Kargoda'; }
+                else if (order.status === 'teslim' || order.status === 'delivered') { statusClass = 'teslim'; statusText = 'Teslim Edildi'; }
+
+                var dateStr = '';
+                try { dateStr = new Date(order.date).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' }); }
+                catch(e) { dateStr = order.date || ''; }
+
+                var itemsHtml = '';
+                if (order.items && order.items.length) {
+                    order.items.forEach(function(item) {
+                        var imgHtml = item.image ? '<img src="' + item.image + '" alt="' + escapeHtml(item.name) + '" loading="lazy">' : '<div style="width:100%;height:100%;background:var(--bg-elevated);"></div>';
+                        itemsHtml += '\
+                        <div class="order-item-row">\
+                            <div class="order-item-img">' + imgHtml + '</div>\
+                            <div class="order-item-info">\
+                                <div class="order-item-name">' + escapeHtml(item.name) + '</div>\
+                                <div class="order-item-meta">Beden: ' + (item.size || '-') + ' | Adet: ' + (item.quantity || 1) + '</div>\
+                            </div>\
+                            <div class="order-item-price">' + formatPrice(item.price * (item.quantity || 1)) + '</div>\
+                        </div>';
+                    });
+                }
+
+                html += '\
+                <div class="order-card">\
+                    <div class="order-card-header">\
+                        <div>\
+                            <div class="order-card-number">' + escapeHtml(order.orderNumber || 'N/A') + '</div>\
+                            <div class="order-card-date">' + dateStr + '</div>\
+                        </div>\
+                        <span class="order-status ' + statusClass + '">' + statusText + '</span>\
+                    </div>\
+                    <div class="order-items-list">' + itemsHtml + '</div>\
+                    <div class="order-card-total">Toplam: <span>' + formatPrice(order.total || 0) + '</span></div>\
+                </div>';
+            });
+
+            panel.innerHTML = html;
+        }
+
+        // ========== ADDRESSES TAB ==========
+        function getAddresses() {
+            var user = getCurrentUser();
+            if (!user) return [];
+            return JSON.parse(localStorage.getItem('elegance_addresses_' + user.email) || '[]');
+        }
+        function saveAddresses(addresses) {
+            var user = getCurrentUser();
+            if (!user) return;
+            localStorage.setItem('elegance_addresses_' + user.email, JSON.stringify(addresses));
+        }
+
+        function renderAddresses() {
+            var addresses = getAddresses();
+            var panel = document.getElementById('panelAddresses');
+
+            var html = '<div class="address-grid">';
+
+            addresses.forEach(function(addr, idx) {
+                html += '\
+                <div class="address-card">\
+                    <h4>' + escapeHtml(addr.title || 'Adres') + '</h4>\
+                    <p>' + escapeHtml(addr.address || '') + '<br>' + escapeHtml(addr.district || '') + ' / ' + escapeHtml(addr.city || '') + '<br>' + escapeHtml(addr.postalCode || '') + '<br>' + escapeHtml(addr.phone || '') + '</p>\
+                    <div class="address-card-actions">\
+                        <button class="addr-edit-btn" data-index="' + idx + '">Duzenle</button>\
+                        <button class="addr-delete-btn" data-index="' + idx + '">Sil</button>\
+                    </div>\
+                </div>';
+            });
+
+            html += '\
+            <div class="add-address-card" id="addAddressBtn">\
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">\
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>\
+                </svg>\
+                <span>Yeni Adres Ekle</span>\
+            </div>';
+
+            html += '</div>';
+            panel.innerHTML = html;
+
+            // Bind add
+            document.getElementById('addAddressBtn').addEventListener('click', function() {
+                openAddressModal(-1);
+            });
+
+            // Bind edit/delete
+            panel.querySelectorAll('.addr-edit-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    openAddressModal(parseInt(btn.dataset.index));
+                });
+            });
+            panel.querySelectorAll('.addr-delete-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var idx = parseInt(btn.dataset.index);
+                    var addresses = getAddresses();
+                    addresses.splice(idx, 1);
+                    saveAddresses(addresses);
+                    showToast('Adres silindi');
+                    renderAddresses();
+                });
+            });
+        }
+
+        function openAddressModal(index) {
+            var modal = document.getElementById('addrModal');
+            var title = document.getElementById('addrModalTitle');
+            editingAddrIndex = index;
+
+            if (index >= 0) {
+                title.textContent = 'Adresi Duzenle';
+                var addresses = getAddresses();
+                var addr = addresses[index];
+                document.getElementById('addrTitle').value = addr.title || '';
+                document.getElementById('addrCity').value = addr.city || '';
+                document.getElementById('addrDistrict').value = addr.district || '';
+                document.getElementById('addrFull').value = addr.address || '';
+                document.getElementById('addrPostal').value = addr.postalCode || '';
+                document.getElementById('addrPhone').value = addr.phone || '';
+            } else {
+                title.textContent = 'Yeni Adres Ekle';
+                document.getElementById('addrTitle').value = '';
+                document.getElementById('addrCity').value = '';
+                document.getElementById('addrDistrict').value = '';
+                document.getElementById('addrFull').value = '';
+                document.getElementById('addrPostal').value = '';
+                document.getElementById('addrPhone').value = '';
+            }
+            document.getElementById('addrEditIndex').value = index;
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addrModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('addrModalClose').addEventListener('click', closeAddressModal);
+        document.getElementById('addrModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAddressModal();
+        });
+
+        document.getElementById('addrSaveBtn').addEventListener('click', function() {
+            var addrTitle = document.getElementById('addrTitle').value.trim();
+            var city = document.getElementById('addrCity').value.trim();
+            var district = document.getElementById('addrDistrict').value.trim();
+            var address = document.getElementById('addrFull').value.trim();
+            var postalCode = document.getElementById('addrPostal').value.trim();
+            var phone = document.getElementById('addrPhone').value.trim();
+
+            if (!addrTitle) { showToast('Lutfen adres basligi giriniz'); return; }
+            if (!city) { showToast('Lutfen il giriniz'); return; }
+            if (!district) { showToast('Lutfen ilce giriniz'); return; }
+            if (!address) { showToast('Lutfen adres giriniz'); return; }
+            if (!phone) { showToast('Lutfen telefon giriniz'); return; }
+
+            var addrObj = { title: addrTitle, city: city, district: district, address: address, postalCode: postalCode, phone: phone };
+            var addresses = getAddresses();
+            var idx = parseInt(document.getElementById('addrEditIndex').value);
+
+            if (idx >= 0 && idx < addresses.length) {
+                addresses[idx] = addrObj;
+                showToast('Adres guncellendi');
+            } else {
+                addresses.push(addrObj);
+                showToast('Adres eklendi');
+            }
+
+            saveAddresses(addresses);
+            closeAddressModal();
+            renderAddresses();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeAddressModal();
+        });
+
+        // ========== FAVORITES TAB ==========
+        function renderFavorites() {
+            var panel = document.getElementById('panelFavorites');
+            var wl = JSON.parse(localStorage.getItem('elegance_wishlist') || '[]');
+
+            if (wl.length === 0) {
+                panel.innerHTML = '\
+                <div class="empty-state">\
+                    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">\
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>\
+                    </svg>\
+                    <h3>Henuz favoriniz yok</h3>\
+                    <p>Begendiginiz urunleri favorilere ekleyerek buradan takip edebilirsiniz.</p>\
+                    <a href="index.html#koleksiyon">Koleksiyonu Kesfet</a>\
+                </div>';
+                return;
+            }
+
+            var html = '<div class="acc-fav-grid">';
+            wl.forEach(function(pid) {
+                var p = getProduct(pid);
+                if (!p) return;
+                var hasImage = p.image && !p.image.includes('undefined');
+                var imgHtml = hasImage ? '<img src="' + p.image + '" alt="' + escapeHtml(p.name) + '" loading="lazy">' : '<div style="width:100%;height:100%;background:' + p.gradient + ';"></div>';
+
+                html += '\
+                <div class="acc-fav-card">\
+                    <div class="acc-fav-img" onclick="window.location.href=\'urun.html?id=' + p.id + '\'">' + imgHtml + '</div>\
+                    <div class="acc-fav-body">\
+                        <div class="acc-fav-name">' + escapeHtml(p.name) + '</div>\
+                        <div class="acc-fav-price">' + formatPrice(p.price) + '</div>\
+                        <div class="acc-fav-actions">\
+                            <button class="acc-fav-cart-btn" data-id="' + p.id + '">Sepete Ekle</button>\
+                            <button class="acc-fav-remove-btn" data-id="' + p.id + '">Cikar</button>\
+                        </div>\
+                    </div>\
+                </div>';
+            });
+            html += '</div>';
+            panel.innerHTML = html;
+
+            // Bind cart buttons
+            panel.querySelectorAll('.acc-fav-cart-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var pid = parseInt(btn.dataset.id);
+                    var p = getProduct(pid);
+                    if (p && p.sizes && p.sizes.length > 0) {
+                        addToCart(pid, p.sizes[0], 1, 0);
+                        updateCartBadge();
+                    }
+                });
+            });
+
+            // Bind remove buttons
+            panel.querySelectorAll('.acc-fav-remove-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var pid = parseInt(btn.dataset.id);
+                    toggleWishlist(pid);
+                    updateWishlistBadge();
+                    renderFavorites();
+                });
+            });
+        }
+
+        // ========== POINTS TAB ==========
+        function renderPoints() {
+            var panel = document.getElementById('panelPoints');
+            var pts = getLoyaltyPoints();
+            var tlValue = loyaltyPointsToDiscount(pts);
+
+            panel.innerHTML = '\
+            <div class="points-overview">\
+                <div class="points-balance-card">\
+                    <span class="points-balance-value">' + pts + '</span>\
+                    <span class="points-balance-label">Toplam Puan</span>\
+                </div>\
+                <div class="points-tl-card">\
+                    <span class="points-tl-value">' + formatPrice(tlValue) + '</span>\
+                    <span class="points-tl-label">Indirim Degeri</span>\
+                </div>\
+            </div>\
+            <div class="points-info" style="margin-bottom:24px;">\
+                <h4>Puan Nasil Kazanilir?</h4>\
+                <table class="points-table">\
+                    <thead>\
+                        <tr>\
+                            <th>Islem</th>\
+                            <th>Puan</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <tr>\
+                            <td>Her 100 TL alisveris</td>\
+                            <td style="color:var(--gold);font-weight:600;">+1 Puan</td>\
+                        </tr>\
+                        <tr>\
+                            <td>Ilk kayit bonusu</td>\
+                            <td style="color:var(--gold);font-weight:600;">+50 Puan</td>\
+                        </tr>\
+                        <tr>\
+                            <td>Urun degerlendirmesi</td>\
+                            <td style="color:var(--gold);font-weight:600;">+10 Puan</td>\
+                        </tr>\
+                        <tr>\
+                            <td>Arkadasini davet etme</td>\
+                            <td style="color:var(--gold);font-weight:600;">+25 Puan</td>\
+                        </tr>\
+                        <tr>\
+                            <td>Dogum gunu bonusu</td>\
+                            <td style="color:var(--gold);font-weight:600;">+100 Puan</td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+            <div class="points-info">\
+                <h4>Puanlar Nasil Kullanilir?</h4>\
+                <p>Biriktirdiginiz puanlari siparisinizde indirim olarak kullanabilirsiniz. <strong>1 puan = 1 TL</strong> degerindedir. Sepet sayfasinda "Puanlarimi Kullan" butonu ile puanlarinizi uygulayabilirsiniz.</p>\
+                <p style="margin-top:8px;">Puanlar hesabinizda 12 ay gecerlidir. Minimum 50 puan ile kullanim yapabilirsiniz.</p>\
+            </div>';
+        }
+
+        // ========== UTILITIES ==========
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        // ========== NAVBAR ==========
+        var hamburger = document.getElementById('hamburgerBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                currentLang = btn.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        var savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+
+        // ========== START ==========
+        init();
+    })();
+    </script>
+</body>
+</html>

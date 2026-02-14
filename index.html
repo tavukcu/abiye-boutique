@@ -77,8 +77,27 @@
             <a href="#" class="nav-logo">ÉLÉGANCE</a>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="#koleksiyon">Koleksiyon</a></li>
-                <li><a href="#kategoriler">Kategoriler</a></li>
+                <li>
+                    <a href="#koleksiyon">Koleksiyon</a>
+                    <div class="mega-dropdown">
+                        <span class="mega-dropdown-title">Koleksiyon</span>
+                        <a href="#koleksiyon" data-filter-cat="uzun"><div class="mega-icon">✦</div><div class="mega-link-text">Uzun Abiye<span>12 Ürün</span></div></a>
+                        <a href="#koleksiyon" data-filter-cat="kisa"><div class="mega-icon">✦</div><div class="mega-link-text">Kısa Abiye<span>8 Ürün</span></div></a>
+                        <a href="#koleksiyon" data-filter-cat="nisan"><div class="mega-icon">✦</div><div class="mega-link-text">Nişanlık<span>6 Ürün</span></div></a>
+                        <a href="#koleksiyon" data-filter-cat="mezuniyet"><div class="mega-icon">✦</div><div class="mega-link-text">Mezuniyet<span>5 Ürün</span></div></a>
+                        <a href="lookbook.html"><div class="mega-icon">✦</div><div class="mega-link-text">Lookbook<span>Galeri</span></div></a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#kategoriler">Kategoriler</a>
+                    <div class="mega-dropdown">
+                        <span class="mega-dropdown-title">Sayfalar</span>
+                        <a href="kampanyalar.html"><div class="mega-icon">%</div><div class="mega-link-text">Kampanyalar<span>Aktif fırsatlar</span></div></a>
+                        <a href="stil-testi.html"><div class="mega-icon">★</div><div class="mega-link-text">Stil Testi<span>Sana uygun abiye</span></div></a>
+                        <a href="beden-rehberi.html"><div class="mega-icon">📏</div><div class="mega-link-text">Beden Rehberi<span>Ölçü tablosu</span></div></a>
+                        <a href="taksit.html"><div class="mega-icon">₺</div><div class="mega-link-text">Taksit Hesaplayıcı<span>Ödeme planları</span></div></a>
+                    </div>
+                </li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="hakkimizda.html">Hakkımızda</a></li>
             </ul>
@@ -247,6 +266,67 @@
                 <button class="filter-btn" data-filter="nisan">Nişanlık</button>
                 <button class="filter-btn" data-filter="mezuniyet">Mezuniyet</button>
             </div>
+            <div class="advanced-filters" data-reveal id="advancedFilters">
+                <div class="filter-group">
+                    <button class="filter-group-btn" id="priceFilterBtn">
+                        Fiyat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="filter-dropdown" id="priceDropdown">
+                        <div class="price-range-wrap">
+                            <input type="range" min="5000" max="20000" step="1000" value="20000" id="priceRange">
+                            <div class="price-range-labels">
+                                <span>₺5.000</span>
+                                <span id="priceRangeVal">₺20.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-group-btn" id="colorFilterBtn">
+                        Renk <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="filter-dropdown" id="colorDropdown">
+                        <div class="filter-color-grid">
+                            <div class="filter-color-swatch" data-color="Siyah" style="background:#0a0a0a;" title="Siyah"></div>
+                            <div class="filter-color-swatch" data-color="Bordo" style="background:#4a0020;" title="Bordo"></div>
+                            <div class="filter-color-swatch" data-color="Lacivert" style="background:#000030;" title="Lacivert"></div>
+                            <div class="filter-color-swatch" data-color="Altın" style="background:#c8a96e;" title="Altın"></div>
+                            <div class="filter-color-swatch" data-color="Kırmızı" style="background:#cc0000;" title="Kırmızı"></div>
+                            <div class="filter-color-swatch" data-color="Beyaz" style="background:#f0e6d3;" title="Beyaz"></div>
+                            <div class="filter-color-swatch" data-color="Mor" style="background:#4a2875;" title="Mor"></div>
+                            <div class="filter-color-swatch" data-color="Yeşil" style="background:#006040;" title="Yeşil"></div>
+                            <div class="filter-color-swatch" data-color="Pudra" style="background:#d4a0a0;" title="Pudra"></div>
+                            <div class="filter-color-swatch" data-color="Gümüş" style="background:#c0c0c0;" title="Gümüş"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-group-btn" id="sizeFilterBtn">
+                        Beden <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="filter-dropdown" id="sizeDropdown">
+                        <label><input type="checkbox" value="XS" class="size-filter-cb"> XS</label>
+                        <label><input type="checkbox" value="S" class="size-filter-cb"> S</label>
+                        <label><input type="checkbox" value="M" class="size-filter-cb"> M</label>
+                        <label><input type="checkbox" value="L" class="size-filter-cb"> L</label>
+                        <label><input type="checkbox" value="XL" class="size-filter-cb"> XL</label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-group-btn" id="fabricFilterBtn">
+                        Kumaş <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="filter-dropdown" id="fabricDropdown">
+                        <label><input type="checkbox" value="İpek" class="fabric-filter-cb"> İpek & Saten</label>
+                        <label><input type="checkbox" value="Kadife" class="fabric-filter-cb"> Kadife</label>
+                        <label><input type="checkbox" value="Tül" class="fabric-filter-cb"> Tül & Dantel</label>
+                        <label><input type="checkbox" value="Payet" class="fabric-filter-cb"> Payet</label>
+                        <label><input type="checkbox" value="Krep" class="fabric-filter-cb"> Krep</label>
+                        <label><input type="checkbox" value="Şifon" class="fabric-filter-cb"> Şifon</label>
+                    </div>
+                </div>
+            </div>
+            <div class="active-filters" id="activeFilters"></div>
             <div class="product-grid" id="productGrid">
                 <!-- JS ile render edilecek -->
             </div>
@@ -586,9 +666,12 @@
                     <h4>Müşteri Hizmetleri</h4>
                     <a href="siparis-takip.html">Sipariş Takibi</a>
                     <a href="taksit.html">Taksit Seçenekleri</a>
+                    <a href="beden-rehberi.html">Beden Rehberi</a>
+                    <a href="iade.html">İade & Değişim</a>
+                    <a href="sss.html">SSS</a>
                     <a href="iletisim.html">İletişim</a>
-                    <a href="stil-testi.html">Stil Testi</a>
-                    <a href="#sss">SSS</a>
+                    <a href="hesabim.html">Hesabım</a>
+                    <a href="hediye-karti.html">Hediye Kartı</a>
                 </div>
                 <div class="footer-col">
                     <h4>İletişim</h4>
@@ -1106,11 +1189,8 @@
         }
     });
 
-    // ========== PRODUCT CARD → DETAIL PAGE LINK ==========
-    const origOpenQuickView = window.openQuickView;
-    window.openQuickView = function(id) {
-        window.location.href = 'urun.html?id=' + id;
-    };
+    // ========== QUICK VIEW MODAL (RE-ENABLED) ==========
+    // openQuickView now shows the modal; "Ürünü İncele" link on modal goes to detail page
 
     // ========== TESTIMONIALS CAROUSEL ==========
     (function() {
@@ -1150,6 +1230,108 @@
         window.addEventListener('resize', () => {
             visibleCount = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
         });
+    })();
+
+    // ========== MEGA MENU CATEGORY LINKS ==========
+    document.querySelectorAll('[data-filter-cat]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const cat = link.dataset.filterCat;
+            document.querySelector('#koleksiyon')?.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                const target = document.querySelector('.filter-btn[data-filter="' + cat + '"]');
+                if (target) { target.classList.add('active'); target.click(); }
+            }, 600);
+        });
+    });
+
+    // ========== ADVANCED FILTERS ==========
+    (function() {
+        const filterBtns = ['price', 'color', 'size', 'fabric'];
+        filterBtns.forEach(type => {
+            const btn = document.getElementById(type + 'FilterBtn');
+            const dd = document.getElementById(type + 'Dropdown');
+            if (!btn || !dd) return;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const wasOpen = dd.classList.contains('open');
+                document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+                if (!wasOpen) dd.classList.add('open');
+            });
+        });
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('open'));
+        });
+        document.querySelectorAll('.filter-dropdown').forEach(d => {
+            d.addEventListener('click', (e) => e.stopPropagation());
+        });
+
+        // Price range
+        const priceRange = document.getElementById('priceRange');
+        const priceRangeVal = document.getElementById('priceRangeVal');
+        if (priceRange) {
+            priceRange.addEventListener('input', () => {
+                priceRangeVal.textContent = '₺' + Number(priceRange.value).toLocaleString('tr-TR');
+                applyAdvancedFilters();
+            });
+        }
+
+        // Color swatches
+        document.querySelectorAll('.filter-color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                swatch.classList.toggle('active');
+                applyAdvancedFilters();
+            });
+        });
+
+        // Size checkboxes
+        document.querySelectorAll('.size-filter-cb').forEach(cb => {
+            cb.addEventListener('change', applyAdvancedFilters);
+        });
+
+        // Fabric checkboxes
+        document.querySelectorAll('.fabric-filter-cb').forEach(cb => {
+            cb.addEventListener('change', applyAdvancedFilters);
+        });
+
+        function applyAdvancedFilters() {
+            const maxPrice = priceRange ? parseInt(priceRange.value) : 999999;
+            const activeColors = Array.from(document.querySelectorAll('.filter-color-swatch.active')).map(s => s.dataset.color);
+            const activeSizes = Array.from(document.querySelectorAll('.size-filter-cb:checked')).map(cb => cb.value);
+            const activeFabrics = Array.from(document.querySelectorAll('.fabric-filter-cb:checked')).map(cb => cb.value);
+
+            // Show active filter tags
+            const tagsContainer = document.getElementById('activeFilters');
+            tagsContainer.innerHTML = '';
+            if (maxPrice < 20000) tagsContainer.innerHTML += '<span class="active-filter-tag">Max ₺' + maxPrice.toLocaleString('tr-TR') + ' <button onclick="document.getElementById(\'priceRange\').value=20000;document.getElementById(\'priceRangeVal\').textContent=\'₺20.000\';document.querySelectorAll(\'.size-filter-cb\').forEach(function(){});this.parentElement.remove();">&times;</button></span>';
+            activeColors.forEach(c => tagsContainer.innerHTML += '<span class="active-filter-tag">' + c + ' <button data-rmcolor="' + c + '">&times;</button></span>');
+
+            // Filter product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                const pId = parseInt(card.dataset.id);
+                const p = typeof products !== 'undefined' ? products.find(pr => pr.id === pId) : null;
+                if (!p) return;
+
+                let show = true;
+                if (p.price > maxPrice) show = false;
+                if (activeColors.length > 0 && !activeColors.includes(p.color)) show = false;
+                if (activeSizes.length > 0 && !p.sizes.some(s => activeSizes.includes(s))) show = false;
+                if (activeFabrics.length > 0 && !activeFabrics.some(f => p.fabric.toLowerCase().includes(f.toLowerCase()))) show = false;
+
+                card.style.display = show ? '' : 'none';
+            });
+
+            // Remove color tag buttons
+            tagsContainer.querySelectorAll('[data-rmcolor]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const color = btn.dataset.rmcolor;
+                    document.querySelector('.filter-color-swatch[data-color="' + color + '"]')?.classList.remove('active');
+                    applyAdvancedFilters();
+                });
+            });
+        }
     })();
 
     // ========== SON GÖRÜNTÜLENEN ÜRÜNLER ==========

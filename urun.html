@@ -172,6 +172,21 @@
                     </button>
                 </div>
 
+                <!-- Social Proof -->
+                <div class="social-proof-bar" id="socialProof" style="display:none;">
+                    <span class="live-dot"></span>
+                    <span><strong id="viewerCount">0</strong> kişi şu an bu ürüne bakıyor</span>
+                </div>
+
+                <!-- Stock Notification -->
+                <div id="stockNotifyWrap" style="display:none; margin-top: 12px;">
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">Bu beden tükendiğinde haber almak ister misiniz?</p>
+                    <div class="stock-notify-inline">
+                        <input type="email" id="stockNotifyEmail" placeholder="E-posta adresiniz">
+                        <button id="stockNotifyBtn">Haber Ver</button>
+                    </div>
+                </div>
+
                 <!-- Meta Info -->
                 <div class="pd-meta" id="pdMeta">
                     <div class="pd-meta-item">
@@ -332,9 +347,10 @@
                 <div class="footer-col">
                     <h4>Musteri Hizmetleri</h4>
                     <a href="siparis-takip.html">Siparis Takibi</a>
-                    <a href="favoriler.html">Favorilerim</a>
-                    <a href="sepet.html">Sepetim</a>
-                    <a href="#sss">SSS</a>
+                    <a href="beden-rehberi.html">Beden Rehberi</a>
+                    <a href="iade.html">Iade & Degisim</a>
+                    <a href="sss.html">SSS</a>
+                    <a href="hesabim.html">Hesabim</a>
                 </div>
                 <div class="footer-col">
                     <h4>Iletisim</h4>
@@ -1142,6 +1158,42 @@
     });
 
     // ==========================================
+    // SOCIAL PROOF - "X kişi bakıyor"
+    // ==========================================
+    function initSocialProof() {
+        const el = document.getElementById('socialProof');
+        const countEl = document.getElementById('viewerCount');
+        if (!el || !countEl) return;
+        el.style.display = '';
+        const baseCount = 3 + Math.floor(Math.random() * 12);
+        countEl.textContent = baseCount;
+        setInterval(() => {
+            const change = Math.random() > 0.5 ? 1 : -1;
+            const current = parseInt(countEl.textContent);
+            const next = Math.max(2, Math.min(25, current + change));
+            countEl.textContent = next;
+        }, 8000 + Math.random() * 5000);
+    }
+
+    // ==========================================
+    // STOCK NOTIFICATION
+    // ==========================================
+    document.getElementById('stockNotifyBtn')?.addEventListener('click', () => {
+        const email = document.getElementById('stockNotifyEmail').value.trim();
+        if (!email || !email.includes('@')) { showToast('Geçerli bir e-posta girin'); return; }
+        if (currentProduct && typeof subscribeStock === 'function') {
+            subscribeStock(currentProduct.id, email);
+        }
+        document.getElementById('stockNotifyWrap').style.display = 'none';
+    });
+
+    // Show stock notify when a sold-out size would be clicked
+    function showStockNotify() {
+        const wrap = document.getElementById('stockNotifyWrap');
+        if (wrap) wrap.style.display = '';
+    }
+
+    // ==========================================
     // INIT
     // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
@@ -1150,6 +1202,7 @@
         updateCartBadge();
         updateWishlistBadge();
         applyLanguage();
+        initSocialProof();
     });
 
     </script>

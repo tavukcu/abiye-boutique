@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEGANCE | Sikca Sorulan Sorular</title>
+    <meta name="description" content="ELEGANCE - Sikca sorulan sorular. Siparis, kargo, iade, odeme ve urun hakkinda merak ettiginiz her sey.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* ========== FAQ PAGE ========== */
+        .faq-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* Category Tabs */
+        .faq-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        .faq-tab {
+            padding: 10px 22px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .faq-tab:hover {
+            border-color: rgba(200, 169, 110, 0.3);
+            color: var(--text-secondary);
+        }
+        .faq-tab.active {
+            background: rgba(200, 169, 110, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* FAQ Items */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .faq-item:hover {
+            border-color: rgba(200, 169, 110, 0.25);
+        }
+        .faq-item.open {
+            border-color: rgba(200, 169, 110, 0.3);
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+            gap: 16px;
+        }
+        .faq-question:hover {
+            background: rgba(200, 169, 110, 0.03);
+        }
+        .faq-question h3 {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+        .faq-item.open .faq-question h3 {
+            color: var(--gold);
+        }
+        .faq-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            color: var(--text-muted);
+        }
+        .faq-item.open .faq-toggle {
+            background: rgba(200, 169, 110, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .faq-answer-inner {
+            padding: 0 24px 24px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Category Label */
+        .faq-category-label {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        /* Contact CTA */
+        .faq-cta {
+            text-align: center;
+            padding: 48px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .faq-cta h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .faq-cta p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .faq-cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .faq-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .faq-cta-btn:hover {
+            opacity: 0.85;
+        }
+        .faq-cta-btn.primary {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+        .faq-cta-btn.whatsapp {
+            background: #25D366;
+            color: #fff;
+        }
+
+        /* No Results */
+        .faq-no-results {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+        .faq-no-results h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .faq-no-results p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .faq-tabs {
+                gap: 6px;
+            }
+            .faq-tab {
+                padding: 8px 16px;
+                font-size: 0.68rem;
+            }
+            .faq-question {
+                padding: 16px 18px;
+            }
+            .faq-question h3 {
+                font-size: 0.85rem;
+            }
+            .faq-answer-inner {
+                padding: 0 18px 20px;
+            }
+            .faq-cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .faq-cta-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar scrolled" id="navbar">
+        <nav class="nav-inner">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="nav-logo">ELEGANCE</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#koleksiyon">Koleksiyon</a></li>
+                <li><a href="index.html#kategoriler">Kategoriler</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="hakkimizda.html">Hakkimizda</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="favoriler.html" class="nav-action-btn" aria-label="Favoriler">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span class="action-badge" id="wishlistBadge">0</span>
+                </a>
+                <a href="sepet.html" class="nav-action-btn" aria-label="Sepet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== MOBILE MENU ========== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html#koleksiyon" class="mobile-link">Koleksiyon</a>
+            <a href="index.html#kategoriler" class="mobile-link">Kategoriler</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="hakkimizda.html" class="mobile-link">Hakkimizda</a>
+        </div>
+    </div>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-tag">SSS</span>
+            <h1>Sikca Sorulan <em>Sorular</em></h1>
+            <p>Merak ettiginiz tum sorularin cevaplari burada</p>
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a><span>/</span>SSS
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FAQ CONTENT ========== -->
+    <div class="faq-container">
+
+        <!-- Category Tabs -->
+        <div class="faq-tabs">
+            <button class="faq-tab active" data-category="all">Tumu</button>
+            <button class="faq-tab" data-category="siparis">Siparis & Kargo</button>
+            <button class="faq-tab" data-category="iade">Iade & Degisim</button>
+            <button class="faq-tab" data-category="odeme">Odeme</button>
+            <button class="faq-tab" data-category="urunler">Urunler</button>
+            <button class="faq-tab" data-category="hesap">Hesap</button>
+        </div>
+
+        <!-- FAQ List -->
+        <div class="faq-list" id="faqList"></div>
+
+        <!-- No Results -->
+        <div class="faq-no-results" id="faqNoResults">
+            <h3>Bu kategoride soru bulunamadi</h3>
+            <p>Farkli bir kategori secmeyi deneyin.</p>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="faq-cta">
+            <h3>Sorunuzun cevabini bulamadiniz mi?</h3>
+            <p>Musteri hizmetleri ekibimiz size yardimci olmaktan mutluluk duyar.</p>
+            <div class="faq-cta-buttons">
+                <a href="iletisim.html" class="faq-cta-btn primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    Iletisim Formu
+                </a>
+                <a href="https://wa.me/905438423114?text=Merhaba,%20bir%20sorum%20var." class="faq-cta-btn whatsapp" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    WhatsApp ile Yazin
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">ELEGANCE</a>
+                    <p>Zarafetin en asil hali. 2010'dan bu yana premium abiye koleksiyonlari.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizli Linkler</h4>
+                    <a href="index.html#koleksiyon">Koleksiyon</a>
+                    <a href="index.html#kategoriler">Kategoriler</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="hakkimizda.html">Hakkimizda</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Musteri Hizmetleri</h4>
+                    <a href="siparis-takip.html">Siparis Takibi</a>
+                    <a href="favoriler.html">Favorilerim</a>
+                    <a href="sepet.html">Sepetim</a>
+                    <a href="beden-rehberi.html">Beden Rehberi</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Iletisim</h4>
+                    <p>Bagdat Caddesi No: 123<br>Kadikoy, Istanbul</p>
+                    <p>+90 (212) 555 00 00</p>
+                    <p>info@elegance.com.tr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ELEGANCE. Tum haklari saklidir.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Gizlilik Politikasi</a>
+                    <a href="#">Kullanim Kosullari</a>
+                    <a href="iletisim.html">Iletisim</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast">
+        <div class="toast-inner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="toastMsg"></span>
+        </div>
+    </div>
+
+    <script src="js/shared.js"></script>
+    <script>
+    (function() {
+        // ========== FAQ DATA ==========
+        const faqs = [
+            {
+                category: 'siparis',
+                categoryLabel: 'Siparis & Kargo',
+                question: 'Siparisimi nasil takip edebilirim?',
+                answer: 'Siparislerinizi "Siparis Takibi" sayfamizdan siparis numaraniz ile sorgulayabilirsiniz. Ayrica siparis onay mailinizdeki baglanti uzerinden de kargonuzu canli olarak izleyebilirsiniz.'
+            },
+            {
+                category: 'siparis',
+                categoryLabel: 'Siparis & Kargo',
+                question: 'Kargo suresi ne kadar?',
+                answer: 'Istanbul ici siparisler 1-2 is gunu, sehir disi siparisler 2-4 is gununde teslim edilmektedir. Ozel tasarim urunlerde uretim suresi eklenir ve size bilgi verilir.'
+            },
+            {
+                category: 'siparis',
+                categoryLabel: 'Siparis & Kargo',
+                question: 'Kargo ucreti ne kadar?',
+                answer: '2.000 TL ve uzeri siparislerde kargo ucretsizdır. 2.000 TL altindaki siparislerde sabit 49,90 TL kargo ucreti uygulanmaktadir. Kampanya donemlerinde ozel kargo firsatlari sunulmaktadir.'
+            },
+            {
+                category: 'siparis',
+                categoryLabel: 'Siparis & Kargo',
+                question: 'Yurt disina kargo yapiliyor mu?',
+                answer: 'Evet, Avrupa ulkeleri ve secili ulkelere kargo hizmetimiz bulunmaktadir. Yurt disi kargo ucretleri ulkeye gore degismektedir. Detayli bilgi icin musteri hizmetlerimizle iletisime gecebilirsiniz.'
+            },
+            {
+                category: 'iade',
+                categoryLabel: 'Iade & Degisim',
+                question: 'Iade suresi ne kadar?',
+                answer: 'Urunlerinizi teslim tarihinden itibaren 14 gun icinde iade edebilirsiniz. Iade sureci icin "Iade & Degisim" sayfamizdan basvuru yapmaniz gerekmektedir.'
+            },
+            {
+                category: 'iade',
+                categoryLabel: 'Iade & Degisim',
+                question: 'Iade kosullari nelerdir?',
+                answer: 'Iade edilecek urunun etiketinin sokulemis, kullanilmamis ve orijinal ambalajinda olmasi gerekmektedir. Hijyen urunu olan ic giyim ve mayo urunlerinde iade kabul edilmemektedir.'
+            },
+            {
+                category: 'iade',
+                categoryLabel: 'Iade & Degisim',
+                question: 'Beden degisimi nasil yapilir?',
+                answer: 'Beden degisimi icin "Iade & Degisim" sayfamizdan basvurunuzu yapabilirsiniz. Stok durumuna gore beden veya renk degisimi yapilmaktadir. Degisim sureci 3-5 is gunu icerisinde tamamlanir.'
+            },
+            {
+                category: 'iade',
+                categoryLabel: 'Iade & Degisim',
+                question: 'Iade kargo ucretini kim karsilar?',
+                answer: 'Urun kaynaklı (uretim hatasi, yanlis urun gonderimi vb.) iadelerde kargo ucreti tarafimizca karsilanir ve size ucretsiz iade kargo etiketi gonderilir. Musteri kaynakli iadelerde kargo ucreti musteriye aittir.'
+            },
+            {
+                category: 'odeme',
+                categoryLabel: 'Odeme',
+                question: 'Hangi odeme yontemlerini kullanabilirim?',
+                answer: 'Kredi karti (Visa, Mastercard, American Express), banka karti, havale/EFT ve kapida odeme seceneklerimiz mevcuttur. Online odemelerde 256-bit SSL sertifikasi ile guvence altindasiniz.'
+            },
+            {
+                category: 'odeme',
+                categoryLabel: 'Odeme',
+                question: 'Taksit secenekleriniz nelerdir?',
+                answer: 'Anlasmali bankalarla 2, 3, 6 ve 9 taksit seceneklerimiz bulunmaktadir. Kampanya donemlerinde 12 taksit imkani da sunulmaktadir. Detayli bilgi icin "Taksit Secenekleri" sayfamizi ziyaret edebilirsiniz.'
+            },
+            {
+                category: 'odeme',
+                categoryLabel: 'Odeme',
+                question: 'Fatura bilgilerimi nasil guncelleyebilirim?',
+                answer: 'Siparis sirasinda fatura bilgilerinizi girebilirsiniz. Kurumsal fatura talebi icin siparis notuna bilgilerinizi ekleyebilir veya musteri hizmetlerimizle iletisime gecebilirsiniz.'
+            },
+            {
+                category: 'odeme',
+                categoryLabel: 'Odeme',
+                question: 'Odemelerim guvenli mi?',
+                answer: 'Tum odemeleriniz 256-bit SSL sertifikasi ile sifrelenmektedir. Kredi karti bilgileriniz hicbir zaman sunucularimizda saklanmaz. 3D Secure teknolojisi ile ekstra guvenlik saglanmaktadir.'
+            },
+            {
+                category: 'urunler',
+                categoryLabel: 'Urunler',
+                question: 'Beden seciminde nasil karar verebilirim?',
+                answer: 'Beden Rehberi sayfamizda detayli olcu tablosu ve olcum kilavuzu bulunmaktadir. Ayrica urun sayfalarindaki "Beden Oneri" aracimiz ile gogus, bel ve kalca olculerinize gore size en uygun bedeni ogrenebilirsiniz.'
+            },
+            {
+                category: 'urunler',
+                categoryLabel: 'Urunler',
+                question: 'Kumas bakimi nasil yapilir?',
+                answer: 'Premium abiyelerimiz icin kuru temizleme onerilir. Ipek, saten ve kadife kumaslar ozel bakim gerektirir. Her urunun bakim talimati etiketinde belirtilmistir. Detayli bilgi icin Blog sayfamizdaki "Abiye Bakimi" makalemizi inceleyebilirsiniz.'
+            },
+            {
+                category: 'urunler',
+                categoryLabel: 'Urunler',
+                question: 'Ozel tasarim siparis verebilir miyim?',
+                answer: 'Evet, ozel tasarim hizmeti sunmaktayiz. Renk, model, beden ve detay tercihlerinize gore kisisellestirilmis abiye uretimi yapilmaktadir. Ozel tasarim surecinin detaylari icin musteri hizmetlerimizle gorusebilirsiniz.'
+            },
+            {
+                category: 'hesap',
+                categoryLabel: 'Hesap',
+                question: 'Uyelik avantajlari nelerdir?',
+                answer: 'Uye olarak siparis gecmisinizi takip edebilir, favori listesi olusturabilir, ozel kampanyalardan haberdar olabilir ve sadakat puani kazanabilirsiniz. Her 100 TL alisveriste 1 puan kazanir, puanlarinizi sonraki alisverislerinizde kullanabilirsiniz.'
+            },
+            {
+                category: 'hesap',
+                categoryLabel: 'Hesap',
+                question: 'Sifremi nasil degistirebilirim?',
+                answer: 'Hesap ayarlarinizdan mevcut sifrenizi girerek yeni bir sifre belirleyebilirsiniz. Sifrenizi unuttuysaniz giris sayfasindaki "Sifremi Unuttum" linkine tiklayarak e-posta adresinize sifirlama linki gonderebilirsiniz.'
+            }
+        ];
+
+        // ========== RENDER FAQ ==========
+        const faqList = document.getElementById('faqList');
+        const noResults = document.getElementById('faqNoResults');
+
+        function renderFAQ(category) {
+            const filtered = category === 'all' ? faqs : faqs.filter(f => f.category === category);
+            faqList.innerHTML = '';
+
+            if (filtered.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            noResults.style.display = 'none';
+
+            filtered.forEach((faq, index) => {
+                const item = document.createElement('div');
+                item.className = 'faq-item';
+                item.dataset.category = faq.category;
+                item.innerHTML = `
+                    <div class="faq-question">
+                        <div>
+                            <span class="faq-category-label">${faq.categoryLabel}</span>
+                            <h3>${faq.question}</h3>
+                        </div>
+                        <div class="faq-toggle">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">${faq.answer}</div>
+                    </div>
+                `;
+                faqList.appendChild(item);
+            });
+
+            // Re-attach click events
+            attachAccordion();
+        }
+
+        // ========== ACCORDION ==========
+        function attachAccordion() {
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.addEventListener('click', function() {
+                    const item = this.closest('.faq-item');
+                    const answer = item.querySelector('.faq-answer');
+                    const isOpen = item.classList.contains('open');
+
+                    // Close all others
+                    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                        if (openItem !== item) {
+                            openItem.classList.remove('open');
+                            openItem.querySelector('.faq-answer').style.maxHeight = '0';
+                        }
+                    });
+
+                    // Toggle current
+                    if (isOpen) {
+                        item.classList.remove('open');
+                        answer.style.maxHeight = '0';
+                    } else {
+                        item.classList.add('open');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+        }
+
+        // ========== CATEGORY TABS ==========
+        document.querySelectorAll('.faq-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderFAQ(this.dataset.category);
+            });
+        });
+
+        // Initial render
+        renderFAQ('all');
+
+        // ========== NAVBAR ==========
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Lang toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                localStorage.setItem('elegance_lang', currentLang);
+            });
+        });
+        const savedLang = localStorage.getItem('elegance_lang') || 'tr';
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === savedLang);
+        });
+
+        // ========== BADGES ==========
+        updateCartBadge();
+        updateWishlistBadge();
+    })();
+    </script>
+</body>
+</html>
